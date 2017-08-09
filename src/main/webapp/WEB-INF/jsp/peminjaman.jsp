@@ -5,26 +5,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css" />
+ 		<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div id="form-peminjaman">
-	
-	
-	User<br/>
-	<input type="text" id="user" placeholder="sesuai session aktif"/><br/><br/>
-	No. Peminjaman<br/>
-	<input type="text" id="no_peminjaman" placeholder="Auto"/><br/><br/>
-	Anggota<br/>
-	<select id="anggota">
-		<option>Select dari Tabel Anggota</option>
-	</select><br/><br/>
-	Tanggal Pinjam<br/>
-	<input type="date" id="tgl_pinjam" placeholder="Tanggal Sekarang"/><br/><br/>
-	Tanggal pengembalian<br/>
-	<input type="date" id="tgl_pinjam" placeholder="10 hari setelah tanggal pinjam" /><br/><br/>
-	
-	<input type="submit" id="add" value="+"  />
-	</div>
+<h2>Grand Media</h2>
+  <form action="#">
+    <div class="container">
+	    <div class="form-group col-xs-4">
+	      <label for="no_peminjaman">No. Peminjaman:</label>
+	      <input type="text" class="form-control" id="no_peminjaman" placeholder="No peminjaman Auto" name="no_peminjaman">
+	   
+		 <label for="anggota">Anggota:</label>
+	    <select class="form-control" id="anggota">
+	      <option>Unknow(Dari tabel anggota)</option>
+	      <option>ex:1</option>
+	      <option>ex:2</option>
+	      <option>ex:3</option>
+	      <option>ex:4</option>
+	    </select>
+	  
+		  <label for="tgl_peminjaman">Tgl. Peminjaman:</label>
+	      <input type="text" class="form-control" id=""tgl_peminjaman"" placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)" name="tgl_peminjaman">
+	      <label for="tgl_pengembalian">Tgl. Pengembalian:</label>
+	      <input type="text" class="form-control" id="tgl_pengembalian" placeholder="Tgl. Pengembalian Auto(10 hari setelah pinjam)" name="tgl_pengembalian">
+	    <button type="submit" class="btn btn-primary" id="add">+</button>
+	    </div>
+    </div>
+  </form>
 	List Buku
 	<table id="peminjaman">
 		<thead>
