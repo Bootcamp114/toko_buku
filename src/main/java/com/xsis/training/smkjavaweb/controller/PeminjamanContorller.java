@@ -12,5 +12,6 @@ public class PeminjamanContorller {
 	@RequestMapping
 	public String index(){
 		return "peminjaman";
+		
 	}
 }
