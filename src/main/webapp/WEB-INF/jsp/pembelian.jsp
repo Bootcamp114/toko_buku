@@ -7,7 +7,11 @@
 <title>Pembelian Buku</title>
 </head>
 <body>
+<h1>TokoBuku GrandMedia</h1>
 	<form>
+		
+		<label>No. Faktur</label>
+		<input type="text" placeholder="No faktur"/>
 		
 	</form>
 </body>
