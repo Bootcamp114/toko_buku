@@ -16,6 +16,7 @@
 <br/>
 	<form method="post">
 	<div class="container">
+	<div class="form-group col-xs-4">
     	<div class="form-group form-inline">
         <label>No Faktur</label>
         	<div class="controls form-inline">
@@ -55,6 +56,20 @@
         		<button type="submit" name="simpan" class="btn btn-primary">Tambah Buku</button>
         	</div>
       	</div>
+    </div>
+    <br/>
+    <br/>
+    <div class="table-responsive">
+    	<table class="table table-hover table-bordered">
+        	<tr>
+            	<th>Judul</th>
+            	<th>Harga Satuan</th>
+            	<th>Jumlah Beli</th>
+            	<th>PPN</th>
+                <th>Total</th>
+      			<th class="text-center">Hapus</th>
+          	</tr>
+    	</table>
     </div>
 	</form>
 </body>
