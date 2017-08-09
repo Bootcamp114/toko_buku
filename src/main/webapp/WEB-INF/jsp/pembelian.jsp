@@ -71,6 +71,34 @@
           	</tr>
     	</table>
     </div>
+    <br/>
+    <br/>
+    	<div class="form-group form-inline">
+        <label>Bayar</label>
+        	<div class="controls">
+            	<input type="hidden" name="grand_total" id="total" class="form-control" value="<?php echo $grand['grand_total'] ?>">
+            	<input name="bayar" id="bayar" onKeyUp="recalculateKembalian();" class="demo form-control" type="text" >
+            	<input name="bayarGet" id="bayarGet" readonly="" type="hidden">
+            </div>
+      	</div>
+        <div class="form-group form-inline">
+        <label>Kembalian / Hutang ( Jika min - )</label>
+        	<div class="controls">
+            	<input type="text" id="kembalian" name="kembalian" class="form-control" readonly>
+            </div>
+      	</div>
+        <div class="form-group form-inline">
+        <label>Tanggal penjualan</label>
+        	<div class="controls">
+            	<input type="date" name="tanggal" class="tcal form-control" >
+            </div>
+      	</div>
+        <div class="control-group">
+        <label></label>
+        	<div class="controls">
+            	<button type="submit" name="selesai" class="btn btn-primary">Selesai penjualan</button>
+            </div>
+      	</div>
 	</form>
 </body>
 </html>
