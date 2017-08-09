@@ -25,11 +25,11 @@
 			<list>
 			<!-- <value>com.xsis.training.smkjavaweb.model.Department</value>
 				<value>com.xsis.training.smkjavaweb.model.Employee</value> -->
-				<value>com.xsis.training.smkjavaweb.model.Customer</value>
+				<!-- <value>com.xsis.training.smkjavaweb.model.Customer</value>
 				<value>com.xsis.training.smkjavaweb.model.Barang</value>
 				<value>com.xsis.training.smkjavaweb.model.Penjualan</value>
 				<value>com.xsis.training.smkjavaweb.model.DetailPenjualan</value>
-				<value>com.xsis.training.smkjavaweb.model.Suplier</value>
+				<value>com.xsis.training.smkjavaweb.model.Suplier</value> -->
 			</list>
 		</property>
 		<property name="hibernateProperties">
