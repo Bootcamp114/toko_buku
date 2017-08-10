@@ -197,44 +197,5 @@
   		var num2 = parseInt(document.getElementById("num2").value);
   		document.getElementById("sum").value = num1 * num2;     
 	}
-	function showData() {
-		$.ajax({
-			url : '/pembelian/getAll',
-			type : 'POST',
-			dataType : 'json',
-			success : function(data, x, xhr) {
-				console.log("data is loaded!!");
-				fillData(data);
-			}
-		});
-	}
-
-	function fillData(data) {
-		var dt = $('#emp-dt');
-		var tbody = dt.find('tbody');
-		tbody.find('tr').remove();
-		//extract data json
-		$.each(data, function(index, pembelian) {
-			var trString = "<tr>";
-			trString += "<td>";
-			trString += pembelian.name;
-			trString += "</td>";
-			trString += "<td>";
-			trString += pembelian.address;
-			trString += "</td>";
-			trString += "<td>";
-			trString += pembelian.salary;
-			trString += "</td>";
-			trString += "<td>";
-			trString += pembelian.email;
-			trString += "</td>";
-			trString += "<td>";
-			trString += "<a id_update='"+pembelian.id+"' name_update='"+pembelian.name+"' address_update='"+pembelian.address+"' salary_update='"+pembelian.salary+"' email_update='"+pembelian.email+"' href='#' class='update'>Update || </a>";
-			trString += "<a id_delete='"+pembelian.id+"' href='#' class='delete'>Delete</a>";
-			trString += "</td>";
-			trString += "</tr>";
-		tbody.append(trString);
-		});
-	}
 </script>
 </html>
