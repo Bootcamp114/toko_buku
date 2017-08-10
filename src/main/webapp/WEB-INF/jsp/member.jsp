@@ -43,6 +43,7 @@
   	</div>
 </div>
 </nav>
+<br/>
 	<form method="post">
 		<div class="container">
 			<div class="form-group col-xs-4">
@@ -78,8 +79,23 @@
 						<button type="submit" name="simpan" class="btn btn-primary">Add Member</button>
 					</div>
 				</div>
+				</div>
+				<br/>
+				<br/>
+			<div class="form-group col-xs-7">
+		<div class="table-responsive">
+				<table class="table table-hover table-bordered">
+					<tr>
+						<th>PIN Member</th>
+						<th>Nama Member</th>
+						<th>Alamat</th>
+						<th>No.Hp</th>
+					</tr>
+				</table>
+				</div>
 			</div>
-		</div>
+			</div>
+			
 	</form>
 
 </body>

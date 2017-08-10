@@ -99,33 +99,7 @@
 
 
 
-			<div class="modal fade" id="formBuku" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h4 class="modal-title" id="myModalLabel">Daftar Buku Yang
-								Tersedia</h4>
-						</div>
-						<div class="table-responsive">
-							<table class="table table-hover table-bordered">
-								<tr>
-									<th>Judul Buku</th>
-									<th>Penulis</th>
-									<th>Penerbit</th>
-									<th>Harga</th>
-									<th>Stok</th>
-									<th>Aksi</th>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 			<br/>
 			<br/>
 			<br/>
@@ -146,8 +120,8 @@
 			<div class="form-group form-inline">
 				<label>Apakah Anda Member?</label>
 				<div class="controls">
-					<div class="radio-inline"> <input type="radio" name="radioOption" id="ya"> Ya </div>
-        			<div class="radio-inline"> <input type="radio" name="radioOption" id="tidak"> Tidak </div>
+					<div class="radio-inline" data-toggle="modal" data-target="#formMember"> <input type="radio" name="radioOption" id="ya"> Ya </div>
+        			<div class="radio-inline" data-toggle="modal" data-target="#formMember"> <input type="radio" name="radioOption" id="tidak"> Tidak </div>
 				</div>
 			</div>
 			<div class="form-group form-inline">
@@ -188,7 +162,72 @@
 				</div>
 			</div>
 		</div>
+		
+		
 	</form>
+	<div class="modal fade" id="formBuku" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Daftar Buku Yang
+								Tersedia</h4>
+						</div>
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered">
+								<tr>
+									<th>Judul Buku</th>
+									<th>Penulis</th>
+									<th>Penerbit</th>
+									<th>Harga</th>
+									<th>Stok</th>
+									<th>Aksi</th>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="formMember" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Member</h4>
+						</div>
+						<form style="margin: 30px;">
+						<div class="form-group form-inline">
+					<label>PIN Member</label>
+					<div class="controls">
+						<input type="text" name="pin" class="form-control">
+					</div>
+				</div>
+				<div class="form-group form-inline">
+					<label>Nama Member</label>
+					<div class="controls">
+						<input readonly type="text" name="nama_member"
+							class="form-control">
+					</div>
+				</div>
+				<div class="control-group">
+					<label></label>
+					<div class="controls">
+						<button type="submit" name="simpan" class="btn btn-primary">OK</button>
+					</div>
+				</div>
+					</div>
+				</div>
+			</div>
+			</form>
 </body>
 <script type="text/javascript">
 	function recalculateSum()
