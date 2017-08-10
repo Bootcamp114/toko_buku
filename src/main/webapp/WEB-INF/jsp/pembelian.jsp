@@ -101,9 +101,7 @@
 
 			
 			<br/>
-			<br/>
-			<br/>
-			<div class="form-group col-xs-10">
+			<div class="form-group col-xs-7">
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered">
 					<tr>
