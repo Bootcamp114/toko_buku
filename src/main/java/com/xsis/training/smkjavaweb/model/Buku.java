@@ -25,7 +25,7 @@ public class Buku {
 	@ManyToOne
 	private Penulis penulis;
 	@OneToMany
-	private Category category;\
+	private Category category;
 	@ManyToOne
 	private Penerbit penerbit;
 	private Integer stock;
