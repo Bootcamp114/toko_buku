@@ -82,28 +82,19 @@
 				<div class="form-group form-inline">
 					<label>Total Harga</label>
 					<div class="controls">
-						<input readonly type="text" id="sum" name="total"
-							class="form-control">
+						<input type="text" id="sum" name="total_harga" class="form-control" readonly>
 					</div>
 				</div>
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" name="simpan" class="btn btn-primary">Tambah
-							Buku</button>
+						<button type="submit" name="tambah_buku" class="btn btn-primary">Tambah Buku</button>
 					</div>
 				</div>
 			</div>
-
-
-
-
-
 			
 			<br/>
-			<br/>
-			<br/>
-			<div class="form-group col-xs-10">
+			<div class="form-group col-xs-7">
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered">
 					<tr>
@@ -121,7 +112,7 @@
 				<label>Apakah Anda Member?</label>
 				<div class="controls">
 					<div class="radio-inline" data-toggle="modal" data-target="#formMember"> <input type="radio" name="radioOption" id="ya"> Ya </div>
-        			<div class="radio-inline" data-toggle="modal" data-target="#formMember"> <input type="radio" name="radioOption" id="tidak"> Tidak </div>
+        			<div class="radio-inline"> <input type="radio" name="radioOption" id="tidak"> Tidak </div>
 				</div>
 			</div>
 			<div class="form-group form-inline">
@@ -220,7 +211,7 @@
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" name="simpan" class="btn btn-primary">OK</button>
+						<button type="submit" name="ok" class="btn btn-primary">OK</button>
 					</div>
 				</div>
 					</div>

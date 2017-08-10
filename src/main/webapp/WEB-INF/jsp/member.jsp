@@ -73,6 +73,12 @@
 						<input type="number" name="no_hp" class="form-control">
 					</div>
 				</div>
+				<div class="form-group form-inline">
+					<label>Tanggal</label>
+					<div class="controls">
+						<input type="date" name="tanggal" class="form-control">
+					</div>
+				</div>
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
@@ -90,6 +96,7 @@
 						<th>Nama Member</th>
 						<th>Alamat</th>
 						<th>No.Hp</th>
+						<th>Tanggal</th>
 					</tr>
 				</table>
 				</div>

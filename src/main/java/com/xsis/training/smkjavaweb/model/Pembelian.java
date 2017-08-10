@@ -1,9 +1,5 @@
 package com.xsis.training.smkjavaweb.model;
 
-<<<<<<< HEAD
-public class Pembelian {
-
-=======
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -20,5 +16,4 @@ public class Pembelian {
 	private Double bayar;
 	private Double kembalian;
 	private String tanggal;
->>>>>>> branch 'master' of https://github.com/Bootcamp114/toko_buku.git
 }
