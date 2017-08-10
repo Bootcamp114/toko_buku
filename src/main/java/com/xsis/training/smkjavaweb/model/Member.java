@@ -19,5 +19,6 @@ public class Member {
 	private String pin;
 	private String nama_member;
 	private String alamat;
-	private String no_hp;	
+	private String no_hp;
+	private String diskon;
 }

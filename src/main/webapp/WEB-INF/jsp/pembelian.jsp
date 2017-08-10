@@ -68,7 +68,7 @@
 				<div class="form-group form-inline">
 					<label>Harga Buku</label>
 					<div class="controls">
-						<input type="text" id="num1" readonly onKeyUp="recalculateSum();"
+						<input type="text" id="num1" onKeyUp="recalculateSum();"
 							name="harga" class="form-control">
 					</div>
 				</div>
@@ -126,6 +126,7 @@
 					</div>
 				</div>
 			</div>
+			<br/>
 			<br/>
 			<br/>
 			<div class="form-group col-xs-10">
@@ -190,9 +191,15 @@
 	</form>
 </body>
 <script type="text/javascript">
+	function recalculateSum()
+	{
+  		var num1 = parseInt(document.getElementById("num1").value);
+  		var num2 = parseInt(document.getElementById("num2").value);
+  		document.getElementById("sum").value = num1 * num2;     
+	}
 	function showData() {
 		$.ajax({
-			url : '/employee/getAll',
+			url : '/pembelian/getAll',
 			type : 'POST',
 			dataType : 'json',
 			success : function(data, x, xhr) {
@@ -207,23 +214,23 @@
 		var tbody = dt.find('tbody');
 		tbody.find('tr').remove();
 		//extract data json
-		$.each(data, function(index, employee) {
+		$.each(data, function(index, pembelian) {
 			var trString = "<tr>";
 			trString += "<td>";
-			trString += employee.name;
+			trString += pembelian.name;
 			trString += "</td>";
 			trString += "<td>";
-			trString += employee.address;
+			trString += pembelian.address;
 			trString += "</td>";
 			trString += "<td>";
-			trString += employee.salary;
+			trString += pembelian.salary;
 			trString += "</td>";
 			trString += "<td>";
-			trString += employee.email;
+			trString += pembelian.email;
 			trString += "</td>";
 			trString += "<td>";
-			trString += "<a id_update='"+employee.id+"' name_update='"+employee.name+"' address_update='"+employee.address+"' salary_update='"+employee.salary+"' email_update='"+employee.email+"' href='#' class='update'>Update || </a>";
-			trString += "<a id_delete='"+employee.id+"' href='#' class='delete'>Delete</a>";
+			trString += "<a id_update='"+pembelian.id+"' name_update='"+pembelian.name+"' address_update='"+pembelian.address+"' salary_update='"+pembelian.salary+"' email_update='"+pembelian.email+"' href='#' class='update'>Update || </a>";
+			trString += "<a id_delete='"+pembelian.id+"' href='#' class='delete'>Delete</a>";
 			trString += "</td>";
 			trString += "</tr>";
 		tbody.append(trString);
