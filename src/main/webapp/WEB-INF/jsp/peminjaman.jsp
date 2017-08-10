@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Form Peminjaman Grand Media</title>
 <link rel="stylesheet" type="text/css"
 	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
@@ -49,6 +49,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 	</nav>
+	<h2><center>Form Peminjaman</center></h2>
 	<div class="container">
 		<form action="#">
 			<div class="form-group col-xs-6">
