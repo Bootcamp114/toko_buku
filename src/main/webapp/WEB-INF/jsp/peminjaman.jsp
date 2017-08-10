@@ -19,6 +19,16 @@ th{
     color: white;
 }
 </style>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+		alert('Mulai Transaksi');
+		$("#selesai").on("click", function(){
+			alert('Kembali ke transaksi baru');
+		});
+	});
+</script>
 </head>
 <body style="background: #f5f5f5;">
 	<nav class="navbar navbar-inverse">
@@ -78,7 +88,26 @@ th{
 				</tr>
 			</thead>
 			<tbody>
-				<tr></tr>
+				<tr>
+					<td>BK001</td>
+					<td>Adaapa Dengan Java</td>
+					<td>9812345</td>
+					<td>Andrea Sirata</td>
+					<td>Bintang Jakarta</td>
+					<td>2010</td>
+					<td>30.000</td>
+					<td><a class="btn btn-danger btn-xs">Hapus</a></td>
+				</tr>
+				<tr>
+					<td>BK002</td>
+					<td>Laskar Hitam Pulih</td>
+					<td>654768345</td>
+					<td>Ulul Maul</td>
+					<td>Bogor Beriman</td>
+					<td>2014</td>
+					<td>15.000</td>
+					<td><a class="btn btn-danger btn-xs">Hapus</a></td>
+				</tr>
 			</tbody>
 		</table>
 

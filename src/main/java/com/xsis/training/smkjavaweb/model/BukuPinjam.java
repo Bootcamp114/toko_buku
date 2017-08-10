@@ -25,6 +25,7 @@ public class BukuPinjam {
 	@Column(name="no_buku",nullable = false, unique = true)
 	private String no_buku;
 	private String judul;
+	private String edisi;
 	private int no_isbn;
 	private String penulis;
 	private String penerbit;
@@ -38,12 +39,13 @@ public class BukuPinjam {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BukuPinjam(int id, String no_buku, String judul, int no_isbn, String penulis, String penerbit,
+	public BukuPinjam(int id, String no_buku, String judul, String edisi, int no_isbn, String penulis, String penerbit,
 			int tahun_terbit, Double harga, String status, List<SumberBuku> list_sumber_buku) {
 		super();
 		this.id = id;
 		this.no_buku = no_buku;
 		this.judul = judul;
+		this.edisi = edisi;
 		this.no_isbn = no_isbn;
 		this.penulis = penulis;
 		this.penerbit = penerbit;
@@ -75,6 +77,14 @@ public class BukuPinjam {
 
 	public void setJudul(String judul) {
 		this.judul = judul;
+	}
+
+	public String getEdisi() {
+		return edisi;
+	}
+
+	public void setEdisi(String edisi) {
+		this.edisi = edisi;
 	}
 
 	public int getNo_isbn() {
@@ -132,6 +142,6 @@ public class BukuPinjam {
 	public void setList_sumber_buku(List<SumberBuku> list_sumber_buku) {
 		this.list_sumber_buku = list_sumber_buku;
 	}
-	
+
 	
 }
