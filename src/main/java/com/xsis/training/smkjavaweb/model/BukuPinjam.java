@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class BukuPinjam {
 
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
