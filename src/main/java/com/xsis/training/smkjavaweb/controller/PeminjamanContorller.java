@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/peminjaman")
 public class PeminjamanContorller {
 
-	//@ResponseBody
 	@RequestMapping
 	public String index(){
 		return "peminjaman";
