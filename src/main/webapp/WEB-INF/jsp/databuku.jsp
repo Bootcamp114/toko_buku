@@ -37,6 +37,7 @@
 	  </div>
 	  </div>
 	</nav>
+	
 	<div class="container">
 		<form>
 			<div class="form-group col-xs-6">
