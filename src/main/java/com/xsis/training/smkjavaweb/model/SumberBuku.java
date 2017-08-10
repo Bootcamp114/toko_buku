@@ -27,25 +27,25 @@ public class SumberBuku {
 	private String no_sumber_buku;
 	private String tanggal;
 	@ManyToOne
-	private Donatur donaatur;
-	@ManyToOne
-	private Karyawan karyawan;
+	private Donatur donatur;
 	@ManyToOne
 	private BukuPinjam buku_pinjam;
+	@ManyToOne
+	private Karyawan karyawan;
 	
 	public SumberBuku() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SumberBuku(int id, String no_sumber_buku, String tanggal, Donatur donaatur, Karyawan karyawan,
-			BukuPinjam buku_pinjam) {
+	public SumberBuku(int id, String no_sumber_buku, String tanggal, Donatur donatur, BukuPinjam buku_pinjam,
+			Karyawan karyawan) {
 		super();
 		this.id = id;
 		this.no_sumber_buku = no_sumber_buku;
 		this.tanggal = tanggal;
-		this.donaatur = donaatur;
-		this.karyawan = karyawan;
+		this.donatur = donatur;
 		this.buku_pinjam = buku_pinjam;
+		this.karyawan = karyawan;
 	}
 
 	public int getId() {
@@ -72,12 +72,20 @@ public class SumberBuku {
 		this.tanggal = tanggal;
 	}
 
-	public Donatur getDonaatur() {
-		return donaatur;
+	public Donatur getDonatur() {
+		return donatur;
 	}
 
-	public void setDonaatur(Donatur donaatur) {
-		this.donaatur = donaatur;
+	public void setDonatur(Donatur donatur) {
+		this.donatur = donatur;
+	}
+
+	public BukuPinjam getBuku_pinjam() {
+		return buku_pinjam;
+	}
+
+	public void setBuku_pinjam(BukuPinjam buku_pinjam) {
+		this.buku_pinjam = buku_pinjam;
 	}
 
 	public Karyawan getKaryawan() {
@@ -88,13 +96,5 @@ public class SumberBuku {
 		this.karyawan = karyawan;
 	}
 
-	public BukuPinjam getBuku_pinjam() {
-		return buku_pinjam;
-	}
-
-	public void setBuku_pinjam(BukuPinjam buku_pinjam) {
-		this.buku_pinjam = buku_pinjam;
-	}
-	
 	
 }
