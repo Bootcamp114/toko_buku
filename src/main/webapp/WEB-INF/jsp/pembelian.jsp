@@ -127,8 +127,7 @@
 			<div class="form-group form-inline">
 				<label>Diskon</label>
 				<div class="controls">
-					<input type="text" id="diskon" name="diskon"
-						class="form-control" readonly>
+					<input type="text" id="diskon" name="diskon" class="form-control" size="5" readonly>
 				</div>
 			</div>
 			<div class="form-group form-inline">
