@@ -13,13 +13,36 @@
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+	<style>
+  .affix {
+      top: 0;
+      width: 100%;
+  }
+
+  .affix + .container-fluid {
+      padding-top: 70px;
+  }
+  	</style>
 </head>
-<body>
-	<h2>
-		<center>TokoBuku GrandMedia</center>
-	</h2>
-	<br />
-	<br />
+<body style="background: #f5f5f5;">
+<nav class="navbar navbar-inverse">
+<div class="container">
+<div class="container-fluid">
+	<div class="navbar-header">
+    	<a class="navbar-brand" href="#">Grand Media</a>
+    </div>
+    <ul class="nav navbar-nav">
+    	<li class="active"><a href="#">Home</a></li>
+    	<li><a href="#">Page 1</a></li>
+    	<li><a href="#">Page 2</a></li>
+    </ul>
+    <!-- <ul class="nav navbar-nav navbar-right">
+    	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+    	<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul> -->
+  	</div>
+</div>
+</nav>
 	<form method="post">
 		<div class="container">
 			<div class="form-group col-xs-4">
@@ -103,7 +126,9 @@
 					</div>
 				</div>
 			</div>
-			<br /> <br />
+			<br/>
+			<br/>
+			<div class="form-group col-xs-10">
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered">
 					<tr>
@@ -118,10 +143,24 @@
 			</div>
 			<br /> <br />
 			<div class="form-group form-inline">
+				<label>Apakah Anda Member?</label>
+				<div class="controls">
+					<div class="radio-inline"> <input type="radio" name="radioOption" id="ya"> Ya </div>
+        			<div class="radio-inline"> <input type="radio" name="radioOption" id="tidak"> Tidak </div>
+				</div>
+			</div>
+			<div class="form-group form-inline">
+				<label>Diskon</label>
+				<div class="controls">
+					<input type="text" id="diskon" name="diskon"
+						class="form-control" readonly>
+				</div>
+			</div>
+			<div class="form-group form-inline">
 				<label>Bayar</label>
 				<div class="controls">
 					<input type="hidden" name="grand_total" id="total"
-						class="form-control" value="<?php echo $grand['grand_total'] ?>">
+						class="form-control">
 					<input name="bayar" id="bayar" onKeyUp="recalculateKembalian();"
 						class="demo form-control" type="text"> <input
 						name="bayarGet" id="bayarGet" readonly type="hidden">
@@ -147,6 +186,7 @@
 						penjualan</button>
 				</div>
 			</div>
+		</div>
 	</form>
 </body>
 <script type="text/javascript">
