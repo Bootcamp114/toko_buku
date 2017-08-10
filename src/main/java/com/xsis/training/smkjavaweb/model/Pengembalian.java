@@ -21,6 +21,8 @@ public class Pengembalian {
 	private int id;
 	@Column(name="no_pengembalian", nullable = false, unique = true)
 	private String no_pengembalian;
+	private String tanggal;
+	private String total_denda;
 	@ManyToOne
 	private Anggota anggota;
 	@ManyToOne
@@ -32,10 +34,13 @@ public class Pengembalian {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pengembalian(int id, String no_pengembalian, Anggota anggota, Karyawan karyawan, Peminjaman peminjaman) {
+	public Pengembalian(int id, String no_pengembalian, String tanggal, String total_denda, Anggota anggota,
+			Karyawan karyawan, Peminjaman peminjaman) {
 		super();
 		this.id = id;
 		this.no_pengembalian = no_pengembalian;
+		this.tanggal = tanggal;
+		this.total_denda = total_denda;
 		this.anggota = anggota;
 		this.karyawan = karyawan;
 		this.peminjaman = peminjaman;
@@ -55,6 +60,22 @@ public class Pengembalian {
 
 	public void setNo_pengembalian(String no_pengembalian) {
 		this.no_pengembalian = no_pengembalian;
+	}
+
+	public String getTanggal() {
+		return tanggal;
+	}
+
+	public void setTanggal(String tanggal) {
+		this.tanggal = tanggal;
+	}
+
+	public String getTotal_denda() {
+		return total_denda;
+	}
+
+	public void setTotal_denda(String total_denda) {
+		this.total_denda = total_denda;
 	}
 
 	public Anggota getAnggota() {
@@ -80,7 +101,6 @@ public class Pengembalian {
 	public void setPeminjaman(Peminjaman peminjaman) {
 		this.peminjaman = peminjaman;
 	}
-	
-	
-	
+
+
 }

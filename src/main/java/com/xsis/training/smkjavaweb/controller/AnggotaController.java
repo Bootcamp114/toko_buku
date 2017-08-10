@@ -17,10 +17,10 @@ public class AnggotaController {
 	@Autowired
 	private DataServiceTokoBuku dataServiceTokoBuku;
 	
-	@ResponseBody
+//	@ResponseBody
 	@RequestMapping
 	public String index(){
-	return "This is Controller Anggota";	
+	return "anggota";	
 	}
 	
 	@ResponseBody
