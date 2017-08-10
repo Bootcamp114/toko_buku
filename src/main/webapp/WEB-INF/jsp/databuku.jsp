@@ -36,7 +36,6 @@
 	    </ul> -->
 	  </div>
 	  </div>
-	  
 	</nav>
 	<div class="container">
 		<form>
