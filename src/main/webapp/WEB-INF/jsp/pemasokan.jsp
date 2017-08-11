@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Data Pasok</title>
+<title>Pembelian Barang</title>
 <script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css">
@@ -47,14 +47,14 @@
 			</div>	
 			
 			<div class="form-group col-xs-6">
-				<label for="kodebuku">No Transaksi</label>
+				<label for="kodebuku">No Pembelian</label>
 				<input style="width:45%;" type="text" class="form-control" id="kodebuku" >
 			</div>	
 
 
 			<div class="form-group col-xs-6">
-				<label for="tahunterbit">Quantity</label>
-				<input style="width:" type="number" class="form-control" id="tahunterbit" placeholder="Masukan Quantity">
+				<label for="tahunterbit">Total Buku Dibeli</label>
+				<input style="width:" type="number" class="form-control" id="tahunterbit" readonly>
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="tahunterbit">Total Pembelian</label>
@@ -72,25 +72,22 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Tanggal</th>
-					<th>Nama Distributor</th>
+					<th>Kode Buku</th>
 					<th>Judul Buku</th>
 					<th>Harga Beli (*perbuku)</th>
 					<th>Quantity</th>
 					<th>Total</th>
-					<th colspan="2">action</th>
+					<th colspan="1">action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>23/02/2017</td>
-					<td>Anugerah Buku</td>
+					<td>B001</td>
 					<td>Laskar Pelangi</td>
 					<td>32.000</td>
 					<td>5</td>
 					<td>160.000</td>
 					<td><a href="#"><span class="glyphicon glyphicon-user"> Delete</span></td>
-					<td><a href="#"><span class="glyphicon glyphicon-log-in"> Update</span></td>
 				</tr>
 			</tbody>
 		</table>

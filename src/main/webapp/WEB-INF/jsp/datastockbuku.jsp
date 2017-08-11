@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Data Buku</title>
 <script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css">
@@ -54,11 +54,13 @@
 			<th>Judul Buku</th>
 			<th>Penulis</th>
 			<th>Category</th>
+			<th>Penerbit</th>
 			<th>Tahun Terbit</th>
 			<th>Distributor</th>
 			<th>Harga</th>
+			<th>Status</th>
 			<th>Stock</th>
-			
+			<th colspan="2">Action</th>
 		</tr>
 	</thead>
 </table>

@@ -99,7 +99,7 @@
 					<th>Dsitributor</th>
 					<th>Harga Beli</th>
 					<th>Status</th>
-					<th colspan="2">Action</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -116,10 +116,10 @@
 					<td>
 						<a href="#" class="glyphicon glyphicon-remove-sign"> Hapus</a>
 					</td>
-					<td><a href="#" class="glyphicon glyphicon-open"> Update</a></td>
 				</tr>
 			</tbody>
 		</table>
+		<button type="button" class="btn btn-primary">Simpan Rencana</button>
 	</div>
 </body>
 </html>
