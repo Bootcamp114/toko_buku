@@ -24,35 +24,37 @@ public class Peminjaman {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	@Column(name="no_peminjaman", nullable = false, unique = true)
-	private String no_peminjaman;
-	private String tgl_pinjam;
-	private String tgl_kembali;
+	private String noPeminjaman;
+	@Column(name="tgl_pinjam")
+	private String tglPinjam;
+	@Column(name="tgl_kembali")
+	private String tglKembali;
 	private String status;
 	@ManyToOne
 	private Anggota anggota;
 	@ManyToOne
-	private BukuPinjam buku_pinjam;
+	private BukuPinjam bukuPinjam;
 	@ManyToOne
 	private Karyawan karyawan;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="peminjaman")
-	private List<Pengembalian> list_pengembalian;
+	private List<Pengembalian> listPengembalian;
 	
 	public Peminjaman() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Peminjaman(int id, String no_peminjaman, String tgl_pinjam, String tgl_kembali, String status,
-			Anggota anggota, BukuPinjam buku_pinjam, Karyawan karyawan, List<Pengembalian> list_pengembalian) {
+	public Peminjaman(int id, String noPeminjaman, String tglPinjam, String tglKembali, String status, Anggota anggota,
+			BukuPinjam bukuPinjam, Karyawan karyawan, List<Pengembalian> listPengembalian) {
 		super();
 		this.id = id;
-		this.no_peminjaman = no_peminjaman;
-		this.tgl_pinjam = tgl_pinjam;
-		this.tgl_kembali = tgl_kembali;
+		this.noPeminjaman = noPeminjaman;
+		this.tglPinjam = tglPinjam;
+		this.tglKembali = tglKembali;
 		this.status = status;
 		this.anggota = anggota;
-		this.buku_pinjam = buku_pinjam;
+		this.bukuPinjam = bukuPinjam;
 		this.karyawan = karyawan;
-		this.list_pengembalian = list_pengembalian;
+		this.listPengembalian = listPengembalian;
 	}
 
 	public int getId() {
@@ -63,28 +65,28 @@ public class Peminjaman {
 		this.id = id;
 	}
 
-	public String getNo_peminjaman() {
-		return no_peminjaman;
+	public String getNoPeminjaman() {
+		return noPeminjaman;
 	}
 
-	public void setNo_peminjaman(String no_peminjaman) {
-		this.no_peminjaman = no_peminjaman;
+	public void setNoPeminjaman(String noPeminjaman) {
+		this.noPeminjaman = noPeminjaman;
 	}
 
-	public String getTgl_pinjam() {
-		return tgl_pinjam;
+	public String getTglPinjam() {
+		return tglPinjam;
 	}
 
-	public void setTgl_pinjam(String tgl_pinjam) {
-		this.tgl_pinjam = tgl_pinjam;
+	public void setTglPinjam(String tglPinjam) {
+		this.tglPinjam = tglPinjam;
 	}
 
-	public String getTgl_kembali() {
-		return tgl_kembali;
+	public String getTglKembali() {
+		return tglKembali;
 	}
 
-	public void setTgl_kembali(String tgl_kembali) {
-		this.tgl_kembali = tgl_kembali;
+	public void setTglKembali(String tglKembali) {
+		this.tglKembali = tglKembali;
 	}
 
 	public String getStatus() {
@@ -103,12 +105,12 @@ public class Peminjaman {
 		this.anggota = anggota;
 	}
 
-	public BukuPinjam getBuku_pinjam() {
-		return buku_pinjam;
+	public BukuPinjam getBukuPinjam() {
+		return bukuPinjam;
 	}
 
-	public void setBuku_pinjam(BukuPinjam buku_pinjam) {
-		this.buku_pinjam = buku_pinjam;
+	public void setBukuPinjam(BukuPinjam bukuPinjam) {
+		this.bukuPinjam = bukuPinjam;
 	}
 
 	public Karyawan getKaryawan() {
@@ -119,13 +121,14 @@ public class Peminjaman {
 		this.karyawan = karyawan;
 	}
 
-	public List<Pengembalian> getList_pengembalian() {
-		return list_pengembalian;
+	public List<Pengembalian> getListPengembalian() {
+		return listPengembalian;
 	}
 
-	public void setList_pengembalian(List<Pengembalian> list_pengembalian) {
-		this.list_pengembalian = list_pengembalian;
+	public void setListPengembalian(List<Pengembalian> listPengembalian) {
+		this.listPengembalian = listPengembalian;
 	}
+
 	
-	
+
 }

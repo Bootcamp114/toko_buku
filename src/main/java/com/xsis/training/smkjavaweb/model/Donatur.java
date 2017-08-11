@@ -28,21 +28,20 @@ public class Donatur {
 	@Column(name="email", unique = true)
 	private String email;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="donatur")
-	private List<SumberBuku> list_sumber_buku;
+	private List<SumberBuku> listSumberBuku;
 
 	public Donatur() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Donatur(int id, String nama, String alamat, String telepon, String email,
-			List<SumberBuku> list_sumber_buku) {
+	public Donatur(int id, String nama, String alamat, String telepon, String email, List<SumberBuku> listSumberBuku) {
 		super();
 		this.id = id;
 		this.nama = nama;
 		this.alamat = alamat;
 		this.telepon = telepon;
 		this.email = email;
-		this.list_sumber_buku = list_sumber_buku;
+		this.listSumberBuku = listSumberBuku;
 	}
 
 	public int getId() {
@@ -85,14 +84,12 @@ public class Donatur {
 		this.email = email;
 	}
 
-	public List<SumberBuku> getList_sumber_buku() {
-		return list_sumber_buku;
+	public List<SumberBuku> getListSumberBuku() {
+		return listSumberBuku;
 	}
 
-	public void setList_sumber_buku(List<SumberBuku> list_sumber_buku) {
-		this.list_sumber_buku = list_sumber_buku;
+	public void setListSumberBuku(List<SumberBuku> listSumberBuku) {
+		this.listSumberBuku = listSumberBuku;
 	}
-	
-	
-	
+
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Form Peminjaman Grand Media</title>
+<title>Form Pengembalian Grand Media</title>
 <link rel="stylesheet" type="text/css"
 	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
@@ -50,16 +50,16 @@ th {
 	</div>
 	</nav>
 	<h2>
-		<center>Form Peminjaman</center>
+		<center>Form Pengembalian</center>
 	</h2>
 	<div class="container">
 		<form action="#">
 			<div class="form-group col-xs-6">
 
-				<label for="no_peminjaman">No. Peminjaman:</label> <input
-					type="text" class="form-control" id="no_peminjaman"
-					style="width: 63%;" placeholder="No peminjaman Auto"
-					name="no_peminjaman" readonly="readonly"><br /> <label
+				<label for="no_pengembalian">No. Pengembalian:</label> <input
+					type="text" class="form-control" id="no_pengembalian"
+					style="width: 63%;" placeholder="No pengembalian Auto"
+					name="no_pengembalian" readonly="readonly"><br /> <label
 					for="anggota">Anggota:</label> <select class="form-control"
 					id="anggota" style="width: 63%;">
 					<option>Unknow(Dari tabel anggota)</option>
@@ -70,19 +70,17 @@ th {
 				</select> <br />
 
 				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#add-modal">+ Add Buku</button>
-				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#add-anggota" style="margin-top:-53px; margin-left:245px; position:absolute;">+ Add Anggota</button>
+					data-target="#add-modal">+ Select</button>
 			</div>
 			<div class="form-group col-xs-4">
-				<label for="tgl_peminjaman">Tgl. Peminjaman:</label> <input
-					type="text" class="form-control" id="tgl_peminjaman"
-					placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)"
-					name="tgl_peminjaman" readonly="readonly"><br /> <label
-					for="tgl_pengembalian">Tgl. Pengembalian:</label> <input
-					type="text" class="form-control" id="tgl_pengembalian"
-					placeholder="Tgl. Pengembalian Auto(10 hari setelah pinjam)"
-					name="tgl_pengembalian" readonly="readonly">
+				<label for="tanggal">Tanggal:</label> <input
+					type="text" class="form-control" id="tanggal"
+					placeholder="Tgl. pengembalian Auto (tanggal hari saat prosses)"
+					name="tanggal" readonly="readonly"><br /> <label
+					for="total_danda">Total Denda:</label> <input
+					type="text" class="form-control" id="total_danda"
+					placeholder="Total Denda Auto(Jumlah denda semua buku)"
+					name="total_danda" readonly="readonly">
 			</div>
 
 		</form>
@@ -97,6 +95,8 @@ th {
 					<th>Penerbit</th>
 					<th>Tahun terbit</th>
 					<th>Harga</th>
+					<th>Kategori Denda</th>
+					<th>Denda</th>
 					<th colspan="2">Action</th>
 				</tr>
 			</thead>
@@ -109,6 +109,8 @@ th {
 					<td>Bintang Jakarta</td>
 					<td>2010</td>
 					<td>30.000</td>
+					<td>Hilang</td>
+					<td>60.000</td>
 					<td><a class="btn btn-danger btn-xs">Hapus</a></td>
 				</tr>
 				<tr>
@@ -119,12 +121,19 @@ th {
 					<td>Bogor Beriman</td>
 					<td>2014</td>
 					<td>15.000</td>
+					<td>rusak</td>
+					<td>22.500</td>
 					<td><a class="btn btn-danger btn-xs">Hapus</a></td>
 				</tr>
 			</tbody>
 		</table>
-		<input type="submit" id="selesai" value="Selesai"
-			class="btn btn-primary btn-md" />
+		<div class="form-group col-xs-4">
+			<label for="bayar">Bayar:</label> 
+			<input type="text" class="form-control" id="bayar" style="width: 63%;" placeholder="No pengembalian Auto" name="bayar"><br />
+			<label for="kembalian">Kembalian:</label> 
+			<input type="text" class="form-control" id="kembalian" style="width: 63%;" placeholder="No pengembalian Auto" name="kembalian" readonly="readonly"><br />
+			<input type="submit" id="selesai" value="Selesai" class="btn btn-primary btn-md" />
+		</div>
 	</div>
 
 	<!-- Modal -->
@@ -141,90 +150,53 @@ th {
 				</div>
 				<div class="modal-body">
 					<!-- <p>This is a small modal.</p>-->
-					<div class="form-group">
+					<div class="form-group col-xs-6">
 						<label class="control-label col-sm-2" for="no_buku">No.Buku:</label>
 						<input type="text" class="form-control" id="no_buku"
 							placeholder="Masukan Nomer Buku">
 					</div>
 
-					<div class="form-group">
+					<div class="form-group col-xs-6">
 						<label class="control-label col-sm-2" for="judul">Judul:</label> <input
 							type="text" class="form-control" id="judul"
 							placeholder="Auto (Sesuai data buku)" readonly="readonly">
 					</div>
 
-					<div class="form-group">
+					<div class="form-group col-xs-6">
 						<label class="control-label col-sm-2" for="penulis">Penulis:</label>
 						<input type="text" class="form-control" id="penulis"
 							placeholder="Auto (Sesuai data buku)" readonly="readonly">
 					</div>
-					<div class="form-group">
+					<div class="form-group col-xs-6">
 						<label class="control-label col-sm-2" for="penerbit">Penerbit:</label>
 						<input type="text" class="form-control" id="penerbit"
 							placeholder="Auto (Sesuai data buku)" readonly="readonly">
 					</div>
-					<div class="form-group">
+					<div class="form-group col-xs-6">
 						<label class="control-label col-sm-2" for="tahun_terbit">TahunTerbit:</label>
 						<input type="text" class="form-control" id="tahun_terbit"
 							placeholder="Auto (Sesuai data buku)" readonly="readonly">
 					</div>
-					<div class="form-group">
+					<div class="form-group col-xs-6">
 						<label class="control-label col-sm-2" for="harga">Harga:</label> <input
 							type="text" class="form-control" id="harga"
 							placeholder="Auto (Sesuai data buku)" readonly="readonly">
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal"
-							id="save">Save</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-	</div>
-
-
-	<!-- Modal 2 -->
-	<div class="modal fade" tabindex="-1" role="dialog"
-		aria-labelledby="gridSystemModalLabel" id="add-anggota">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="gridSystemModalLabel">Tambah Buku</h4>
-				</div>
-				<div class="modal-body">
 					<div class="form-group col-xs-6">
-						<label for="nik">NIK:</label> <input type="text"
-							class="form-control" id="nik"
-							placeholder="input oleh user (unique)" name="nik"><br />
-						<label for="nama">Nama:</label> <input type="text"
-							class="form-control" id="nama" placeholder="input oleh user "
-							name="nama"><br /> <label for="jk">Gender:</label>
-						<div class="radio">
-							<label><input type="radio" name="jk" id="jk">Laki-laki
-							</label> <label><input type="radio" name="jk" id="jk">Perempuan
-							</label>
-						</div>
-						<br />
+						<label for="kategori">Kategori:</label> 
+						 <select class="form-control" id="kategori" name="kategori">
+							<option>~Select Kategory</option>
+							<option>Terlambat</option>
+							<option>Hilang</option>
+							<option>Rusak</option>
+						</select>
 					</div>
 					<div class="form-group col-xs-6">
-						<label for="alamat">Alamat:</label>
-						<textarea class="form-control" rows="3" id="alamat"></textarea>
-						<br /> <label for="pekerjaan">Pekerjaan:</label> <input
-							type="text" class="form-control" id="pekerjaan"
-							placeholder="input oleh user " name="pekerjaan"><br /> <label
-							for="email">Email:</label> <input type="text"
-							class="form-control" id="email"
-							placeholder="input oleh user(unique) " name="email"><br />
+						<label class="control-label col-sm-2" for="harga">Denda:</label> <input
+							type="text" class="form-control" id="harga"
+							placeholder="Auto (Sesuai kategori denda)" readonly="readonly">
 					</div>
-					<div class="modal-footer">
+					<div class="modal-footer ">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal"
 							id="save">Save</button>

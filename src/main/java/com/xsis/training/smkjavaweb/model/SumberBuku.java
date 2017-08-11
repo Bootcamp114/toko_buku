@@ -24,27 +24,26 @@ public class SumberBuku {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	@Column(name="no_sumber_buku", nullable = false, unique = true)
-	private String no_sumber_buku;
+	private String noSumberBuku;
 	private String tanggal;
 	@ManyToOne
 	private Donatur donatur;
 	@ManyToOne
-	private BukuPinjam buku_pinjam;
+	private BukuPinjam bukuPinjam;
 	@ManyToOne
 	private Karyawan karyawan;
-	
 	public SumberBuku() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SumberBuku(int id, String no_sumber_buku, String tanggal, Donatur donatur, BukuPinjam buku_pinjam,
+	public SumberBuku(int id, String noSumberBuku, String tanggal, Donatur donatur, BukuPinjam bukuPinjam,
 			Karyawan karyawan) {
 		super();
 		this.id = id;
-		this.no_sumber_buku = no_sumber_buku;
+		this.noSumberBuku = noSumberBuku;
 		this.tanggal = tanggal;
 		this.donatur = donatur;
-		this.buku_pinjam = buku_pinjam;
+		this.bukuPinjam = bukuPinjam;
 		this.karyawan = karyawan;
 	}
 
@@ -56,12 +55,12 @@ public class SumberBuku {
 		this.id = id;
 	}
 
-	public String getNo_sumber_buku() {
-		return no_sumber_buku;
+	public String getNoSumberBuku() {
+		return noSumberBuku;
 	}
 
-	public void setNo_sumber_buku(String no_sumber_buku) {
-		this.no_sumber_buku = no_sumber_buku;
+	public void setNoSumberBuku(String noSumberBuku) {
+		this.noSumberBuku = noSumberBuku;
 	}
 
 	public String getTanggal() {
@@ -80,12 +79,12 @@ public class SumberBuku {
 		this.donatur = donatur;
 	}
 
-	public BukuPinjam getBuku_pinjam() {
-		return buku_pinjam;
+	public BukuPinjam getBukuPinjam() {
+		return bukuPinjam;
 	}
 
-	public void setBuku_pinjam(BukuPinjam buku_pinjam) {
-		this.buku_pinjam = buku_pinjam;
+	public void setBukuPinjam(BukuPinjam bukuPinjam) {
+		this.bukuPinjam = bukuPinjam;
 	}
 
 	public Karyawan getKaryawan() {

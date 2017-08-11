@@ -20,9 +20,10 @@ public class Pengembalian {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	@Column(name="no_pengembalian", nullable = false, unique = true)
-	private String no_pengembalian;
+	private String noPengembalian;
 	private String tanggal;
-	private String total_denda;
+	@Column(name="total_denda")
+	private String totalDenda;
 	@ManyToOne
 	private Anggota anggota;
 	@ManyToOne
@@ -34,13 +35,13 @@ public class Pengembalian {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pengembalian(int id, String no_pengembalian, String tanggal, String total_denda, Anggota anggota,
+	public Pengembalian(int id, String noPengembalian, String tanggal, String totalDenda, Anggota anggota,
 			Karyawan karyawan, Peminjaman peminjaman) {
 		super();
 		this.id = id;
-		this.no_pengembalian = no_pengembalian;
+		this.noPengembalian = noPengembalian;
 		this.tanggal = tanggal;
-		this.total_denda = total_denda;
+		this.totalDenda = totalDenda;
 		this.anggota = anggota;
 		this.karyawan = karyawan;
 		this.peminjaman = peminjaman;
@@ -54,12 +55,12 @@ public class Pengembalian {
 		this.id = id;
 	}
 
-	public String getNo_pengembalian() {
-		return no_pengembalian;
+	public String getNoPengembalian() {
+		return noPengembalian;
 	}
 
-	public void setNo_pengembalian(String no_pengembalian) {
-		this.no_pengembalian = no_pengembalian;
+	public void setNoPengembalian(String noPengembalian) {
+		this.noPengembalian = noPengembalian;
 	}
 
 	public String getTanggal() {
@@ -70,12 +71,12 @@ public class Pengembalian {
 		this.tanggal = tanggal;
 	}
 
-	public String getTotal_denda() {
-		return total_denda;
+	public String getTotalDenda() {
+		return totalDenda;
 	}
 
-	public void setTotal_denda(String total_denda) {
-		this.total_denda = total_denda;
+	public void setTotalDenda(String totalDenda) {
+		this.totalDenda = totalDenda;
 	}
 
 	public Anggota getAnggota() {
