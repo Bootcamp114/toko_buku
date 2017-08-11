@@ -16,7 +16,7 @@ public class Distributor {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
-	private String kode_distributor;
+	private String  kode_distributor;
 	private String alamat_distributor;
 	private String no_telpon;
 }
