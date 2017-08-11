@@ -64,6 +64,8 @@ $(document).ready(function(){
 					<option>ex:4</option>
 				</select> <br />
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">+ Add</button>
+			
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">+ Add</button>
 			</div>
 			<div class="form-group col-xs-4">
 				<label for="tgl_peminjaman">Tgl. Peminjaman:</label> <input	type="text" class="form-control" id="tgl_peminjaman" placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)" name="tgl_peminjaman" readonly="readonly"><br/> 
