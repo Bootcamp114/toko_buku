@@ -14,17 +14,16 @@
 <script type="text/javascript"
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 <style>
-th{
- background-color: #4CAF50;
-    color: white;
+th {
+	background-color: #4CAF50;
+	color: white;
 }
 </style>
 
 <script type="text/javascript">
-
-$(document).ready(function(){
-		alert('Mulai Transaksi');
-		$("#selesai").on("click", function(){
+	$(document).ready(function() {
+		//alert('Mulai Transaksi');
+		$("#selesai").on("click", function() {
 			alert('Kembali ke transaksi baru');
 		});
 	});
@@ -43,38 +42,49 @@ $(document).ready(function(){
 				<li><a href="#">Page 2</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-	 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Nama Admin </a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+						Nama Admin </a></li>
 
-    </ul>
+			</ul>
 		</div>
 	</div>
 	</nav>
-	<h2><center>Form Peminjaman</center></h2>
+	<h2>
+		<center>Form Peminjaman</center>
+	</h2>
 	<div class="container">
 		<form action="#">
 			<div class="form-group col-xs-6">
-				<label for="no_peminjaman">No. Peminjaman:</label>
-				 <input type="text" class="form-control" id="no_peminjaman" style="width:63%;" placeholder="No peminjaman Auto" name="no_peminjaman" readonly="readonly"><br/> 
-					<label for="anggota">Anggota:</label>
-				<select class="form-control" id="anggota" style="width:63%;">
+
+				<label for="no_peminjaman">No. Peminjaman:</label> <input
+					type="text" class="form-control" id="no_peminjaman"
+					style="width: 63%;" placeholder="No peminjaman Auto"
+					name="no_peminjaman" readonly="readonly"><br /> <label
+					for="anggota">Anggota:</label> <select class="form-control"
+					id="anggota" style="width: 63%;">
 					<option>Unknow(Dari tabel anggota)</option>
 					<option>ex:1</option>
 					<option>ex:2</option>
 					<option>ex:3</option>
 					<option>ex:4</option>
 				</select> <br />
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">+ Add</button>
-			
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">+ Add</button>
+
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#add-modal">+ Add Buku</button>
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#add-anggota" style="margin-top:-53px; margin-left:245px; position:absolute;">+ Add Anggota</button>
 			</div>
 			<div class="form-group col-xs-4">
-				<label for="tgl_peminjaman">Tgl. Peminjaman:</label> <input	type="text" class="form-control" id="tgl_peminjaman" placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)" name="tgl_peminjaman" readonly="readonly"><br/> 
-					<label for="tgl_pengembalian">Tgl. Pengembalian:</label> <input
+				<label for="tgl_peminjaman">Tgl. Peminjaman:</label> <input
+					type="text" class="form-control" id="tgl_peminjaman"
+					placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)"
+					name="tgl_peminjaman" readonly="readonly"><br /> <label
+					for="tgl_pengembalian">Tgl. Pengembalian:</label> <input
 					type="text" class="form-control" id="tgl_pengembalian"
 					placeholder="Tgl. Pengembalian Auto(10 hari setelah pinjam)"
 					name="tgl_pengembalian" readonly="readonly">
 			</div>
-			
+
 		</form>
 
 		<table class="table table-striped">
@@ -113,9 +123,8 @@ $(document).ready(function(){
 				</tr>
 			</tbody>
 		</table>
-
-		<input type="submit" id="selesai" value="Selesai" class="btn btn-primary btn-md" />
-
+		<input type="submit" id="selesai" value="Selesai"
+			class="btn btn-primary btn-md" />
 	</div>
 
 	<!-- Modal -->
@@ -166,7 +175,8 @@ $(document).ready(function(){
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Save</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							id="save">Save</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -174,7 +184,10 @@ $(document).ready(function(){
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
-<!-- Modal -->
+	</div>
+
+
+	<!-- Modal 2 -->
 	<div class="modal fade" tabindex="-1" role="dialog"
 		aria-labelledby="gridSystemModalLabel" id="add-anggota">
 		<div class="modal-dialog" role="document">
@@ -184,34 +197,46 @@ $(document).ready(function(){
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="gridSystemModalLabel">Tambah Anggota</h4>
+					<h4 class="modal-title" id="gridSystemModalLabel">Tambah Buku</h4>
 				</div>
-					<div class="modal-body">
-					<div class="form-group col-xs-4">
-					<label for="nik">NIK:</label>
-					<input type="text" class="form-control" id="nik" placeholder="input oleh user (unique)" name="nik"><br/> 
-					<label for="nama">Nama:</label>
-					<input type="text" class="form-control" id="nama" placeholder="input oleh user " name="nama"><br/> 	
-					<label for="jk">Gender:</label>
-					<div class="radio">
-		  				<label><input type="radio" name="jk" id="jk">Laki-laki </label>
-		  				<label><input type="radio" name="jk" id="jk">Perempuan </label>
-					</div><br/>
-					 <label for="alamat">Alamat:</label>
-		 			 <textarea class="form-control" rows="3" id="alamat"></textarea> <br/>
-					<label for="pekerjaan">Pekerjaan:</label>
-					<input type="text" class="form-control" id="pekerjaan" placeholder="input oleh user " name="pekerjaan"><br/> 	 
-					<label for="email">Email:</label>
-					<input type="text" class="form-control" id="email" placeholder="input oleh user(unique) " name="email"><br/> 	
-				</div>
+				<div class="modal-body">
+					<div class="form-group col-xs-6">
+						<label for="nik">NIK:</label> <input type="text"
+							class="form-control" id="nik"
+							placeholder="input oleh user (unique)" name="nik"><br />
+						<label for="nama">Nama:</label> <input type="text"
+							class="form-control" id="nama" placeholder="input oleh user "
+							name="nama"><br /> <label for="jk">Gender:</label>
+						<div class="radio">
+							<label><input type="radio" name="jk" id="jk">Laki-laki
+							</label> <label><input type="radio" name="jk" id="jk">Perempuan
+							</label>
+						</div>
+						<br />
+					</div>
+					<div class="form-group col-xs-6">
+						<label for="alamat">Alamat:</label>
+						<textarea class="form-control" rows="3" id="alamat"></textarea>
+						<br /> <label for="pekerjaan">Pekerjaan:</label> <input
+							type="text" class="form-control" id="pekerjaan"
+							placeholder="input oleh user " name="pekerjaan"><br /> <label
+							for="email">Email:</label> <input type="text"
+							class="form-control" id="email"
+							placeholder="input oleh user(unique) " name="email"><br />
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Save</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							id="save">Save</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal --></body>
+		<!-- /.modal -->
+	</div>
+
+
+</body>
 </html>

@@ -24,7 +24,8 @@ public class Karyawan {
 	private int id;
 	@Column(name="nik", nullable = false, unique = true)
 	private String nik;
-	private String nama_karyawan;
+	@Column(name="nama_karyawan")
+	private String namaKaryawan;
 	private String jk;
 	private String alamat;
 	private String agama;
@@ -35,18 +36,23 @@ public class Karyawan {
 	private String password;
 	private String akses;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="karyawan")
-	private List<SumberBuku> list_sumber_buku;
+	private List<SumberBuku> listSumberBuku;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="karyawan")
+	private List<Pengembalian> listPengembalian;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="karyawan")
+	private List<Peminjaman> listPeminjaman;
 	
 	public Karyawan() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Karyawan(int id, String nik, String nama_karyawan, String jk, String alamat, String agama, String no_hp,
-			String email, String username, String password, String akses, List<SumberBuku> list_sumber_buku) {
+	public Karyawan(int id, String nik, String namaKaryawan, String jk, String alamat, String agama, String no_hp,
+			String email, String username, String password, String akses, List<SumberBuku> listSumberBuku,
+			List<Pengembalian> listPengembalian, List<Peminjaman> listPeminjaman) {
 		super();
 		this.id = id;
 		this.nik = nik;
-		this.nama_karyawan = nama_karyawan;
+		this.namaKaryawan = namaKaryawan;
 		this.jk = jk;
 		this.alamat = alamat;
 		this.agama = agama;
@@ -55,7 +61,9 @@ public class Karyawan {
 		this.username = username;
 		this.password = password;
 		this.akses = akses;
-		this.list_sumber_buku = list_sumber_buku;
+		this.listSumberBuku = listSumberBuku;
+		this.listPengembalian = listPengembalian;
+		this.listPeminjaman = listPeminjaman;
 	}
 
 	public int getId() {
@@ -74,12 +82,12 @@ public class Karyawan {
 		this.nik = nik;
 	}
 
-	public String getNama_karyawan() {
-		return nama_karyawan;
+	public String getNamaKaryawan() {
+		return namaKaryawan;
 	}
 
-	public void setNama_karyawan(String nama_karyawan) {
-		this.nama_karyawan = nama_karyawan;
+	public void setNamaKaryawan(String namaKaryawan) {
+		this.namaKaryawan = namaKaryawan;
 	}
 
 	public String getJk() {
@@ -146,13 +154,29 @@ public class Karyawan {
 		this.akses = akses;
 	}
 
-	public List<SumberBuku> getList_sumber_buku() {
-		return list_sumber_buku;
+	public List<SumberBuku> getListSumberBuku() {
+		return listSumberBuku;
 	}
 
-	public void setList_sumber_buku(List<SumberBuku> list_sumber_buku) {
-		this.list_sumber_buku = list_sumber_buku;
+	public void setListSumberBuku(List<SumberBuku> listSumberBuku) {
+		this.listSumberBuku = listSumberBuku;
 	}
 
+	public List<Pengembalian> getListPengembalian() {
+		return listPengembalian;
+	}
 
+	public void setListPengembalian(List<Pengembalian> listPengembalian) {
+		this.listPengembalian = listPengembalian;
+	}
+
+	public List<Peminjaman> getListPeminjaman() {
+		return listPeminjaman;
+	}
+
+	public void setListPeminjaman(List<Peminjaman> listPeminjaman) {
+		this.listPeminjaman = listPeminjaman;
+	}
+
+	
 }

@@ -24,36 +24,38 @@ public class BukuPinjam {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	@Column(name="no_buku",nullable = false, unique = true)
-	private String no_buku;
+	private String noBuku;
 	private String judul;
 	private String edisi;
-	private int no_isbn;
+	@Column(name="no_isbn")
+	private int noIsbn;
 	private String penulis;
 	private String penerbit;
-	private int tahun_terbit;
+	@Column(name="tahun_terbit")
+	private int tahunTerbit;
 	private Double harga;
 	private String status;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="buku_pinjam")
-	private List<SumberBuku> list_sumber_buku;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="bukuPinjam")
+	private List<SumberBuku> listSumberBuku;
 	
 	public BukuPinjam() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BukuPinjam(int id, String no_buku, String judul, String edisi, int no_isbn, String penulis, String penerbit,
-			int tahun_terbit, Double harga, String status, List<SumberBuku> list_sumber_buku) {
+	public BukuPinjam(int id, String noBuku, String judul, String edisi, int noIsbn, String penulis, String penerbit,
+			int tahunTerbit, Double harga, String status, List<SumberBuku> listSumberBuku) {
 		super();
 		this.id = id;
-		this.no_buku = no_buku;
+		this.noBuku = noBuku;
 		this.judul = judul;
 		this.edisi = edisi;
-		this.no_isbn = no_isbn;
+		this.noIsbn = noIsbn;
 		this.penulis = penulis;
 		this.penerbit = penerbit;
-		this.tahun_terbit = tahun_terbit;
+		this.tahunTerbit = tahunTerbit;
 		this.harga = harga;
 		this.status = status;
-		this.list_sumber_buku = list_sumber_buku;
+		this.listSumberBuku = listSumberBuku;
 	}
 
 	public int getId() {
@@ -64,12 +66,12 @@ public class BukuPinjam {
 		this.id = id;
 	}
 
-	public String getNo_buku() {
-		return no_buku;
+	public String getNoBuku() {
+		return noBuku;
 	}
 
-	public void setNo_buku(String no_buku) {
-		this.no_buku = no_buku;
+	public void setNoBuku(String noBuku) {
+		this.noBuku = noBuku;
 	}
 
 	public String getJudul() {
@@ -88,12 +90,12 @@ public class BukuPinjam {
 		this.edisi = edisi;
 	}
 
-	public int getNo_isbn() {
-		return no_isbn;
+	public int getNoIsbn() {
+		return noIsbn;
 	}
 
-	public void setNo_isbn(int no_isbn) {
-		this.no_isbn = no_isbn;
+	public void setNoIsbn(int noIsbn) {
+		this.noIsbn = noIsbn;
 	}
 
 	public String getPenulis() {
@@ -112,12 +114,12 @@ public class BukuPinjam {
 		this.penerbit = penerbit;
 	}
 
-	public int getTahun_terbit() {
-		return tahun_terbit;
+	public int getTahunTerbit() {
+		return tahunTerbit;
 	}
 
-	public void setTahun_terbit(int tahun_terbit) {
-		this.tahun_terbit = tahun_terbit;
+	public void setTahunTerbit(int tahunTerbit) {
+		this.tahunTerbit = tahunTerbit;
 	}
 
 	public Double getHarga() {
@@ -136,13 +138,12 @@ public class BukuPinjam {
 		this.status = status;
 	}
 
-	public List<SumberBuku> getList_sumber_buku() {
-		return list_sumber_buku;
+	public List<SumberBuku> getListSumberBuku() {
+		return listSumberBuku;
 	}
 
-	public void setList_sumber_buku(List<SumberBuku> list_sumber_buku) {
-		this.list_sumber_buku = list_sumber_buku;
+	public void setListSumberBuku(List<SumberBuku> listSumberBuku) {
+		this.listSumberBuku = listSumberBuku;
 	}
 
-	
 }
