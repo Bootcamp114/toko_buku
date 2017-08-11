@@ -64,6 +64,8 @@ $(document).ready(function(){
 					<option>ex:4</option>
 				</select> <br />
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">+ Add</button>
+			
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">+ Add</button>
 			</div>
 			<div class="form-group col-xs-4">
 				<label for="tgl_peminjaman">Tgl. Peminjaman:</label> <input	type="text" class="form-control" id="tgl_peminjaman" placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)" name="tgl_peminjaman" readonly="readonly"><br/> 
@@ -172,7 +174,44 @@ $(document).ready(function(){
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
-
-		<!--modal1-->
-</body>
+<!-- Modal -->
+	<div class="modal fade" tabindex="-1" role="dialog"
+		aria-labelledby="gridSystemModalLabel" id="add-anggota">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="gridSystemModalLabel">Tambah Anggota</h4>
+				</div>
+					<div class="modal-body">
+					<div class="form-group col-xs-4">
+					<label for="nik">NIK:</label>
+					<input type="text" class="form-control" id="nik" placeholder="input oleh user (unique)" name="nik"><br/> 
+					<label for="nama">Nama:</label>
+					<input type="text" class="form-control" id="nama" placeholder="input oleh user " name="nama"><br/> 	
+					<label for="jk">Gender:</label>
+					<div class="radio">
+		  				<label><input type="radio" name="jk" id="jk">Laki-laki </label>
+		  				<label><input type="radio" name="jk" id="jk">Perempuan </label>
+					</div><br/>
+					 <label for="alamat">Alamat:</label>
+		 			 <textarea class="form-control" rows="3" id="alamat"></textarea> <br/>
+					<label for="pekerjaan">Pekerjaan:</label>
+					<input type="text" class="form-control" id="pekerjaan" placeholder="input oleh user " name="pekerjaan"><br/> 	 
+					<label for="email">Email:</label>
+					<input type="text" class="form-control" id="email" placeholder="input oleh user(unique) " name="email"><br/> 	
+				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Save</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal --></body>
 </html>
