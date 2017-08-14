@@ -22,75 +22,62 @@ public class Penerbit {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	@Column(name="kode_penerbit", unique=true)
-	private String kode_penerbit;
-	private String nama_penerbit;
-	private String alamat_penerbit;
-	private Integer telpon_penerbit;
+	private String kodePenerbit;
+	private String namaPenerbit;
+	private String alamatPenerbit;
+	private Integer telponPenerbit;
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="penerbit")
-	private List<Buku>list_buku;
-
+	private List<Buku>listBuku;
 	public Penerbit() {
 		// TODO Auto-generated constructor stub
 	}
-
+	public Penerbit(Integer id, String kodePenerbit, String namaPenerbit, String alamatPenerbit, Integer telponPenerbit,
+			List<Buku> listBuku) {
+		super();
+		this.id = id;
+		this.kodePenerbit = kodePenerbit;
+		this.namaPenerbit = namaPenerbit;
+		this.alamatPenerbit = alamatPenerbit;
+		this.telponPenerbit = telponPenerbit;
+		this.listBuku = listBuku;
+	}
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getKode_penerbit() {
-		return kode_penerbit;
+	public String getKodePenerbit() {
+		return kodePenerbit;
 	}
-
-	public void setKode_penerbit(String kode_penerbit) {
-		this.kode_penerbit = kode_penerbit;
+	public void setKodePenerbit(String kodePenerbit) {
+		this.kodePenerbit = kodePenerbit;
 	}
-
-	public String getNama_penerbit() {
-		return nama_penerbit;
+	public String getNamaPenerbit() {
+		return namaPenerbit;
 	}
-
-	public void setNama_penerbit(String nama_penerbit) {
-		this.nama_penerbit = nama_penerbit;
+	public void setNamaPenerbit(String namaPenerbit) {
+		this.namaPenerbit = namaPenerbit;
 	}
-
-	public String getAlamat_penerbit() {
-		return alamat_penerbit;
+	public String getAlamatPenerbit() {
+		return alamatPenerbit;
 	}
-
-	public void setAlamat_penerbit(String alamat_penerbit) {
-		this.alamat_penerbit = alamat_penerbit;
+	public void setAlamatPenerbit(String alamatPenerbit) {
+		this.alamatPenerbit = alamatPenerbit;
 	}
-
-	public Integer getTelpon_penerbit() {
-		return telpon_penerbit;
+	public Integer getTelponPenerbit() {
+		return telponPenerbit;
 	}
-
-	public void setTelpon_penerbit(Integer telpon_penerbit) {
-		this.telpon_penerbit = telpon_penerbit;
+	public void setTelponPenerbit(Integer telponPenerbit) {
+		this.telponPenerbit = telponPenerbit;
 	}
-
-	public List<Buku> getList_buku() {
-		return list_buku;
+	public List<Buku> getListBuku() {
+		return listBuku;
 	}
-
-	public void setList_buku(List<Buku> list_buku) {
-		this.list_buku = list_buku;
+	public void setListBuku(List<Buku> listBuku) {
+		this.listBuku = listBuku;
 	}
-
-	public Penerbit(Integer id, String kode_penerbit, String nama_penerbit, String alamat_penerbit,
-			Integer telpon_penerbit, List<Buku> list_buku) {
-		super();
-		this.id = id;
-		this.kode_penerbit = kode_penerbit;
-		this.nama_penerbit = nama_penerbit;
-		this.alamat_penerbit = alamat_penerbit;
-		this.telpon_penerbit = telpon_penerbit;
-		this.list_buku = list_buku;
-	}
+	
 	
 	
 }

@@ -8,26 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
-import com.xsis.training.smkjavaweb.model.Distributor;
+import com.xsis.training.smkjavaweb.model.Penulis;
 import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 
 @Controller
-@RequestMapping("/distributor")
-public class DistributorController {
+@RequestMapping("/penulis")
+public class PenulisController {
+
 	@Autowired
-	DataServiceTokoBuku dataService;
-	
+	DataServiceTokoBuku dataservice;
 	@RequestMapping
 	public String index(){
-		return "distributor";
+		return "hello";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/save", method=RequestMethod.POST)
+	@RequestMapping(value="/save", method=RequestMethod.POST )
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public Distributor save(@RequestBody Distributor distributor){
-		dataService.saveDistributor(distributor);
-		return distributor;
+	public Penulis save(@RequestBody Penulis penulis){
+		dataservice.save(penulis);
+		return penulis;
 	}
 }

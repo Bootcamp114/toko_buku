@@ -13,26 +13,49 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name="tbl_buku")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+@Table(name = "tbl_buku")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Buku {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id_buku;
-	@Column(name="kode_buku",unique=true)
-	private String kode_buku;
-	private String judul_buku;
+	@Column(name = "kode_buku", unique = true)
+	private String kodeBuku;
+	private String judulBuku;
 	private String penulis;
 	@ManyToOne
-	private Category category;
-	private Integer tahun_terbit;
-	private String distributor;
-	private Double harga_beli;
+	private Kategori kategori;
+	@ManyToOne
+	private Penerbit penerbit;
+	private Integer tahunTerbit;
+	@ManyToOne
+	private Distributor distributor;
+	private Double hargaBuku;
 	private String status;
 	private Integer stock;
-	
+	@ManyToOne
+	private TransaksiPembelian transaksiPembelian;
+
 	public Buku() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Buku(Integer id_buku, String kodeBuku, String judulBuku, String penulis, Kategori kategori,
+			Penerbit penerbit, Integer tahunTerbit, Distributor distributor, Double hargaBuku, String status,
+			Integer stock, TransaksiPembelian transaksiPembelian) {
+		super();
+		this.id_buku = id_buku;
+		this.kodeBuku = kodeBuku;
+		this.judulBuku = judulBuku;
+		this.penulis = penulis;
+		this.kategori = kategori;
+		this.penerbit = penerbit;
+		this.tahunTerbit = tahunTerbit;
+		this.distributor = distributor;
+		this.hargaBuku = hargaBuku;
+		this.status = status;
+		this.stock = stock;
+		this.transaksiPembelian = transaksiPembelian;
 	}
 
 	public Integer getId_buku() {
@@ -43,20 +66,20 @@ public class Buku {
 		this.id_buku = id_buku;
 	}
 
-	public String getKode_buku() {
-		return kode_buku;
+	public String getKodeBuku() {
+		return kodeBuku;
 	}
 
-	public void setKode_buku(String kode_buku) {
-		this.kode_buku = kode_buku;
+	public void setKodeBuku(String kodeBuku) {
+		this.kodeBuku = kodeBuku;
 	}
 
-	public String getJudul_buku() {
-		return judul_buku;
+	public String getJudulBuku() {
+		return judulBuku;
 	}
 
-	public void setJudul_buku(String judul_buku) {
-		this.judul_buku = judul_buku;
+	public void setJudulBuku(String judulBuku) {
+		this.judulBuku = judulBuku;
 	}
 
 	public String getPenulis() {
@@ -67,40 +90,44 @@ public class Buku {
 		this.penulis = penulis;
 	}
 
-	public Category getCategory() {
-		return category;
+	public Kategori getKategori() {
+		return kategori;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setKategori(Kategori kategori) {
+		this.kategori = kategori;
 	}
 
-	
-
-	
-
-	public Integer getTahun_terbit() {
-		return tahun_terbit;
+	public Penerbit getPenerbit() {
+		return penerbit;
 	}
 
-	public void setTahun_terbit(Integer tahun_terbit) {
-		this.tahun_terbit = tahun_terbit;
+	public void setPenerbit(Penerbit penerbit) {
+		this.penerbit = penerbit;
 	}
 
-	public String getDistributor() {
+	public Integer getTahunTerbit() {
+		return tahunTerbit;
+	}
+
+	public void setTahunTerbit(Integer tahunTerbit) {
+		this.tahunTerbit = tahunTerbit;
+	}
+
+	public Distributor getDistributor() {
 		return distributor;
 	}
 
-	public void setDistributor(String distributor) {
+	public void setDistributor(Distributor distributor) {
 		this.distributor = distributor;
 	}
 
-	public Double getHarga_beli() {
-		return harga_beli;
+	public Double getHargaBuku() {
+		return hargaBuku;
 	}
 
-	public void setHarga_beli(Double harga_beli) {
-		this.harga_beli = harga_beli;
+	public void setHargaBuku(Double hargaBuku) {
+		this.hargaBuku = hargaBuku;
 	}
 
 	public String getStatus() {
@@ -119,19 +146,13 @@ public class Buku {
 		this.stock = stock;
 	}
 
-	public Buku(Integer id_buku, String kode_buku, String judul_buku, String penulis, Category category,
-		 Integer tahun_terbit, String distributor, Double harga_beli, String status,
-			Integer stock) {
-		super();
-		this.id_buku = id_buku;
-		this.kode_buku = kode_buku;
-		this.judul_buku = judul_buku;
-		this.penulis = penulis;
-		this.category = category;
-		this.tahun_terbit = tahun_terbit;
-		this.distributor = distributor;
-		this.harga_beli = harga_beli;
-		this.status = status;
-		this.stock = stock;
+	public TransaksiPembelian getTransaksiPembelian() {
+		return transaksiPembelian;
 	}
+
+	public void setTransaksiPembelian(TransaksiPembelian transaksiPembelian) {
+		this.transaksiPembelian = transaksiPembelian;
+	}
+
+	
 }

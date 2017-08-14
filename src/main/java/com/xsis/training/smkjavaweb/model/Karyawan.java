@@ -34,21 +34,24 @@ public class Karyawan {
 	private String email;
 	private String username;
 	private String password;
-	private String akses;
+	private String akses;/*
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="karyawan")
 	private List<SumberBuku> listSumberBuku;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="karyawan")
 	private List<Pengembalian> listPengembalian;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="karyawan")
-	private List<Peminjaman> listPeminjaman;
+	private List<Peminjaman> listPeminjaman;*/
+	/*punya sekhul*/
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="karyawan")
+	private List<TransaksiPembelian>transaksiPembelians;
 	
 	public Karyawan() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Karyawan(int id, String nik, String namaKaryawan, String jk, String alamat, String agama, String no_hp,
-			String email, String username, String password, String akses, List<SumberBuku> listSumberBuku,
-			List<Pengembalian> listPengembalian, List<Peminjaman> listPeminjaman) {
+			String email, String username, String password, String akses,
+			List<TransaksiPembelian> transaksiPembelians) {
 		super();
 		this.id = id;
 		this.nik = nik;
@@ -61,9 +64,7 @@ public class Karyawan {
 		this.username = username;
 		this.password = password;
 		this.akses = akses;
-		this.listSumberBuku = listSumberBuku;
-		this.listPengembalian = listPengembalian;
-		this.listPeminjaman = listPeminjaman;
+		this.transaksiPembelians = transaksiPembelians;
 	}
 
 	public int getId() {
@@ -154,29 +155,15 @@ public class Karyawan {
 		this.akses = akses;
 	}
 
-	public List<SumberBuku> getListSumberBuku() {
-		return listSumberBuku;
+	public List<TransaksiPembelian> getTransaksiPembelians() {
+		return transaksiPembelians;
 	}
 
-	public void setListSumberBuku(List<SumberBuku> listSumberBuku) {
-		this.listSumberBuku = listSumberBuku;
+	public void setTransaksiPembelians(List<TransaksiPembelian> transaksiPembelians) {
+		this.transaksiPembelians = transaksiPembelians;
 	}
-
-	public List<Pengembalian> getListPengembalian() {
-		return listPengembalian;
-	}
-
-	public void setListPengembalian(List<Pengembalian> listPengembalian) {
-		this.listPengembalian = listPengembalian;
-	}
-
-	public List<Peminjaman> getListPeminjaman() {
-		return listPeminjaman;
-	}
-
-	public void setListPeminjaman(List<Peminjaman> listPeminjaman) {
-		this.listPeminjaman = listPeminjaman;
-	}
+	
+	
 
 	
 }
