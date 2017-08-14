@@ -9,6 +9,17 @@
 <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css">
 <script type="text/javascript" src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$("#lihat-buku").on("click", function(){
+		alert("hello");
+		showData();
+	});
+});
+
+</script>
 </head>
 <body style="background: #f5f5f5;">
 	<nav class="navbar navbar-inverse">
@@ -40,6 +51,7 @@
 			<input style="width: 500px;" type="text" class="form-control" placeholder="Search for..."> 
 			<span class="input-group-btn">
 				<button class="btn btn-default" type="button">Go!</button>
+				<button style="margin-left: 10px" type="button" class="btn btn-primary" id="lihat-buku">Lihat Buku</button>
 			</span>
 			</div>
 		</div>
@@ -47,7 +59,7 @@
 	</tr>
 </table>
 <p>
-<table class="table table-bordered">
+<table class="table table-bordered" id="emp-dt">
 	<thead>
 		<tr>
 			<th>Kode Buku</th>
@@ -63,7 +75,75 @@
 			<th colspan="2">Action</th>
 		</tr>
 	</thead>
+	<tbody>
+		<tr></tr>
+	</tbody>
 </table>
 </div>
 </body>
+<script type="text/javascript">
+	function showData(){
+		$.ajax({
+			url : "/datastockbuku/getall",
+			type : "POST",
+			dataType : "JSON",
+			success : function(data, x, xhr) {
+				console.log("data is loaded");
+				console.log(data);
+				fillData(data);
+			}
+		});
+	}
+	
+	function fillData(data){
+		var dt = $("#emp-dt");
+		var tbody = dt.find('tbody');
+		tbody.find('tr').remove();
+		//extract data json
+		$
+				.each(
+						data,
+						function(index, buku) {
+							var trString = "<tr>";
+							trString += "<td>";
+							trString += buku.kodeBuku;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.judulBuku;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.penulis;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.kategori;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.penerbit;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.tahunTerbit;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.distributor;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.hargaBuku;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.status;
+							trString += "</td>";
+							trString += "<td>";
+							trString += buku.stock;
+							trString += "</td>";
+							trString += "<td>";
+							trString += "<a id_delete='"+buku.id+"'href ='#' class='delete'>delete</a>";
+							trString += "</td>";
+							trString += "<td>";
+							trString += "<a id_update='"+buku.id+"'href ='#' class='update'>update</a>";
+							trString += "</td>";
+							trString += "</tr>";
+							tbody.append(trString);
+						});
+	}
+</script>
 </html>

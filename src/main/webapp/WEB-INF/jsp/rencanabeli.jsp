@@ -9,6 +9,16 @@
 <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css">
 <script type="text/javascript" src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+	$("#teskhul").on('click', function(){
+		save();
+	});
+}); 
+	
+</script>
+
 </head>
 <body style="background: #f5f5f5;">
 	<nav class="navbar navbar-inverse">
@@ -34,19 +44,19 @@
 			<h3 align="center">Form Perencanaan Pembelian Buku <span class="label label-default"></span></h3><br>
 			<div class="form-group col-xs-6">
 				<label for="kodebuku">Kode Buku</label>
-				<input style="width:45%;" type="text" class="form-control" id="kodebuku" placeholder="Input Kode Buku">
+				<input style="width:45%;" type="text" class="form-control" name="kodeBuku" placeholder="Input Kode Buku">
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="judulbuku">Judul Buku</label>
-				<input type="text" class="form-control" id="judulbuku" placeholder="Masukan Judul Buku">
+				<input type="text" class="form-control" name="judulBuku" placeholder="Masukan Judul Buku">
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="penulis">Penulis</label>
-				<input type="text" class="form-control" id="penulis" placeholder="Masukan Penulis">
+				<input type="text" class="form-control" name="penulis" placeholder="Masukan Penulis">
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="category">Category</label>
-				<select class="form-control" readonly>
+				<select class="form-control" name="kategori" readonly>
 						<option>
 							Sastra
 						</option>
@@ -57,15 +67,22 @@
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="penerbit">Penerbit</label>
-				<input type="text" class="form-control" id="penerbit" placeholder="Masukan Penerbit" >
+				<select class="form-control" name="penerbit" readonly>
+						<option>
+							Buku Advertising
+						</option>
+						<option>
+							Bintang Buku
+						</option>
+				</select>
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="tahunterbit">Tahun Terbit</label>
-				<input style="width:" type="number" class="form-control" id="tahunterbit" placeholder="Masukan Tahun Terbit">
+				<input style="width:" type="number" class="form-control" name="tahunTerbit" placeholder="Masukan Tahun Terbit">
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="category">Distributor</label>
-				<select class="form-control" readonly>
+				<select class="form-control" name="distributor" readonly>
 						<option>
 							buku indo
 						</option>
@@ -75,17 +92,25 @@
 				</select>
 			</div>
 			<div class="form-group col-xs-6">
-				<label for="hargabeli">Harga Beli</label>
+				<label for="hargabeli">Kisaran Harga</label>
 			<div class="form-group">
 					<label class="sr-only" for="amount">Amount (indollars)</label>
 					<div class="input-group">
 						<div class="input-group-addon">Rp</div>
-							<input type="number" class="form-control" id="hargabeli" placeholder="Masukan Harga Beli">
+							<input type="number" class="form-control" name="hargaBuku" placeholder="Masukan Kisaran Harga">
 						<div class="input-group-addon">.00</div>
-					</div><br>
-					<button type="button" class="btn btn-primary">Add Rencana</button>
+					</div>
 				</div>
 			</div>
+			<div class="form-group col-xs-6">
+				<label for="tahunterbit">Status</label>
+				<input style="width:" type="text" class="form-control" name="status" placeholder="Masukan Status">
+			</div>
+			<div class="form-group col-xs-6">
+				<label for="tahunterbit">Stock</label>
+				<input style="width:" type="text" class="form-control" name="stock" placeholder="Masukan Stock">
+			</div>
+			<button type="button" name="submit" class="btn btn-primary" id="teskhul">Tambah Rencana</button>
 		</form>
 		<table class="table table-bordered">
 			<thead>
@@ -122,4 +147,46 @@
 		<button type="button" class="btn btn-primary">Simpan Rencana</button>
 	</div>
 </body>
+
+<script type="text/javascript">
+	function save(){
+		//alert("hello pejuang");
+		var kodeBuku = $("input[name='kodeBuku']").val();
+		var judulBuku = $("input[name='judulBuku']").val();
+		var penulis = $("input[name='penulis']").val();
+		var kategori = $("input[name='kategori']").val();
+		var penerbit = $("input[name='penerbit']").val();
+		var tahunTerbit = $("input[name='tahunTerbit']").val();
+		var distributor = $("input[name='distributor']").val();
+		var hargaBuku = $("input[name='hargaBuku']").val();
+		var status = $("input[name='status']").val();
+		var stock = $("input[name='stock']").val();
+		
+		var buku ={
+				kodeBuku : kodeBuku,
+				judulBuku : judulBuku,
+				penulis : penulis,
+				kategori : kategori,
+				penerbit : penerbit,
+				tahunTerbit : tahunTerbit,
+				distributor : distributor,
+				hargaBuku : hargaBuku,
+				status : status,
+				stock : stock
+		}
+		console.log(buku);
+		
+		 $.ajax({
+			url : "/rencanabeli/save",
+			type : "POST",
+			contentType : "application/json",
+			data : JSON.stringify(buku),
+			success : function (data, a, xhr){
+				if (xhr.status == 201) {
+					console.log("Data Berhasil Di Create");
+				}
+			}
+		});
+	}
+</script>
 </html>

@@ -1,18 +1,22 @@
 package com.xsis.training.smkjavaweb.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.xsis.training.smkjavaweb.dao.AnggotaDao;
+import com.xsis.training.smkjavaweb.dao.BukuDao;
 import com.xsis.training.smkjavaweb.dao.DistributorDao;
 import com.xsis.training.smkjavaweb.dao.KategoriDao;
+import com.xsis.training.smkjavaweb.dao.PenerbitDao;
 import com.xsis.training.smkjavaweb.dao.PenulisDao;
-import com.xsis.training.smkjavaweb.dao.RencanaBeli;
+import com.xsis.training.smkjavaweb.dao.RencanaBeliDao;
 import com.xsis.training.smkjavaweb.model.Anggota;
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.model.Distributor;
 import com.xsis.training.smkjavaweb.model.Kategori;
+import com.xsis.training.smkjavaweb.model.Penerbit;
 import com.xsis.training.smkjavaweb.model.Penulis;
 
 @Service
@@ -20,23 +24,22 @@ import com.xsis.training.smkjavaweb.model.Penulis;
 public class DataServiceTokoBuku {
 
 	@Autowired
-	private AnggotaDao angg	otaDao;
-	private RencanaBeli rencanaBeli;
+	private AnggotaDao anggotaDao;
 	private PenulisDao penulisDao;
 	@Autowired
 	private KategoriDao kategoriDao;
 	@Autowired
 	private DistributorDao distributorDao;
-	
+	@Autowired
+	private PenerbitDao penerbitDao;
+	@Autowired
+	private RencanaBeliDao rencanaBeliDao;
+	@Autowired
+	private BukuDao bukuDao;
 
 	public void save(Anggota anggota) {
 		// TODO Auto-generated method stub
 		anggotaDao.save(anggota);
-	}
-
-	public void save(Buku buku) {
-		// TODO Auto-generated method stub
-		rencanaBeli.save(buku);
 	}
 
 	public void save(Penulis penulis) {
@@ -54,4 +57,19 @@ public class DataServiceTokoBuku {
 		distributorDao.save(distributor);
 	}
 
+	public void savePenerbit(Penerbit penerbit) {
+		// TODO Auto-generated method stub
+		penerbitDao.save(penerbit);
+	}
+
+	public void saveRencanaBeli(Buku buku) {
+		// TODO Auto-generated method stub
+		rencanaBeliDao.save(buku);
+	}
+
+	public List<Buku> getAllBuku() {
+		// TODO Auto-generated method stub
+		return bukuDao.getAllBuku();
+	}
+	
 }

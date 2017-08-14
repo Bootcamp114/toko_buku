@@ -1,24 +1,24 @@
 package com.xsis.training.smkjavaweb.dao;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.xsis.training.smkjavaweb.model.Buku;
+import com.xsis.training.smkjavaweb.model.Penerbit;
 
 @Repository
-public class RencanaBeliDaoImpl implements RencanaBeliDao {
-	
-	@Autowired
-	SessionFactory sessionFactory;
+public class PenerbitDaoImpl implements PenerbitDao {
 
+	@Autowired
+	private SessionFactory sessionFactory;
+	
 	@Override
-	public void save(Buku buku) {
+	public void save(Penerbit penerbit) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(buku);
+		session.save(penerbit);
 		session.flush();
-	}	
+	}
+
 }

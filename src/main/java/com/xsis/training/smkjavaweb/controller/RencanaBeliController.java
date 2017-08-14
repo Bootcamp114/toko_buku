@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.training.smkjavaweb.dao.RencanaBeliDao;
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 @Controller
@@ -22,18 +23,10 @@ public class RencanaBeliController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/tes", method = RequestMethod.GET)
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void tes(){
-		System.out.println("oke");
-	}
-	
-	@ResponseBody
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public Buku save(@RequestBody Buku buku) {
-		// recieve data json
-		dataService.save(buku);
+	public Buku tes(@RequestBody Buku buku){
+		dataService.saveRencanaBeli(buku);
 		return buku;
 	}
 }

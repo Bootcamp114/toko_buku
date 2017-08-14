@@ -16,7 +16,8 @@ import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 @RequestMapping("/penerbit")
 public class PenerbitController {
 	
-	@Autowired DataServiceTokoBuku dataService;
+	@Autowired 
+	DataServiceTokoBuku dataService;
 	
 	@RequestMapping
 	public String index(){
@@ -27,7 +28,7 @@ public class PenerbitController {
 	@RequestMapping(value="/save", method= RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public Penerbit save(@RequestBody Penerbit penerbit){
-		//dataService.savePenerbit(penerbit);
+		dataService.savePenerbit(penerbit);
 		return penerbit;
 	}
 }

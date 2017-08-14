@@ -1,5 +1,6 @@
 package com.xsis.training.smkjavaweb.dao;
 
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,18 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.training.smkjavaweb.model.Buku;
-
 @Repository
-public class RencanaBeliDaoImpl implements RencanaBeliDao {
-	
+public class BukuDaoImpl implements BukuDao {
 	@Autowired
 	SessionFactory sessionFactory;
-
+	
 	@Override
-	public void save(Buku buku) {
+	public List<Buku> getAllBuku() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(buku);
-		session.flush();
-	}	
+		return session.createCriteria(Buku.class).list();
+	}
+
 }
