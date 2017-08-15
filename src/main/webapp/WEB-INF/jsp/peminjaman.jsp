@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +24,7 @@ th {
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		//showData();
 		//alert('Mulai Transaksi');
 		$("#selesai").on("click", function() {
 			alert('Kembali ke transaksi baru');
@@ -62,11 +65,9 @@ th {
 					name="no_peminjaman" readonly="readonly"><br /> <label
 					for="anggota">Anggota:</label> <select class="form-control"
 					id="anggota" style="width: 63%;">
-					<option>Unknow(Dari tabel anggota)</option>
-					<option>ex:1</option>
-					<option>ex:2</option>
-					<option>ex:3</option>
-					<option>ex:4</option>
+					<c:forEach var="anggota" items="${anggota}">
+						<option value="${anggota.id}">${anggota.nama}</option>
+				</c:forEach>
 				</select> <br />
 
 				<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -87,7 +88,7 @@ th {
 
 		</form>
 
-		<table class="table table-striped">
+		<table id="peminjaman-dt" class="table table-striped">
 			<thead>
 				<tr>
 					<th>No. Buku</th>
@@ -101,26 +102,17 @@ th {
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>BK001</td>
-					<td>Adaapa Dengan Java</td>
-					<td>9812345</td>
-					<td>Andrea Sirata</td>
-					<td>Bintang Jakarta</td>
-					<td>2010</td>
-					<td>30.000</td>
-					<td><a class="btn btn-danger btn-xs">Hapus</a></td>
-				</tr>
-				<tr>
-					<td>BK002</td>
-					<td>Laskar Hitam Pulih</td>
-					<td>654768345</td>
-					<td>Ulul Maul</td>
-					<td>Bogor Beriman</td>
-					<td>2014</td>
-					<td>15.000</td>
-					<td><a class="btn btn-danger btn-xs">Hapus</a></td>
-				</tr>
+				<c:forEach var="peminjaman" items="${peminjaman}">
+					<tr>
+						<td>${peminjaman.noPeminjaman}</td>
+						<td>${peminjaman.bukuPinjam}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		<input type="submit" id="selesai" value="Selesai"
@@ -239,4 +231,58 @@ th {
 
 
 </body>
+<script type="text/javascript">
+function showData(){
+	$.ajax({
+		url : '/peminjaman/getAll',
+		type : 'POST',
+		dataType : 'json',
+		success : function(data, x, xhr){
+			fillData(data);
+		}
+	});
+}
+function fillData(data){
+	var dt = $("#peminjaman-dt");
+	var tbody = dt.find('tbody');
+	tbody.find('tr').remove();
+	
+	$.each(data, function(index, peminjaman){
+		var trString = "<tr>";
+				trString += "<td>";
+				 	trString += peminjaman.noPeminjaman;
+					trString += "</td>";
+					trString += "<td>";
+				 		trString += peminjaman.tglPinjam;
+					trString += "</td>";
+					trString += "<td>";
+			 			trString += peminjaman.tglKembali;
+					trString += "</td>";
+					trString += "</td>";
+					trString += "<td>";
+				 		trString += peminjaman.status;
+					trString += "</td>";
+					trString += "<td>";
+			 			trString += peminjaman.anggota;
+					trString += "</td>";
+					trString += "</td>";
+					trString += "<td>";
+			 		trString += peminjaman.bukuPinjam;
+					trString += "</td>";
+					trString += "<td>";
+		 				trString += peminjaman.karyawan;
+					trString += "</td>";
+					trString += "<td>";
+				 		trString += "<a id_delete='"+peminjaman.id+"' href='#' class='delete'>Delete</a>";
+				trString += "</td>";
+				trString += "</td>";
+					trString += "<td>";
+				 		trString += "<a id_update='"+peminjaman.id+"' href='#' class='update'>Update</a>";
+					trString += "</td>";
+			trString += "</tr>"
+			tbody.append(trString);
+	});
+}
+
+</script>
 </html>
