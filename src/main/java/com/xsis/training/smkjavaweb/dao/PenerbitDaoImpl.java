@@ -1,5 +1,7 @@
 package com.xsis.training.smkjavaweb.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,13 @@ public class PenerbitDaoImpl implements PenerbitDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(penerbit);
 		session.flush();
+	}
+
+	@Override
+	public List<Penerbit> getAllPenerbit() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(Penerbit.class).list();
 	}
 
 }

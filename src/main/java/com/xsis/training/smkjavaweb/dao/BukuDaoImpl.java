@@ -11,13 +11,24 @@ import com.xsis.training.smkjavaweb.model.Buku;
 @Repository
 public class BukuDaoImpl implements BukuDao {
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public List<Buku> getAllBuku() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(Buku.class).list();
+	}
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Buku buku =new Buku();
+		buku.setId_buku(id);
+		buku.setJudulBuku("will delete");
+		session.delete(buku);
+		session.flush();
 	}
 
 }

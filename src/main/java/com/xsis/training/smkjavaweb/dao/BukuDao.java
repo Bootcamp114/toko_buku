@@ -8,4 +8,6 @@ public interface BukuDao {
 
 	List<Buku> getAllBuku();
 
+	void delete(int id);
+
 }

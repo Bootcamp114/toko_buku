@@ -13,9 +13,15 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$("#lihat-buku").on("click", function(){
-		alert("hello");
-		showData();
+	//nampilin table buku
+	showData();
+	$(document).on("click", ".delete" ,function(){
+		//alert("hello ganteng");
+		onDelete(this);
+	});
+	
+	$(document).on("click",".update" , function(){
+		alert("hllo brooo");
 	});
 });
 
@@ -136,14 +142,31 @@ $(document).ready(function(){
 							trString += buku.stock;
 							trString += "</td>";
 							trString += "<td>";
-							trString += "<a id_delete='"+buku.id+"'href ='#' class='delete'>delete</a>";
+							trString += "<a id_delete='"+buku.id_buku+"'href ='#' class='delete'>delete</a>";
 							trString += "</td>";
 							trString += "<td>";
-							trString += "<a id_update='"+buku.id+"'href ='#' class='update'>update</a>";
+							trString += "<a id_update='"+buku.id_buku+"'href ='#' class='update' >update</a>";
 							trString += "</td>";
 							trString += "</tr>";
 							tbody.append(trString);
 						});
+	}
+	
+	function onDelete(ini){
+		var id_buku = $(ini).attr("id_delete");
+		console.log(id_buku);
+		$.ajax({
+			url : "/datastockbuku/delete/"+id_buku,
+			type : "DELETE",
+			success : function(data){
+				console.log(data);
+				showData();
+			}
+		});
+	}
+	
+	function onUpdate(ini){
+		
 	}
 </script>
 </html>

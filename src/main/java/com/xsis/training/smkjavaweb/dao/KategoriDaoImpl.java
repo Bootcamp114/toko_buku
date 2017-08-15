@@ -1,5 +1,7 @@
 package com.xsis.training.smkjavaweb.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,13 @@ public class KategoriDaoImpl implements KategoriDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(kategori);
 		session.flush();
+	}
+
+	@Override
+	public List<Kategori> getAllKategori() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(Kategori.class).list();
 	}
 	
 }

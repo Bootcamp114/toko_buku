@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -56,24 +58,18 @@
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="category">Category</label>
-				<select class="form-control" name="kategori" readonly>
-						<option>
-							Sastra
-						</option>
-						<option>
-							Komputer
-						</option>
+				<select class="form-control" name="kategori" id="kategori" >
+					<c:forEach var = "kategori" items="${kategori }">
+						<option value="${kategori.id}">${kategori.jenisKategori }</option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="penerbit">Penerbit</label>
-				<select class="form-control" name="penerbit" readonly>
-						<option>
-							Buku Advertising
-						</option>
-						<option>
-							Bintang Buku
-						</option>
+				<select class="form-control" name="penerbit" id="penerbit">
+						<c:forEach var="penerbit" items="${penerbit}">
+							<option value="${ penerbit.id}">${penerbit.namaPenerbit }</option>
+						</c:forEach>
 				</select>
 			</div>
 			<div class="form-group col-xs-6">
@@ -82,13 +78,10 @@
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="category">Distributor</label>
-				<select class="form-control" name="distributor" readonly>
-						<option>
-							buku indo
-						</option>
-						<option>
-							oke
-						</option>
+				<select class="form-control" name="distributor" id="distributor">
+				<c:forEach var="distributor" items="${distributor}">
+						<option value="${distributor.id}">${distributor.namaDistributor}</option>
+				</c:forEach>
 				</select>
 			</div>
 			<div class="form-group col-xs-6">
@@ -106,12 +99,12 @@
 				<label for="tahunterbit">Status</label>
 				<input style="width:" type="text" class="form-control" name="status" placeholder="Masukan Status">
 			</div>
-			<div class="form-group col-xs-6">
+			<!-- <div class="form-group col-xs-6">
 				<label for="tahunterbit">Stock</label>
 				<input style="width:" type="text" class="form-control" name="stock" placeholder="Masukan Stock">
-			</div>
+			</div> -->
 			<button type="button" name="submit" class="btn btn-primary" id="teskhul">Tambah Rencana</button>
-		</form>
+		</form><br>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -154,10 +147,10 @@
 		var kodeBuku = $("input[name='kodeBuku']").val();
 		var judulBuku = $("input[name='judulBuku']").val();
 		var penulis = $("input[name='penulis']").val();
-		var kategori = $("input[name='kategori']").val();
-		var penerbit = $("input[name='penerbit']").val();
+		var kategori = $("#kategori").val();
+		var penerbit = $("#penerbit").val();
 		var tahunTerbit = $("input[name='tahunTerbit']").val();
-		var distributor = $("input[name='distributor']").val();
+		var distributor = $("#distributor").val();
 		var hargaBuku = $("input[name='hargaBuku']").val();
 		var status = $("input[name='status']").val();
 		var stock = $("input[name='stock']").val();
@@ -166,10 +159,16 @@
 				kodeBuku : kodeBuku,
 				judulBuku : judulBuku,
 				penulis : penulis,
-				kategori : kategori,
-				penerbit : penerbit,
+				kategori : {
+					id : kategori
+				},
+				penerbit : {
+					id : penerbit
+				},
 				tahunTerbit : tahunTerbit,
-				distributor : distributor,
+				distributor : {
+					id : distributor
+				},
 				hargaBuku : hargaBuku,
 				status : status,
 				stock : stock
@@ -188,5 +187,7 @@
 			}
 		});
 	}
+	
+	
 </script>
 </html>
