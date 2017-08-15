@@ -75,30 +75,23 @@
 				<div class="form-group form-inline">
 					<label>Jumlah Beli</label>
 					<div class="controls">
-						<input type="number" id="num2" onKeyUp="recalculateSum();"
-							name="jumlah" class="form-control">
+						<input type="number" id="num2" onKeyUp="recalculateSum();" name="jumlah" class="form-control">
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label>Total Harga</label>
 					<div class="controls">
-						<input readonly type="text" id="sum" name="total"
-							class="form-control">
+						<input readonly type="text" id="sum" name="total" class="form-control">
 					</div>
 				</div>
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" name="simpan" class="btn btn-primary">Tambah
+						<button type="submit" name="tambah" class="btn btn-primary">Tambah
 							Buku</button>
 					</div>
 				</div>
 			</div>
-
-
-
-
-
 			
 			<br/>
 			<div class="form-group col-xs-7">
@@ -119,20 +112,18 @@
 				<label>Apakah Anda Member?</label>
 				<div class="controls">
 					<div class="radio-inline" data-toggle="modal" data-target="#formMember"> <input type="radio" name="radioOption" id="ya"> Ya </div>
-        			<div class="radio-inline" data-toggle="modal" data-target="#formMember"> <input type="radio" name="radioOption" id="tidak"> Tidak </div>
+        			<div class="radio-inline"> <input type="radio" name="radioOption" id="tidak"> Tidak </div>
 				</div>
 			</div>
 			<div class="form-group form-inline">
 				<label>Diskon</label>
 				<div class="controls">
-					<input type="text" id="diskon" name="diskon" class="form-control" size="5" readonly>
+					<input type="text" id="diskon" name="diskon" class="form-control" size="1" readonly>
 				</div>
 			</div>
 			<div class="form-group form-inline">
 				<label>Bayar</label>
 				<div class="controls">
-					<input type="hidden" name="grand_total" id="total"
-						class="form-control">
 					<input name="bayar" id="bayar" onKeyUp="recalculateKembalian();"
 						class="demo form-control" type="text"> <input
 						name="bayarGet" id="bayarGet" readonly type="hidden">
@@ -175,23 +166,25 @@
 								Tersedia</h4>
 						</div>
 						<div class="table-responsive">
-							<table class="table table-hover table-bordered">
-								<tr>
-									<th>Judul Buku</th>
-									<th>Penulis</th>
-									<th>Penerbit</th>
-									<th>Harga</th>
-									<th>Stok</th>
-									<th>Aksi</th>
-								</tr>
+							<table class="table table-hover table-bordered" align="center">
+								<thead>
+									<tr>
+										<th>Judul Buku</th>
+										<th>Penulis</th>
+										<th>Penerbit</th>
+										<th>Harga</th>
+										<th>Stok</th>
+										<th>Aksi</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			<div class="modal fade" id="formMember" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel">
+			<div class="modal fade" id="formMember" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -199,7 +192,7 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">Member</h4>
+							<h4 class="modal-title" id="gridSystemModalLabel">Member</h4>
 						</div>
 						<form style="margin: 30px;">
 						<div class="form-group form-inline">
@@ -211,20 +204,19 @@
 				<div class="form-group form-inline">
 					<label>Nama Member</label>
 					<div class="controls">
-						<input readonly type="text" name="nama_member"
-							class="form-control">
+						<input readonly type="text" name="nama_member" class="form-control">
 					</div>
 				</div>
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" name="simpan" class="btn btn-primary">OK</button>
+						<button type="submit" data-dismiss="modal" name="ok" class="btn btn-primary">OK</button>
 					</div>
 				</div>
+				</form>
 					</div>
 				</div>
-			</div>
-			</form>
+			</div>			
 </body>
 <script type="text/javascript">
 	function recalculateSum()
