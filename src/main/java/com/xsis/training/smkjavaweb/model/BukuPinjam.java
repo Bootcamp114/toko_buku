@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,127 +24,71 @@ public class BukuPinjam {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
-	@Column(name="no_buku",nullable = false, unique = true)
+	@Column(name="no_buku", nullable = false, unique = true)
 	private String noBuku;
-	private String judul;
-	private String edisi;
-	@Column(name="no_isbn")
-	private int noIsbn;
-	private String penulis;
-	private String penerbit;
-	@Column(name="tahun_terbit")
-	private int tahunTerbit;
-	private Double harga;
+	private String tanggal;
 	private String status;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="bukuPinjam")
-	private List<SumberBuku> listSumberBuku;
-	
+	@ManyToOne
+	private Buku buku;
+	@ManyToOne
+	private Donatur donatur;
+	@ManyToOne
+	private Karyawan karyawan;
 	public BukuPinjam() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public BukuPinjam(int id, String noBuku, String judul, String edisi, int noIsbn, String penulis, String penerbit,
-			int tahunTerbit, Double harga, String status, List<SumberBuku> listSumberBuku) {
+	public BukuPinjam(int id, String noBuku, String tanggal, String status, Buku buku, Donatur donatur,
+			Karyawan karyawan) {
 		super();
 		this.id = id;
 		this.noBuku = noBuku;
-		this.judul = judul;
-		this.edisi = edisi;
-		this.noIsbn = noIsbn;
-		this.penulis = penulis;
-		this.penerbit = penerbit;
-		this.tahunTerbit = tahunTerbit;
-		this.harga = harga;
+		this.tanggal = tanggal;
 		this.status = status;
-		this.listSumberBuku = listSumberBuku;
+		this.buku = buku;
+		this.donatur = donatur;
+		this.karyawan = karyawan;
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public String getNoBuku() {
 		return noBuku;
 	}
-
 	public void setNoBuku(String noBuku) {
 		this.noBuku = noBuku;
 	}
-
-	public String getJudul() {
-		return judul;
+	public String getTanggal() {
+		return tanggal;
 	}
-
-	public void setJudul(String judul) {
-		this.judul = judul;
+	public void setTanggal(String tanggal) {
+		this.tanggal = tanggal;
 	}
-
-	public String getEdisi() {
-		return edisi;
-	}
-
-	public void setEdisi(String edisi) {
-		this.edisi = edisi;
-	}
-
-	public int getNoIsbn() {
-		return noIsbn;
-	}
-
-	public void setNoIsbn(int noIsbn) {
-		this.noIsbn = noIsbn;
-	}
-
-	public String getPenulis() {
-		return penulis;
-	}
-
-	public void setPenulis(String penulis) {
-		this.penulis = penulis;
-	}
-
-	public String getPenerbit() {
-		return penerbit;
-	}
-
-	public void setPenerbit(String penerbit) {
-		this.penerbit = penerbit;
-	}
-
-	public int getTahunTerbit() {
-		return tahunTerbit;
-	}
-
-	public void setTahunTerbit(int tahunTerbit) {
-		this.tahunTerbit = tahunTerbit;
-	}
-
-	public Double getHarga() {
-		return harga;
-	}
-
-	public void setHarga(Double harga) {
-		this.harga = harga;
-	}
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public List<SumberBuku> getListSumberBuku() {
-		return listSumberBuku;
+	public Buku getBuku() {
+		return buku;
 	}
-
-	public void setListSumberBuku(List<SumberBuku> listSumberBuku) {
-		this.listSumberBuku = listSumberBuku;
+	public void setBuku(Buku buku) {
+		this.buku = buku;
+	}
+	public Donatur getDonatur() {
+		return donatur;
+	}
+	public void setDonatur(Donatur donatur) {
+		this.donatur = donatur;
+	}
+	public Karyawan getKaryawan() {
+		return karyawan;
+	}
+	public void setKaryawan(Karyawan karyawan) {
+		this.karyawan = karyawan;
 	}
 
 }

@@ -5,18 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.xsis.training.smkjavaweb.dao.AnggotaDao;
-import com.xsis.training.smkjavaweb.dao.BukuDao;
 import com.xsis.training.smkjavaweb.dao.DistributorDao;
 import com.xsis.training.smkjavaweb.dao.KategoriDao;
-import com.xsis.training.smkjavaweb.dao.PenerbitDao;
 import com.xsis.training.smkjavaweb.dao.PenulisDao;
-import com.xsis.training.smkjavaweb.dao.RencanaBeliDao;
 import com.xsis.training.smkjavaweb.model.Anggota;
 import com.xsis.training.smkjavaweb.model.Buku;
+import com.xsis.training.smkjavaweb.model.BukuPinjam;
 import com.xsis.training.smkjavaweb.model.Distributor;
 import com.xsis.training.smkjavaweb.model.Kategori;
-import com.xsis.training.smkjavaweb.model.Penerbit;
 import com.xsis.training.smkjavaweb.model.Penulis;
 
 @Service
@@ -30,16 +28,15 @@ public class DataServiceTokoBuku {
 	private KategoriDao kategoriDao;
 	@Autowired
 	private DistributorDao distributorDao;
-	@Autowired
-	private PenerbitDao penerbitDao;
-	@Autowired
-	private RencanaBeliDao rencanaBeliDao;
-	@Autowired
-	private BukuDao bukuDao;
+	
 
 	public void save(Anggota anggota) {
 		// TODO Auto-generated method stub
 		anggotaDao.save(anggota);
+	}
+
+	public void save(Buku buku) {
+		// TODO Auto-generated method stub
 	}
 
 	public void save(Penulis penulis) {
@@ -57,19 +54,29 @@ public class DataServiceTokoBuku {
 		distributorDao.save(distributor);
 	}
 
-	public void savePenerbit(Penerbit penerbit) {
+	public void saveAnggota(Anggota anggota) {
 		// TODO Auto-generated method stub
-		penerbitDao.save(penerbit);
+		
 	}
 
-	public void saveRencanaBeli(Buku buku) {
+	public List<Anggota> getAllAnggota() {
 		// TODO Auto-generated method stub
-		rencanaBeliDao.save(buku);
+		return null;
 	}
 
-	public List<Buku> getAllBuku() {
+	public Anggota getByIdAnggota(int id) {
 		// TODO Auto-generated method stub
-		return bukuDao.getAllBuku();
+		return null;
 	}
-	
+
+	public void deleteAnggota(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void saveBukuPinjam(BukuPinjam bkp) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
