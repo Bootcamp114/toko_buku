@@ -1,10 +1,12 @@
 package com.xsis.training.smkjavaweb.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -20,16 +22,21 @@ public class Pembelian {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
+	@Column(name="noFaktur", unique = true)
 	private String noFaktur;
+	@OneToOne
+	private DetailPembelian detailPembelian;
 	@ManyToOne
 	private Member member;
 	private Double bayar;
 	private Double kembalian;
 	private String tanggal;
-	public Pembelian(int id, String noFaktur, Member member, Double bayar, Double kembalian, String tanggal) {
+	public Pembelian(int id, String noFaktur, DetailPembelian detailPembelian, Member member, Double bayar,
+			Double kembalian, String tanggal) {
 		super();
 		this.id = id;
 		this.noFaktur = noFaktur;
+		this.detailPembelian = detailPembelian;
 		this.member = member;
 		this.bayar = bayar;
 		this.kembalian = kembalian;
@@ -46,6 +53,12 @@ public class Pembelian {
 	}
 	public void setNoFaktur(String noFaktur) {
 		this.noFaktur = noFaktur;
+	}
+	public DetailPembelian getDetailPembelian() {
+		return detailPembelian;
+	}
+	public void setDetailPembelian(DetailPembelian detailPembelian) {
+		this.detailPembelian = detailPembelian;
 	}
 	public Member getMember() {
 		return member;

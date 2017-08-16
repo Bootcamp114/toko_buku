@@ -142,5 +142,10 @@ public class DataServiceTokoBuku {
 		// TODO Auto-generated method stub
 		return anggotaDao.getById(id);
 	}
+
+	public Buku getBukuById(int id) {
+		// TODO Auto-generated method stub
+		return bukuDao.getBukuById(id);
+	}
 	
 }

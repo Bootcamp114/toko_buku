@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ page isELIgnored="false"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,6 +15,21 @@
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(document).on("click", ".pilih", function(){
+			var id = $(this).attr("id_pilih");
+			
+			$.ajax({
+				url : '/pembelian/pilih/' +id,
+				type : 'GET',
+				success : function(data){
+					pilihBuku(data);
+				}
+			});
+		});
+	});
+</script>
 	<style>
   .affix {
       top: 0;
@@ -43,7 +60,7 @@
   	</div>
 </div>
 </nav>
-	<form method="post">
+	<form>
 		<div class="container">
 			<div class="form-group col-xs-4">
 				<div class="form-group form-inline">
@@ -58,30 +75,28 @@
 					<div class="clearfix"></div>
 					<div class="controls">
 						<input type="hidden" name="id_buku"
-							class="form-group form-control" /> <input type="text"
-							name="buku" readonly class="form-control" /> <a href="#"
+							class="form-group form-control" /> <input type="text" id="judulBuku"
+							name="JudulBuku" readonly class="form-control" /> <a href="#"
 							style="text-decoration: none; color: #fff;"><button
-								type="button" class="form-group btn btn-info"
-								data-toggle="modal" data-target="#formBuku">Lihat</button></a>
+								type="button" class="form-group btn btn-info" data-toggle="modal" data-target="#formBuku">Lihat</button></a>
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label>Harga Buku</label>
 					<div class="controls">
-						<input type="text" id="num1" onKeyUp="recalculateSum();"
-							name="harga" class="form-control">
+						<input type="text" id="hargaBuku" name="hargaBuku" class="form-control">
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label>Jumlah Beli</label>
 					<div class="controls">
-						<input type="number" id="num2" onKeyUp="recalculateSum();" name="jumlah" class="form-control">
+						<input type="number" id="jumlah" onKeyUp="recalculateSum();" name="jumlah" class="form-control">
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label>Total Harga</label>
 					<div class="controls">
-						<input readonly type="text" id="sum" name="total" class="form-control">
+						<input readonly type="text" id="total" name="total" class="form-control">
 					</div>
 				</div>
 				<div class="control-group">
@@ -97,14 +112,16 @@
 			<div class="form-group col-xs-7">
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered">
-					<tr>
-						<th>Judul</th>
-						<th>Harga Satuan</th>
-						<th>Jumlah Beli</th>
-						<th>PPN</th>
-						<th>Total</th>
-						<th class="text-center">Hapus</th>
-					</tr>
+					<thead>
+						<tr>
+							<th>Judul</th>
+							<th>Harga Satuan</th>
+							<th>Jumlah Beli</th>
+							<th>Total</th>
+							<th class="text-center">Hapus</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
 				</table>
 			</div>
 			<br /> <br />
@@ -166,7 +183,7 @@
 								Tersedia</h4>
 						</div>
 						<div class="table-responsive">
-							<table class="table table-hover table-bordered" align="center">
+							<table id="buku-dt" class="table table-hover table-bordered" align="center">
 								<thead>
 									<tr>
 										<th>Judul Buku</th>
@@ -177,7 +194,18 @@
 										<th>Aksi</th>
 									</tr>
 								</thead>
-								<tbody></tbody>
+								<tbody>
+									<c:forEach var="listBuku" items="${listBuku}">
+									<tr>
+										<td>${listBuku.judulBuku}</td>
+										<td>${listBuku.penulis}</td>
+										<td>${listBuku.penerbit.namaPenerbit}</td>
+										<td>${listBuku.hargaBuku}</td>
+										<td>${listBuku.stock}</td>
+										<td><button type="button" data-dismiss="modal" name="pilih" id_pilih="${listBuku.id_buku}" id="pilih" class="btn btn-success btn-xs">Pilih</button></td>
+									</tr>
+									</c:forEach>
+								</tbody>
 							</table>
 						</div>
 					</div>
@@ -219,11 +247,15 @@
 			</div>			
 </body>
 <script type="text/javascript">
+	function pilihBuku(data){
+		$('#judulBuku').val(data.judulBuku);
+		$('#hargaBuku').val(data.hargaBuku);
+	}
 	function recalculateSum()
 	{
-  		var num1 = parseInt(document.getElementById("num1").value);
-  		var num2 = parseInt(document.getElementById("num2").value);
-  		document.getElementById("sum").value = num1 * num2;     
+  		var hargaBuku = document.getElementById("hargaBuku").value;
+  		var jumlah = document.getElementById("jumlah").value;
+  		document.getElementById("total").value = hargaBuku * jumlah;     
 	}
 </script>
 </html>

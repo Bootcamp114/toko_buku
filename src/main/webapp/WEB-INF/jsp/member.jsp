@@ -15,13 +15,10 @@
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		showData();
 		$("#add").on("click", function(){
 			save();
-		});
-		
-		$("#loadData").on("click", function(){
-			showData();
-		});
+		});			
 		
 		$(document).on("click",".delete", function(){
 			var conf = confirm("Apakah Anda ingin menghapus data?");
@@ -119,9 +116,8 @@
 				</div>
 				<br/>
 				<br/>
-			<div class="form-group col-xs-10">
+			<div class="form-group col-xs-9">
 		<div class="table-responsive">
-		<a href="#" id="loadData">Show Data</a>
 				<table id="mem-dt" class="table table-hover table-bordered">
 					<thead>
 						<tr>

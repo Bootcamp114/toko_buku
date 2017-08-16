@@ -10,4 +10,6 @@ public interface BukuDao {
 
 	void delete(int id);
 
+	Buku getBukuById(int id);
+
 }
