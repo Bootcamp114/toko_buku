@@ -231,8 +231,6 @@ function fillData(data){
 			}
 		});
 		
-		
-		
 		function clearForm(){
 			$('input[id="id"]').val("");
 			$('input[id="pinMember"]').val("");

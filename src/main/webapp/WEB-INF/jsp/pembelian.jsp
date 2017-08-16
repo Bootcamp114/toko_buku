@@ -17,6 +17,9 @@
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$("#tambahBuku").on("click", function(){
+			tambahBuku();
+		});
 		$(document).on("click", ".pilih", function(){
 			var id = $(this).attr("id_pilih");
 			
@@ -60,7 +63,6 @@
   	</div>
 </div>
 </nav>
-	<form>
 		<div class="container">
 			<div class="form-group col-xs-4">
 				<div class="form-group form-inline">
@@ -84,7 +86,7 @@
 				<div class="form-group form-inline">
 					<label>Harga Buku</label>
 					<div class="controls">
-						<input type="text" id="hargaBuku" name="hargaBuku" class="form-control">
+						<input type="text" id="hargaBuku" name="hargaBuku" class="form-control" readOnly>
 					</div>
 				</div>
 				<div class="form-group form-inline">
@@ -102,7 +104,7 @@
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" name="tambah" class="btn btn-primary">Tambah
+						<button type="submit" name="tambahBuku" id="tambahBuku" class="btn btn-primary">Tambah
 							Buku</button>
 					</div>
 				</div>
@@ -111,10 +113,10 @@
 			<br/>
 			<div class="form-group col-xs-7">
 			<div class="table-responsive">
-				<table class="table table-hover table-bordered">
+				<table id="detail-dt" class="table table-hover table-bordered">
 					<thead>
 						<tr>
-							<th>Judul</th>
+							<th>Judul Buku</th>
 							<th>Harga Satuan</th>
 							<th>Jumlah Beli</th>
 							<th>Total</th>
@@ -168,8 +170,6 @@
 			</div>
 		</div>
 		
-		
-	</form>
 	<div class="modal fade" id="formBuku" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
@@ -186,23 +186,21 @@
 							<table id="buku-dt" class="table table-hover table-bordered" align="center">
 								<thead>
 									<tr>
-										<th>Judul Buku</th>
+										<th>Judul Buku (klik judul buku)</th>
 										<th>Penulis</th>
 										<th>Penerbit</th>
 										<th>Harga</th>
 										<th>Stok</th>
-										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="listBuku" items="${listBuku}">
 									<tr>
-										<td>${listBuku.judulBuku}</td>
+										<td><a href="#" data-dismiss="modal" name="pilih" id_pilih="${listBuku.id_buku}" class="pilih"> ${listBuku.judulBuku} </a></td>
 										<td>${listBuku.penulis}</td>
 										<td>${listBuku.penerbit.namaPenerbit}</td>
 										<td>${listBuku.hargaBuku}</td>
 										<td>${listBuku.stock}</td>
-										<td><button type="button" data-dismiss="modal" name="pilih" id_pilih="${listBuku.id_buku}" id="pilih" class="btn btn-success btn-xs">Pilih</button></td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -251,8 +249,40 @@
 		$('#judulBuku').val(data.judulBuku);
 		$('#hargaBuku').val(data.hargaBuku);
 	}
-	function recalculateSum()
-	{
+	function tambahBuku(){
+		var judulBuku = $('#judulBuku').val();
+		var hargaBuku = $('#hargaBuku').val();
+		var jumlah = $('#jumlah').val();
+		var total = $('#total').val();
+		
+		var detailBuku = {
+				id : id,
+				judulBuku : judulBuku,
+				hargaBuku : hargaBuku,
+				jumlah : jumlah,
+				total : total
+		}
+		$.ajax({
+			url : '/detailpembelian/save',
+			type : 'POST',
+			contentType : 'application/json',
+			dataType : 'json',
+			data : JSON.stringify(detailBuku),
+			success : function(data, x, xhr){
+				showData();
+				clearForm();
+			}
+		});
+		
+		function clearForm(){
+			$('input[id="id"]').val("");
+			$('input[id="judulBuku"]').val("");
+			$('input[id="hargaBuku"]').val("");
+			$('input[id="jumlah"]').val("");
+			$('input[id="total"]').val("");
+		}
+	}
+	function recalculateSum(){
   		var hargaBuku = document.getElementById("hargaBuku").value;
   		var jumlah = document.getElementById("jumlah").value;
   		document.getElementById("total").value = hargaBuku * jumlah;     

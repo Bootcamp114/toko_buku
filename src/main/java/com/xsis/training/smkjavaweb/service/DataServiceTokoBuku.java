@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xsis.training.smkjavaweb.dao.AnggotaDao;
 import com.xsis.training.smkjavaweb.dao.BukuDao;
 import com.xsis.training.smkjavaweb.dao.BukuPinjamDao;
+import com.xsis.training.smkjavaweb.dao.DetailPembelianDao;
 import com.xsis.training.smkjavaweb.dao.DistributorDao;
 import com.xsis.training.smkjavaweb.dao.KategoriDao;
 import com.xsis.training.smkjavaweb.dao.PeminjamanDao;
@@ -17,6 +18,7 @@ import com.xsis.training.smkjavaweb.dao.RencanaBeliDao;
 import com.xsis.training.smkjavaweb.model.Anggota;
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.model.BukuPinjam;
+import com.xsis.training.smkjavaweb.model.DetailPembelian;
 import com.xsis.training.smkjavaweb.model.Distributor;
 import com.xsis.training.smkjavaweb.model.Kategori;
 import com.xsis.training.smkjavaweb.model.Peminjaman;
@@ -44,6 +46,8 @@ public class DataServiceTokoBuku {
 	private BukuPinjamDao bukuPinjamDao;
 	@Autowired
 	private PeminjamanDao peminjamanDao;
+	@Autowired
+	private DetailPembelianDao detailPembelianDao;
 
 	public void save(Anggota anggota) {
 		// TODO Auto-generated method stub
@@ -146,6 +150,15 @@ public class DataServiceTokoBuku {
 	public Buku getBukuById(int id) {
 		// TODO Auto-generated method stub
 		return bukuDao.getBukuById(id);
+	}
+
+	public void saveDetailPembelian(DetailPembelian detailPembelian) {
+		// TODO Auto-generated method stub
+		detailPembelianDao.save(detailPembelian);
+	}
+	public List<DetailPembelian> getAllDetail() {
+		// TODO Auto-generated method stub
+		return detailPembelianDao.getAllDetail();
 	}
 	
 }
