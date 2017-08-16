@@ -19,7 +19,17 @@
 	$(document).ready(function(){
 		$("#tambahBuku").on("click", function(){
 			tambahBuku();
+			window.location.href="/pembelian";
 		});
+		
+		$(document).on("click","#hapusDetail", function(){
+			var conf = confirm("Apakah Anda ingin menghapus data?");
+			if(conf == true){
+				doDelete(this);
+				window.location.href="/pembelian";
+			}
+		});
+		
 		$(document).on("click", ".pilih", function(){
 			var id = $(this).attr("id_pilih");
 			
@@ -76,7 +86,7 @@
 					<label>Judul Buku</label>
 					<div class="clearfix"></div>
 					<div class="controls">
-						<input type="hidden" name="id_buku"
+						<input type="hidden" id="id_buku"
 							class="form-group form-control" /> <input type="text" id="judulBuku"
 							name="JudulBuku" readonly class="form-control" /> <a href="#"
 							style="text-decoration: none; color: #fff;"><button
@@ -104,8 +114,7 @@
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" name="tambahBuku" id="tambahBuku" class="btn btn-primary">Tambah
-							Buku</button>
+						<button type="submit" name="tambahBuku" id="tambahBuku" class="btn btn-primary">Tambah Buku</button>
 					</div>
 				</div>
 			</div>
@@ -123,10 +132,20 @@
 							<th class="text-center">Hapus</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						<c:forEach var="listDetail" items="${listDetail}">
+							<tr>
+								<td>${listDetail.buku.judulBuku}</td>
+								<td>${listDetail.buku.hargaBuku}</td>
+								<td>${listDetail.jumlahBeli}</td>
+								<td>${listDetail.totalHarga}</td>
+								<td align="center"><button type="button" name="hapus" id_hapus="${listDetail.id}" id="hapusDetail" class="btn btn-danger btn-xs">Hapus</button></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</div>
-			<br /> <br />
+			<br />
 			<div class="form-group form-inline">
 				<label>Apakah Anda Member?</label>
 				<div class="controls">
@@ -246,21 +265,23 @@
 </body>
 <script type="text/javascript">
 	function pilihBuku(data){
+		$('#id_buku').val(data.id_buku);
 		$('#judulBuku').val(data.judulBuku);
 		$('#hargaBuku').val(data.hargaBuku);
 	}
 	function tambahBuku(){
+		var id = $('#id_buku').val();
 		var judulBuku = $('#judulBuku').val();
 		var hargaBuku = $('#hargaBuku').val();
 		var jumlah = $('#jumlah').val();
 		var total = $('#total').val();
 		
 		var detailBuku = {
-				id : id,
-				judulBuku : judulBuku,
-				hargaBuku : hargaBuku,
-				jumlah : jumlah,
-				total : total
+				jumlahBeli : jumlah,
+				totalHarga : total,
+				buku : {
+					id_buku : id
+				}
 		}
 		$.ajax({
 			url : '/detailpembelian/save',
@@ -269,13 +290,14 @@
 			dataType : 'json',
 			data : JSON.stringify(detailBuku),
 			success : function(data, x, xhr){
-				showData();
+				console.log("data masuk");
+				console.log(data);
 				clearForm();
 			}
 		});
 		
 		function clearForm(){
-			$('input[id="id"]').val("");
+			$('input[id="id_buku"]').val("");
 			$('input[id="judulBuku"]').val("");
 			$('input[id="hargaBuku"]').val("");
 			$('input[id="jumlah"]').val("");
@@ -286,6 +308,16 @@
   		var hargaBuku = document.getElementById("hargaBuku").value;
   		var jumlah = document.getElementById("jumlah").value;
   		document.getElementById("total").value = hargaBuku * jumlah;     
+	}
+	function doDelete(del){
+		var id = $(del).attr("id_hapus");
+		$.ajax({
+			url : "/detailpembelian/delete/"+id,
+			type : "DELETE",
+			success : function(data){
+				console.log(data);
+			}
+		});
 	}
 </script>
 </html>

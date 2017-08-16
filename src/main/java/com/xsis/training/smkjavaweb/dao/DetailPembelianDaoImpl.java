@@ -5,9 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.xsis.training.smkjavaweb.model.DetailPembelian;
+import com.xsis.training.smkjavaweb.model.Member;
 
+@Repository
 public class DetailPembelianDaoImpl implements DetailPembelianDao{
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -24,7 +27,19 @@ public class DetailPembelianDaoImpl implements DetailPembelianDao{
 	public List<DetailPembelian> getAllDetail() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(DetailPembelian.class).list();
+		List<DetailPembelian> list = session.createCriteria(DetailPembelian.class).list();
+		return list;
+	}
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		DetailPembelian detailPembelian = new DetailPembelian();
+		detailPembelian.setId(id);
+		detailPembelian.setJumlahBeli(3);
+		session.delete(detailPembelian);
+		session.flush();
 	}
 
 }

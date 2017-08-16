@@ -18,6 +18,7 @@
 		showData();
 		$("#add").on("click", function(){
 			save();
+			window.location.href="/member";
 		});			
 		
 		$(document).on("click",".delete", function(){
@@ -123,7 +124,7 @@
 						<tr>
 							<th>PIN Member</th>
 							<th>Nama Member</th>
-							<th>Jenis Kelamin</th>
+							<th>JK</th>
 							<th>Alamat</th>
 							<th>No.Hp</th>
 							<th>Tanggal</th>

@@ -1,5 +1,6 @@
 package com.xsis.training.smkjavaweb.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class DetailPembelian {
 	private Pembelian pembelian;
 	@ManyToOne
 	private Buku buku;
+	@Column(name="jumlahBeli", nullable = false)
 	private int jumlahBeli;
 	private int totalHarga;
 	public DetailPembelian(int id, Pembelian pembelian, Buku buku, int jumlahBeli, int totalHarga) {

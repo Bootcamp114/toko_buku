@@ -13,17 +13,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.training.smkjavaweb.model.Buku;
+import com.xsis.training.smkjavaweb.model.DetailPembelian;
 import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 
 @Controller
 @RequestMapping("/pembelian")
 public class PembelianController {
 	@Autowired
-	DataServiceTokoBuku dataServiceTokoBuku;
+	DataServiceTokoBuku dataService;
 	
 	@RequestMapping
 	public String index(Model model){
-		List<Buku> listBuku = dataServiceTokoBuku.getAllBuku();
+		List<DetailPembelian> listDetail = dataService.getAllDetail();
+		model.addAttribute("listDetail", listDetail);
+		
+		List<Buku> listBuku = dataService.getAllBuku();
 		model.addAttribute("listBuku", listBuku);
 		return "pembelian";
 	}
@@ -32,7 +36,7 @@ public class PembelianController {
 	@RequestMapping(value="/pilih/{id}", method=RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
 	public Buku getBukuById(@PathVariable int id){
-		return dataServiceTokoBuku.getBukuById(id);
+		return dataService.getBukuById(id);
 	}
 	
 	

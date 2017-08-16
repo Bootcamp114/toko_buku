@@ -8,4 +8,6 @@ public interface DetailPembelianDao {
 	void save(DetailPembelian detailPembelian);
 
 	List<DetailPembelian> getAllDetail();
+
+	void delete(int id);
 }
