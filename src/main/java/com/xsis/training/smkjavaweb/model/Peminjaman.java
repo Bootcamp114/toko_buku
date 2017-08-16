@@ -23,7 +23,7 @@ public class Peminjaman {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
-	@Column(name="no_peminjaman", nullable = false, unique = true)
+	@Column(name="no_peminjaman", nullable = false)
 	private String noPeminjaman;
 	@Column(name="tgl_pinjam")
 	private String tglPinjam;

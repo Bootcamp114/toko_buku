@@ -19,7 +19,7 @@ public class Pengembalian {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
-	@Column(name="no_pengembalian", nullable = false, unique = true)
+	@Column(name="no_pengembalian", nullable = false)
 	private String noPengembalian;
 	private String tanggal;
 	@Column(name="total_denda")

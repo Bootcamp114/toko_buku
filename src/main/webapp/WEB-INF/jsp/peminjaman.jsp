@@ -26,8 +26,28 @@ th {
 	$(document).ready(function() {
 		//showData();
 		//alert('Mulai Transaksi');
-		$("#selesai").on("click", function() {
-			alert('Kembali ke transaksi baru');
+		$("#save").on("click", function(){
+			 save();
+		});
+		$("#save-anggota").on("click", function() {
+			alert('berhasils');
+		});
+		
+		$("#no_buku").on("keyup", function(){
+			var src = $(this).val();
+			$.ajax({
+				url : "/peminjaman/getbukupinjam/"+src,
+				type : "GET",
+				dataType : "json",
+				success: function(data){
+					console.log(data.buku.judulBuku);
+					$("#judul").val(data.buku.judulBuku);
+					$("#penulis").val(data.buku.penulis);
+					$("#penerbit").val(data.buku.penerbit);
+					$("#tahun_terbit").val(data.buku.tahunTerbit);
+					$("#harga").val(data.buku.hargaBuku);
+				}
+			});
 		});
 	});
 </script>
@@ -62,9 +82,9 @@ th {
 				<label for="no_peminjaman">No. Peminjaman:</label> <input
 					type="text" class="form-control" id="no_peminjaman"
 					style="width: 63%;" placeholder="No peminjaman Auto"
-					name="no_peminjaman" readonly="readonly"><br /> <label
+					name="no_peminjaman"><br /> <label
 					for="anggota">Anggota:</label> <select class="form-control"
-					id="anggota" style="width: 63%;">
+					id="anggota" style="width: 63%;" name="anggota">
 					<c:forEach var="anggota" items="${anggota}">
 						<option value="${anggota.id}">${anggota.nama}</option>
 				</c:forEach>
@@ -77,13 +97,13 @@ th {
 			</div>
 			<div class="form-group col-xs-4">
 				<label for="tgl_peminjaman">Tgl. Peminjaman:</label> <input
-					type="text" class="form-control" id="tgl_peminjaman"
+					type="date" class="form-control" id="tgl_peminjaman"
 					placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)"
-					name="tgl_peminjaman" readonly="readonly"><br /> <label
+					name="tgl_peminjaman"><br /> <label
 					for="tgl_pengembalian">Tgl. Pengembalian:</label> <input
-					type="text" class="form-control" id="tgl_pengembalian"
+					type="date" class="form-control" id="tgl_pengembalian"
 					placeholder="Tgl. Pengembalian Auto(10 hari setelah pinjam)"
-					name="tgl_pengembalian" readonly="readonly">
+					name="tgl_pengembalian">
 			</div>
 
 		</form>
@@ -92,10 +112,11 @@ th {
 			<thead>
 				<tr>
 					<th>No. Buku</th>
+					<th>Kode Buku</th>
 					<th>Judul buku</th>
-					<th>No. ISBN</th>
 					<th>Penulis</th>
 					<th>Penerbit</th>
+					<th>Kategori</th>
 					<th>Tahun terbit</th>
 					<th>Harga</th>
 					<th colspan="2">Action</th>
@@ -104,13 +125,15 @@ th {
 			<tbody>
 				<c:forEach var="peminjaman" items="${peminjaman}">
 					<tr>
-						<td>${peminjaman.noPeminjaman}</td>
-						<td>${peminjaman.bukuPinjam}</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>${peminjaman.bukuPinjam.noBuku}</td>
+						<td>${peminjaman.bukuPinjam.buku.kodeBuku}</td>
+						<td>${peminjaman.bukuPinjam.buku.judulBuku}</td>
+						<td>${peminjaman.bukuPinjam.buku.penulis}</td>
+						<td>${peminjaman.bukuPinjam.buku.penerbit}</td>
+						<td>${peminjaman.bukuPinjam.buku.kategori}</td>
+						<td>${peminjaman.bukuPinjam.buku.tahunTerbit}</td>
+						<td>${peminjaman.bukuPinjam.buku.hargaBuku}</td>
+						<td><a href="#" id="delete" class="btn btn-xs btn-danger">Hapus</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -136,12 +159,12 @@ th {
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="no_buku">No.Buku:</label>
 						<input type="text" class="form-control" id="no_buku"
-							placeholder="Masukan Nomer Buku">
+							placeholder="Masukan Nomer Buku" name="no_buku" >
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="judul">Judul:</label> <input
-							type="text" class="form-control" id="judul"
+							type="text" class="form-control" id="judul" 
 							placeholder="Auto (Sesuai data buku)" readonly="readonly">
 					</div>
 
@@ -168,7 +191,7 @@ th {
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal"
-							id="save">Save</button>
+							id="save">Add</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -189,7 +212,7 @@ th {
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="gridSystemModalLabel">Tambah Buku</h4>
+					<h4 class="modal-title" id="gridSystemModalLabel">Tambah Anggota</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group col-xs-6">
@@ -219,7 +242,7 @@ th {
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal"
-							id="save">Save</button>
+							id="save-anggota">Save</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -283,6 +306,42 @@ function fillData(data){
 			tbody.append(trString);
 	});
 }
+
+function save(){
+	var noPeminjaman = $('input[name="no_peminjaman"]').val();
+	var tglPinjam = $('input[name="tgl_peminjaman"]').val();
+	var tglKembali = $('input[name="tgl_pengembalian"]').val();
+	var status = "1";
+	var anggota = $('input[name="anggota"]').val();
+	var bukuPinjam = $('input[name="no_buku"]').val();
+	var karyawan = "1";
+	
+	//Sama dengan java POJO (Encapsulation)
+	var peminjaman = {
+			noPeminjaman : noPeminjaman,
+			tglPinjam : tglPinjam,
+			tglKembali : tglKembali,
+			status : status,
+			anggota : { id : anggota},
+			bukuPinjam : bukuPinjam,
+			karyawan : { id : karyawan}
+	}
+	
+	$.ajax({
+		url : '/peminjaman/save',
+		type : 'POST',
+		contentType : 'application/json',
+		data : JSON.stringify(peminjaman),
+		success : function(data, a, xhr){
+			if(xhr.status == 201){
+				console.log("Berhasil disimpan");
+			}
+		}
+	});
+
+}
+
+
 
 </script>
 </html>

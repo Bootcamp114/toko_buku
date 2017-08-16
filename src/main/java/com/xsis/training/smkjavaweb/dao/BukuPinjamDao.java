@@ -6,4 +6,6 @@ public interface BukuPinjamDao {
 
 	void save(BukuPinjam bkp);
 
+	BukuPinjam getBukuPinjamByKode(String kode);
+
 }

@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/karyawan")
-public class KaryawanContorller {
+@RequestMapping("/pengembalian")
+public class PengembalianController {
 
-	@ResponseBody
 	@RequestMapping
 	public String index(){
-		return "karyawan";
+		return "pengembalian";
 	}
 }
