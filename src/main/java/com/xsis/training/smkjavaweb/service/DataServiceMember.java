@@ -34,5 +34,9 @@ public class DataServiceMember {
 	public Member getMemberById(int id){
 		return memberDao.getMemberById(id);
 	}
-
+	
+	public Member getMemberByPin(String pinMember) {
+		// TODO Auto-generated method stub
+		return memberDao.getMemberByPin(pinMember);
+	}
 }

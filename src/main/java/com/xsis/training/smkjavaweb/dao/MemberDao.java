@@ -14,4 +14,6 @@ public interface MemberDao {
 	public List<Member> getAllMember();
 	
 	public Member getMemberById(int id);
+
+	public Member getMemberByPin(String pinMember);
 }

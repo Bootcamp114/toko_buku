@@ -57,4 +57,11 @@ public class MemberController {
 	public Member getMemberById(@PathVariable int id){
 		return dataServiceMember.getMemberById(id);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/cekmember/{pinMember}", method=RequestMethod.GET)
+	public Member getMemberByPin(@PathVariable String pinMember){
+		Member member = dataServiceMember.getMemberByPin(pinMember);
+		return member;
+	}
 }

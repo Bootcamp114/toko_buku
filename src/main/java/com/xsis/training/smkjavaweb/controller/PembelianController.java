@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.model.DetailPembelian;
+import com.xsis.training.smkjavaweb.model.Member;
 import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 
 @Controller
@@ -29,6 +30,9 @@ public class PembelianController {
 		
 		List<Buku> listBuku = dataService.getAllBuku();
 		model.addAttribute("listBuku", listBuku);
+		
+		String hitungTotal = dataService.hitungDetail();
+		model.addAttribute("hitungTotal", hitungTotal);
 		return "pembelian";
 	}
 	
@@ -39,5 +43,9 @@ public class PembelianController {
 		return dataService.getBukuById(id);
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="/cekmember/{pinMember}", method=RequestMethod.GET)
+	public Member getMemberByPin(@PathVariable String pinMember){
+		return dataService.getMemberByPin(pinMember);
+	}
 }

@@ -2,13 +2,13 @@ package com.xsis.training.smkjavaweb.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.training.smkjavaweb.model.DetailPembelian;
-import com.xsis.training.smkjavaweb.model.Member;
 
 @Repository
 public class DetailPembelianDaoImpl implements DetailPembelianDao{
@@ -41,5 +41,12 @@ public class DetailPembelianDaoImpl implements DetailPembelianDao{
 		session.delete(detailPembelian);
 		session.flush();
 	}
-
+	
+	@Override
+	public String hitungDetail(){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("SELECT sum(totalHarga) FROM " + DetailPembelian.class.getName());
+		List<Long> data = query.list();
+		return String.valueOf(data.get(0));
+	}
 }

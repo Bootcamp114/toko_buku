@@ -1,5 +1,7 @@
 package com.xsis.training.smkjavaweb.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -28,16 +32,20 @@ public class Pembelian {
 	private DetailPembelian detailPembelian;
 	@ManyToOne
 	private Member member;
+	private Double grandTotal; 
 	private Double bayar;
 	private Double kembalian;
-	private String tanggal;
-	public Pembelian(int id, String noFaktur, DetailPembelian detailPembelian, Member member, Double bayar,
-			Double kembalian, String tanggal) {
+	@Temporal(TemporalType.DATE)
+	private Date tanggal;
+	
+	public Pembelian(int id, String noFaktur, DetailPembelian detailPembelian, Member member, Double grandTotal,
+			Double bayar, Double kembalian, Date tanggal) {
 		super();
 		this.id = id;
 		this.noFaktur = noFaktur;
 		this.detailPembelian = detailPembelian;
 		this.member = member;
+		this.grandTotal = grandTotal;
 		this.bayar = bayar;
 		this.kembalian = kembalian;
 		this.tanggal = tanggal;
@@ -66,6 +74,12 @@ public class Pembelian {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	public Double getGrandTotal() {
+		return grandTotal;
+	}
+	public void setGrandTotal(Double grandTotal) {
+		this.grandTotal = grandTotal;
+	}
 	public Double getBayar() {
 		return bayar;
 	}
@@ -78,10 +92,11 @@ public class Pembelian {
 	public void setKembalian(Double kembalian) {
 		this.kembalian = kembalian;
 	}
-	public String getTanggal() {
+	public Date getTanggal() {
 		return tanggal;
 	}
-	public void setTanggal(String tanggal) {
+	public void setTanggal(Date tanggal) {
 		this.tanggal = tanggal;
 	}
+	
 }

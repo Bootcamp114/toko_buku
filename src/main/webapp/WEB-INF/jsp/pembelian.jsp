@@ -19,14 +19,14 @@
 	$(document).ready(function(){
 		$("#tambahBuku").on("click", function(){
 			tambahBuku();
-			window.location.href="/pembelian";
+			window.location.href="/pembelian/";
 		});
 		
 		$(document).on("click","#hapusDetail", function(){
 			var conf = confirm("Apakah Anda ingin menghapus data?");
 			if(conf == true){
 				doDelete(this);
-				window.location.href="/pembelian";
+				window.location.href="/pembelian/";
 			}
 		});
 		
@@ -41,6 +41,25 @@
 				}
 			});
 		});
+		
+		$("#pinMember").on("keyup", function(){
+			var src = $(this).val();
+			$.ajax({
+				url : "/pembelian/cekmember/"+src,
+				type : "GET",
+				dataType : "json",
+				success: function(data){
+					console.log(data.namaMember);
+					$("#namaMember").val(data.namaMember);
+					$("#diskon").val(data.diskon);
+				}
+			});
+		});
+		
+		$("#selesai").on("click", function(){
+			alert("Selesai??");
+		});
+		
 	});
 </script>
 	<style>
@@ -143,6 +162,13 @@
 							</tr>
 						</c:forEach>
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3" align="right">Grand Total</td>
+							<td>${hitungTotal}</td>
+							<td></td>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 			<br />
@@ -162,9 +188,9 @@
 			<div class="form-group form-inline">
 				<label>Bayar</label>
 				<div class="controls">
+					<input name="grandTotal" id="grandTotal" value="${hitungTotal}" type="hidden">
 					<input name="bayar" id="bayar" onKeyUp="recalculateKembalian();"
-						class="demo form-control" type="text"> <input
-						name="bayarGet" id="bayarGet" readonly type="hidden">
+						class="demo form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group form-inline">
@@ -183,8 +209,8 @@
 			<div class="control-group">
 				<label></label>
 				<div class="controls">
-					<button type="submit" name="selesai" class="btn btn-primary">Selesai
-						penjualan</button>
+					<button type="submit" id="selesai" name="selesai" class="btn btn-primary">Selesai
+						Pembelian</button>
 				</div>
 			</div>
 		</div>
@@ -243,19 +269,20 @@
 						<div class="form-group form-inline">
 					<label>PIN Member</label>
 					<div class="controls">
-						<input type="text" name="pin" class="form-control">
+						<input type="text" id="pinMember" name="pinMember" class="form-control">
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label>Nama Member</label>
 					<div class="controls">
-						<input readonly type="text" name="nama_member" class="form-control">
+						<input readonly type="text" id="namaMember" name="namaMember" class="form-control">
 					</div>
 				</div>
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" data-dismiss="modal" name="ok" class="btn btn-primary">OK</button>
+						<button type="submit" data-dismiss="modal" id="ok" name="ok" class="btn btn-primary">OK</button>
+						<button type="submit" data-dismiss="modal" id="close" name="close" class="btn btn-default">Close</button>
 					</div>
 				</div>
 				</form>
@@ -308,6 +335,11 @@
   		var hargaBuku = document.getElementById("hargaBuku").value;
   		var jumlah = document.getElementById("jumlah").value;
   		document.getElementById("total").value = hargaBuku * jumlah;     
+	}
+	function recalculateKembalian(){
+		var grandTotal = document.getElementById("grandTotal").value;
+		var bayar = document.getElementById("bayar").value;
+		document.getElementById("kembalian").value = bayar - grandTotal;
 	}
 	function doDelete(del){
 		var id = $(del).attr("id_hapus");

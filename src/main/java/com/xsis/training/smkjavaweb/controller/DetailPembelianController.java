@@ -26,6 +26,8 @@ public class DetailPembelianController {
 	public String index(Model model){
 		List<DetailPembelian> listDetail = dataService.getAllDetail();
 		model.addAttribute("listDetail", listDetail);
+		/*String hitungTotal = dataService.hitungDetail();
+		model.addAttribute("hitungTotal", hitungTotal);*/
 		return "pembelian";
 	}
 	@ResponseBody

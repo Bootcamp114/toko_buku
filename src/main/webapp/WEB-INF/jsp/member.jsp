@@ -16,15 +16,19 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		showData();
-		$("#add").on("click", function(){
+		$("#tambah").on("click", function(){
 			save();
-			window.location.href="/member";
-		});			
+			window.location.href="/member/";
+		});
+		$("input[name='jk']").on("change", function(){
+			jk = $(this).val();
+		});
 		
 		$(document).on("click",".delete", function(){
 			var conf = confirm("Apakah Anda ingin menghapus data?");
 			if(conf == true){
 				doDelete(this);
+				window.location.href="/member/";
 			}
 		});
 	});
@@ -93,7 +97,7 @@
 				<div class="form-group form-inline">
 					<label>No Hp</label>
 					<div class="controls">
-						<input type="number" id="noHp" class="form-control">
+						<input type="number" id="noHp" class="form-control" maxlength="15">
 					</div>
 				</div>
 				<div class="form-group form-inline">
@@ -105,13 +109,13 @@
 				<div class="form-group form-inline">
 					<label>Diskon</label>
 					<div class="controls">
-						<input type="text" id="diskon" class="form-control" size="1" value="10%" readOnly>
+						<input type="text" id="diskon" class="form-control" size="1">
 					</div>
 				</div>
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" id="add" class="btn btn-primary">Add Member</button>
+						<button type="submit" id="tambah" class="btn btn-primary">Tambah Member</button>
 					</div>
 				</div>
 				</div>
@@ -204,7 +208,6 @@ function fillData(data){
 		var id = $('#id').val();
 		var pinMember = $('#pinMember').val();
 		var namaMember = $('#namaMember').val();
-		var jk = $('#jk').val();
 		var alamat = $('#alamat').val();
 		var noHp = $('#noHp').val();
 		var tanggal = $('#tanggal').val();
@@ -236,7 +239,6 @@ function fillData(data){
 			$('input[id="id"]').val("");
 			$('input[id="pinMember"]').val("");
 			$('input[id="namaMember"]').val("");
-			$('input[id="jk"]').val("");
 			$('input[id="alamat"]').val("");
 			$('input[id="noHp"]').val("");
 			$('input[id="tanggal"]').val("");

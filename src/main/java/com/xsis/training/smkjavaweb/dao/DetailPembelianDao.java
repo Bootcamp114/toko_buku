@@ -5,9 +5,11 @@ import java.util.List;
 import com.xsis.training.smkjavaweb.model.DetailPembelian;
 
 public interface DetailPembelianDao {
-	void save(DetailPembelian detailPembelian);
+	public void save(DetailPembelian detailPembelian);
 
-	List<DetailPembelian> getAllDetail();
+	public List<DetailPembelian> getAllDetail();
 
-	void delete(int id);
+	public void delete(int id);
+
+	public String hitungDetail();
 }
