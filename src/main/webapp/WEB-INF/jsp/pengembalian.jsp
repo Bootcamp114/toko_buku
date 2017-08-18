@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +11,10 @@
 	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/resources/assets/jquery-ui-1.12.1.custom/jquery-ui.min.css">
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/resources/assets/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript"
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 <style>
@@ -22,9 +26,82 @@ th {
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		var denda;
+		var totalDenda = 0;
+		
+		var bukudt = $('#buku');
+		var elementNoBuku = $('#no_buku');
+		var elementJudul = $('#judul');
+		var elementPenulis = $('#penulis');
+		var elementPenerbit = $('#penerbit');
+		var elementTahunTerbit = $('#tahun_terbit');
+		var elementHarga = $('#harga');
+		var elementKategori = $('#kategori');
+		var elementDenda = $('#denda');
+		var elementSubmit = $('#save');
+		
+		//event listener on click
+		elementSubmit.on('click', function(){
+			var buku = {
+				noBuku : 	elementNoBuku.val(),
+				judul : elementJudul.val(),
+				penulis : elementPenulis.val(),
+				penerbit : elementPenerbit.val(),
+				tahunTerbit : elementTahunTerbit.val(),
+				harga : elementHarga.val(),
+				kategori : elementKategori.val(),
+				denda : elementDenda.val()
+			}
+			
+			var tbody = bukudt.find('tbody');
+			//jquery append
+			var tr = "<tr>";
+			tr += "<td>"+buku.noBuku+"</td>";
+			tr += "<td>"+buku.judul+"</td>";
+			tr += "<td>"+buku.penulis+"</td>";
+			tr += "<td>"+buku.penerbit+"</td>";
+			tr += "<td>"+buku.tahunTerbit+"</td>";
+			tr += "<td>"+buku.harga+"</td>";
+			tr += "<td>"+buku.kategori+"</td>";
+			tr += "<td>"+buku.denda+"</td>";
+			tr += "<td><a href='#'  class='del btn btn-info btn-danger btn-xs'>Delete</td>";
+			tr += "</tr>";
+			tbody.append(tr);
+		});
+	
+		$("#tanggal").datepicker();
 		//alert('Mulai Transaksi');
 		$("#selesai").on("click", function() {
 			alert('Kembali ke transaksi baru');
+		});
+
+		$("#no_buku").on("keyup", function(){
+			var src = $(this).val();
+			console.log(src);
+			$.ajax({
+			url : "/pengembalian/getbukupengembalian/"+src,
+			type : "GET",
+			dataType : "json",
+			success: function(data){
+				console.log(data);
+				$("#judul").val(data.bukuPinjam.buku.judulBuku);
+				$("#penulis").val(data.bukuPinjam.buku.penulis);
+				$("#penerbit").val(data.bukuPinjam.buku.penerbit);
+				$("#tahun_terbit").val(data.bukuPinjam.buku.tahunTerbit);
+				$("#harga").val(data.bukuPinjam.buku.hargaBuku);
+			}
+		});
+		});
+		$("#kategori").on("change", function(){
+			denda = $("#harga").val()*2;
+			$("#denda").val(denda);
+			totalDenda = parseInt(totalDenda) +  parseInt($("#denda").val());
+			$("#total_danda").val(totalDenda);
+		});
+		$(document).on('click','.del',function(){
+			var row = $(this).closest('tr');
+			row.remove();
+			alert('Datat terhapus');
 		});
 	});
 </script>
@@ -59,14 +136,11 @@ th {
 				<label for="no_pengembalian">No. Pengembalian:</label> <input
 					type="text" class="form-control" id="no_pengembalian"
 					style="width: 63%;" placeholder="No pengembalian Auto"
-					name="no_pengembalian" readonly="readonly"><br /> <label
-					for="anggota">Anggota:</label> <select class="form-control"
-					id="anggota" style="width: 63%;">
-					<option>Unknow(Dari tabel anggota)</option>
-					<option>ex:1</option>
-					<option>ex:2</option>
-					<option>ex:3</option>
-					<option>ex:4</option>
+					name="no_pengembalian" readonly="readonly"><br /> 
+					<label for="anggota">Anggota:</label> <select class="form-control" id="anggota" style="width: 63%;" name="anggota">
+					<c:forEach var="anggota" items="${anggota}">
+						<option value="${anggota.id}">${anggota.nama}</option>
+				</c:forEach>
 				</select> <br />
 
 				<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -76,7 +150,7 @@ th {
 				<label for="tanggal">Tanggal:</label> <input
 					type="text" class="form-control" id="tanggal"
 					placeholder="Tgl. pengembalian Auto (tanggal hari saat prosses)"
-					name="tanggal" readonly="readonly"><br /> <label
+					name="tanggal"><br /> <label
 					for="total_danda">Total Denda:</label> <input
 					type="text" class="form-control" id="total_danda"
 					placeholder="Total Denda Auto(Jumlah denda semua buku)"
@@ -85,12 +159,11 @@ th {
 
 		</form>
 
-		<table class="table table-striped">
+		<table class="table table-striped" id="buku">
 			<thead>
 				<tr>
 					<th>No. Buku</th>
 					<th>Judul buku</th>
-					<th>No. ISBN</th>
 					<th>Penulis</th>
 					<th>Penerbit</th>
 					<th>Tahun terbit</th>
@@ -101,30 +174,7 @@ th {
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>BK001</td>
-					<td>Adaapa Dengan Java</td>
-					<td>9812345</td>
-					<td>Andrea Sirata</td>
-					<td>Bintang Jakarta</td>
-					<td>2010</td>
-					<td>30.000</td>
-					<td>Hilang</td>
-					<td>60.000</td>
-					<td><a class="btn btn-danger btn-xs">Hapus</a></td>
-				</tr>
-				<tr>
-					<td>BK002</td>
-					<td>Laskar Hitam Pulih</td>
-					<td>654768345</td>
-					<td>Ulul Maul</td>
-					<td>Bogor Beriman</td>
-					<td>2014</td>
-					<td>15.000</td>
-					<td>rusak</td>
-					<td>22.500</td>
-					<td><a class="btn btn-danger btn-xs">Hapus</a></td>
-				</tr>
+				
 			</tbody>
 		</table>
 		<div class="form-group col-xs-4">
@@ -185,7 +235,7 @@ th {
 					<div class="form-group col-xs-6">
 						<label for="kategori">Kategori:</label> 
 						 <select class="form-control" id="kategori" name="kategori">
-							<option>~Select Kategory</option>
+							<option value="-">~Select Kategory</option>
 							<option>Terlambat</option>
 							<option>Hilang</option>
 							<option>Rusak</option>
@@ -193,7 +243,7 @@ th {
 					</div>
 					<div class="form-group col-xs-6">
 						<label class="control-label col-sm-2" for="harga">Denda:</label> <input
-							type="text" class="form-control" id="harga"
+							type="text" class="form-control" id="denda"
 							placeholder="Auto (Sesuai kategori denda)" readonly="readonly">
 					</div>
 					<div class="modal-footer ">

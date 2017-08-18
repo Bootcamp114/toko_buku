@@ -11,8 +11,10 @@
 	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/resources/assets/jquery-ui-1.12.1.custom/jquery-ui.min.css">
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/resources/assets/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript"
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 <style>
@@ -24,17 +26,88 @@ th {
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#tgl_peminjaman").datepicker();
+		$("#tgl_pengembalian").datepicker();
+		//tambah tr
+		var bukudt = $('#buku');
+		var elementNoBuku = $('#no_buku');
+		var elementJudul = $('#judul');
+		var elementPenulis = $('#penulis');
+		var elementPenerbit = $('#penerbit');
+		var elementTahunTerbit = $('#tahun_terbit');
+		var elementHarga = $('#harga');
+		var elementSubmit = $('#save');
+		
+		//event listener on click
+		elementSubmit.on('click', function(){
+			var buku = {
+				noBuku : 	elementNoBuku.val(),
+				judul : elementJudul.val(),
+				penulis : elementPenulis.val(),
+				penerbit : elementPenerbit.val(),
+				tahunTerbit : elementTahunTerbit.val(),
+				harga : elementHarga.val()
+			}
+			
+			var tbody = bukudt.find('tbody');
+			//jquery append
+			var tr = "<tr>";
+			tr += "<td>"+buku.noBuku+"</td>";
+			tr += "<td>"+buku.judul+"</td>";
+			tr += "<td>"+buku.penulis+"</td>";
+			tr += "<td>"+buku.penerbit+"</td>";
+			tr += "<td>"+buku.tahunTerbit+"</td>";
+			tr += "<td>"+buku.harga+"</td>";
+			tr += "<td><a href='#'  class='del btn btn-info btn-danger btn-xs'>Delete</td>";
+			tr += "</tr>";
+			tbody.append(tr);
+		});
+	
 		//showData();
 		//alert('Mulai Transaksi');
-		$("#save").on("click", function(){
-			 save();
+		$("#add-buku").on("click", function() {
+			clearForm();
 		});
-		$("#save-anggota").on("click", function() {
-			alert('berhasils');
+			$("#save-anggota").on("click", function() {
+			var nik = $('input[name="nik"]').val();
+			var nama = $('input[name="nama"]').val();
+			var alamat = $('textarea[name="alamat"]').val();
+			var pekerjaan = $('input[name="pekerjaan"]').val();
+			var email = $('input[name="email"]').val();
+			
+			//Sama dengan java POJO (Encapsulation)
+			var anggota = {
+				nik : nik,
+				nama : nama,
+				jk : jk,
+				alamat : alamat,
+				pekerjaan : pekerjaan,
+				email : email
+			}
+			
+			//console.log(anggota);
+			//AJAX => asyncronous javascript and XML
+			$.ajax({
+				url : '/anggota/save',
+				type : 'POST',
+				contentType : 'application/json',
+			//	dataType : 'json',
+				data : JSON.stringify(anggota),
+				success : function(data, a, xhr){
+			//		console.log(xhr.status);
+					if(xhr.status == 201){
+						console.log("Berhasil disimpan");
+						showData();
+					}
+				}
+			});
+
+			document.location="peminjaman";
 		});
 		
 		$("#no_buku").on("keyup", function(){
 			var src = $(this).val();
+			//load_autoComplete(src);
 			$.ajax({
 				url : "/peminjaman/getbukupinjam/"+src,
 				type : "GET",
@@ -46,9 +119,49 @@ th {
 					$("#penerbit").val(data.buku.penerbit);
 					$("#tahun_terbit").val(data.buku.tahunTerbit);
 					$("#harga").val(data.buku.hargaBuku);
+					$("#id_hiden").val(data.id);
 				}
 			});
 		});
+
+		$("#simpan").on("click", function(){
+			var noPeminjaman = $('input[name="no_peminjaman"]').val();
+			var tglPinjam = $('input[name="tgl_peminjaman"]').val();
+			var tglKembali = $('input[name="tgl_pengembalian"]').val();
+			var status = "1";
+			var anggota = $('select[name="anggota"]').val();
+			var bukuPinjam = $('input[name="id_hiden"]').val();
+			var karyawan = "1";
+			var oTr = 0;
+			//Sama dengan java POJO (Encapsulation)
+			var peminjaman = {
+					noPeminjaman : noPeminjaman,
+					tglPinjam : tglPinjam,
+					tglKembali : tglKembali,
+					status : status,
+					anggota : { id : anggota},
+					bukuPinjam :{ id : bukuPinjam},
+					karyawan : { id : karyawan}
+			}
+			$.ajax({
+				url : '/peminjaman/save',
+				type : 'POST',
+				contentType : 'application/json',
+				data : JSON.stringify(peminjaman),
+				success : function(data, a, xhr){
+					if(xhr.status == 201){
+						console.log("Berhasil disimpan");
+					}
+				}
+			});
+			console.log(peminjaman);
+		});
+		$(document).on('click','.del',function(){
+			var row = $(this).closest('tr');
+			row.remove();
+			alert('Datat terhapus');
+		});
+			
 	});
 </script>
 </head>
@@ -91,39 +204,37 @@ th {
 				</select> <br />
 
 				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#add-modal">+ Add Buku</button>
+					data-target="#add-modal" id="add-buku">+ Tambah Buku</button>
 				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#add-anggota" style="margin-top:-53px; margin-left:245px; position:absolute;">+ Add Anggota</button>
+					data-target="#add-anggota" style="margin-top:-53px; margin-left:245px; position:absolute;">+ Tambah Anggota</button>
 			</div>
 			<div class="form-group col-xs-4">
 				<label for="tgl_peminjaman">Tgl. Peminjaman:</label> <input
-					type="date" class="form-control" id="tgl_peminjaman"
+					type="text" class="form-control" id="tgl_peminjaman"
 					placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)"
 					name="tgl_peminjaman"><br /> <label
 					for="tgl_pengembalian">Tgl. Pengembalian:</label> <input
-					type="date" class="form-control" id="tgl_pengembalian"
+					type="text" class="form-control" id="tgl_pengembalian"
 					placeholder="Tgl. Pengembalian Auto(10 hari setelah pinjam)"
 					name="tgl_pengembalian">
 			</div>
 
 		</form>
-
-		<table id="peminjaman-dt" class="table table-striped">
+	<div id="buku">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>No. Buku</th>
-					<th>Kode Buku</th>
 					<th>Judul buku</th>
 					<th>Penulis</th>
 					<th>Penerbit</th>
-					<th>Kategori</th>
 					<th>Tahun terbit</th>
 					<th>Harga</th>
 					<th colspan="2">Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="peminjaman" items="${peminjaman}">
+<%-- 				<c:forEach var="peminjaman" items="${peminjaman}">
 					<tr>
 						<td>${peminjaman.bukuPinjam.noBuku}</td>
 						<td>${peminjaman.bukuPinjam.buku.kodeBuku}</td>
@@ -135,10 +246,11 @@ th {
 						<td>${peminjaman.bukuPinjam.buku.hargaBuku}</td>
 						<td><a href="#" id="delete" class="btn btn-xs btn-danger">Hapus</a></td>
 					</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</tbody>
 		</table>
-		<input type="submit" id="selesai" value="Selesai"
+		</div>
+		<input type="submit" id="simpan" value="Simpan"
 			class="btn btn-primary btn-md" />
 	</div>
 
@@ -160,6 +272,9 @@ th {
 						<label class="control-label col-sm-2" for="no_buku">No.Buku:</label>
 						<input type="text" class="form-control" id="no_buku"
 							placeholder="Masukan Nomer Buku" name="no_buku" >
+							
+						<input type="hidden" id="id_hiden" name="id_hiden" >
+							
 					</div>
 
 					<div class="form-group">
@@ -255,57 +370,12 @@ th {
 
 </body>
 <script type="text/javascript">
-function showData(){
-	$.ajax({
-		url : '/peminjaman/getAll',
-		type : 'POST',
-		dataType : 'json',
-		success : function(data, x, xhr){
-			fillData(data);
-		}
+var jk;
+$(document).ready(function(){
+	$('input[name="jk"]').on("change", function(){
+		jk = $(this).val();
 	});
-}
-function fillData(data){
-	var dt = $("#peminjaman-dt");
-	var tbody = dt.find('tbody');
-	tbody.find('tr').remove();
-	
-	$.each(data, function(index, peminjaman){
-		var trString = "<tr>";
-				trString += "<td>";
-				 	trString += peminjaman.noPeminjaman;
-					trString += "</td>";
-					trString += "<td>";
-				 		trString += peminjaman.tglPinjam;
-					trString += "</td>";
-					trString += "<td>";
-			 			trString += peminjaman.tglKembali;
-					trString += "</td>";
-					trString += "</td>";
-					trString += "<td>";
-				 		trString += peminjaman.status;
-					trString += "</td>";
-					trString += "<td>";
-			 			trString += peminjaman.anggota;
-					trString += "</td>";
-					trString += "</td>";
-					trString += "<td>";
-			 		trString += peminjaman.bukuPinjam;
-					trString += "</td>";
-					trString += "<td>";
-		 				trString += peminjaman.karyawan;
-					trString += "</td>";
-					trString += "<td>";
-				 		trString += "<a id_delete='"+peminjaman.id+"' href='#' class='delete'>Delete</a>";
-				trString += "</td>";
-				trString += "</td>";
-					trString += "<td>";
-				 		trString += "<a id_update='"+peminjaman.id+"' href='#' class='update'>Update</a>";
-					trString += "</td>";
-			trString += "</tr>"
-			tbody.append(trString);
-	});
-}
+});
 
 function save(){
 	var noPeminjaman = $('input[name="no_peminjaman"]').val();
@@ -315,7 +385,7 @@ function save(){
 	var anggota = $('input[name="anggota"]').val();
 	var bukuPinjam = $('input[name="no_buku"]').val();
 	var karyawan = "1";
-	
+	var oTr = 0;
 	//Sama dengan java POJO (Encapsulation)
 	var peminjaman = {
 			noPeminjaman : noPeminjaman,
@@ -340,8 +410,53 @@ function save(){
 	});
 
 }
+function clearForm(){
+	$("#no_buku").val("");
+	$("#judul").val("");
+	$("#penulis").val("");
+	$("#penerbit").val("");
+	$("#tahun_terbit").val("");
+	$("#hargas").val("");
+	$("#id_hiden").val("");
+	}
 
+function _theData(src){
+	var jRest = [];
+	var bukuPinjam = {
+		noBuku : src
+	}
+	
+	$.ajax({
+		url: '/peminjaman/src_dept',
+		type: 'POST',
+		data: JSON.stringify(bukuPinjam),
+		dataType: 'json',
+		contentType: 'application/json',
+		success : function(data){
+			$.each(data, function(index, data){
+				jRest.push(data);
+			});	
+		}
+	});
+	
+	return jRest;
+}
 
+function load_autoComplete(src){
+var options = {
+		  data: _theData(src),
+		  getValue: "noBuku",
+		  list: {
+				match: {
+					enabled: true
+				},
+				maxNumberOfElements: 8
+		},
+		  theme: "plate-dark"
+		};
+
+	$('#no_buku').easyAutocomplete(options);
+}
 
 </script>
 </html>

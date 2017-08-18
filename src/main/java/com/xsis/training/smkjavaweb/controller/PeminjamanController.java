@@ -35,6 +35,7 @@ public class PeminjamanController {
 	
 	@ResponseBody
 	@RequestMapping(value="/save", method=RequestMethod.POST)
+	@ResponseStatus(value=HttpStatus.CREATED)
 	public Peminjaman save(@RequestBody Peminjaman peminjaman){
 		dataServiceTokoBuku.savePeminjaman(peminjaman);
 		return peminjaman;
@@ -52,5 +53,12 @@ public class PeminjamanController {
 	public BukuPinjam getBukuPinjam(@PathVariable String kode){
 		BukuPinjam bukuPinjam = dataServiceTokoBuku.getBukuPinjamByKode(kode);
 	return bukuPinjam;
+	}
+	//autocomplete
+	@ResponseBody
+	@RequestMapping(value="/src_dept", method=RequestMethod.POST)
+	public List<BukuPinjam> getBukuByKode(@RequestBody BukuPinjam bukuPinjam){
+		List<BukuPinjam> bukus = dataServiceTokoBuku.searchBukuByKode(bukuPinjam);
+		return bukus;
 	}
 }

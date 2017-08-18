@@ -8,17 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xsis.training.smkjavaweb.dao.AnggotaDao;
 import com.xsis.training.smkjavaweb.dao.BukuDao;
 import com.xsis.training.smkjavaweb.dao.BukuPinjamDao;
-import com.xsis.training.smkjavaweb.dao.DetailPembelianDao;
 import com.xsis.training.smkjavaweb.dao.DistributorDao;
 import com.xsis.training.smkjavaweb.dao.KategoriDao;
 import com.xsis.training.smkjavaweb.dao.PeminjamanDao;
 import com.xsis.training.smkjavaweb.dao.PenerbitDao;
+import com.xsis.training.smkjavaweb.dao.PengembalianDao;
 import com.xsis.training.smkjavaweb.dao.PenulisDao;
 import com.xsis.training.smkjavaweb.dao.RencanaBeliDao;
 import com.xsis.training.smkjavaweb.model.Anggota;
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.model.BukuPinjam;
-import com.xsis.training.smkjavaweb.model.DetailPembelian;
 import com.xsis.training.smkjavaweb.model.Distributor;
 import com.xsis.training.smkjavaweb.model.Kategori;
 import com.xsis.training.smkjavaweb.model.Peminjaman;
@@ -29,8 +28,6 @@ import com.xsis.training.smkjavaweb.model.Penulis;
 @Transactional
 public class DataServiceTokoBuku {
 
-	@Autowired
-	private AnggotaDao anggotaDao;
 	private PenulisDao penulisDao;
 	@Autowired
 	private KategoriDao kategoriDao;
@@ -47,12 +44,10 @@ public class DataServiceTokoBuku {
 	@Autowired
 	private PeminjamanDao peminjamanDao;
 	@Autowired
-	private DetailPembelianDao detailPembelianDao;
+	private PengembalianDao pengembalianDao;
+	@Autowired
+	private AnggotaDao anggotaDao;
 
-	public void save(Anggota anggota) {
-		// TODO Auto-generated method stub
-		anggotaDao.save(anggota);
-	}
 
 	public void save(Penulis penulis) {
 		// TODO Auto-generated method stub
@@ -104,61 +99,61 @@ public class DataServiceTokoBuku {
 		return penerbitDao.getAllPenerbit();
 	}
 //ADD
-	public List<Peminjaman> getAllPeminjaman() {
-		// TODO Auto-generated method stub
-		return peminjamanDao.getAll();
-	}
+	//ADD
+		public List<Peminjaman> getAllPeminjaman() {
+			// TODO Auto-generated method stub
+			return peminjamanDao.getAll();
+		}
 
-	public List<Anggota> getAllAnggota() {
-		// TODO Auto-generated method stub
-		return anggotaDao.getAll();
-	}
+		public List<Anggota> getAllAnggota() {
+			// TODO Auto-generated method stub
+			return anggotaDao.getAll();
+		}
 
-	public void savePeminjaman(Peminjaman peminjaman) {
-		// TODO Auto-generated method stub
-		peminjamanDao.save(peminjaman);
-		
-	}
+		public void savePeminjaman(Peminjaman peminjaman) {
+			// TODO Auto-generated method stub
+			peminjamanDao.save(peminjaman);
+			
+		}
 
-	public BukuPinjam getBukuPinjamByKode(String kode) {
-		// TODO Auto-generated method stub
-		return bukuPinjamDao.getBukuPinjamByKode(kode);
-	}
+		public BukuPinjam getBukuPinjamByKode(String kode) {
+			// TODO Auto-generated method stub
+			return bukuPinjamDao.getBukuPinjamByKode(kode);
+		}
 
-	public void saveBukuPinjam(BukuPinjam bkp) {
-		// TODO Auto-generated method stub
-		bukuPinjamDao.save(bkp);
-		
-	}
+		public void saveBukuPinjam(BukuPinjam bkp) {
+			// TODO Auto-generated method stub
+			bukuPinjamDao.save(bkp);
+			
+		}
 
-	public void saveAnggota(Anggota anggota) {
-		// TODO Auto-generated method stub
-		anggotaDao.save(anggota);
-	}
+		public void saveAnggota(Anggota anggota) {
+			// TODO Auto-generated method stub
+			anggotaDao.save(anggota);
+		}
 
-	public void deleteAnggota(int id) {
-		// TODO Auto-generated method stub
-		anggotaDao.delete(id);
-		
-	}
+		public void deleteAnggota(int id) {
+			// TODO Auto-generated method stub
+			anggotaDao.delete(id);
+			
+		}
 
-	public Anggota getByIdAnggota(int id) {
-		// TODO Auto-generated method stub
-		return anggotaDao.getById(id);
-	}
+		public Anggota getByIdAnggota(int id) {
+			// TODO Auto-generated method stub
+			return anggotaDao.getById(id);
+		}
 
-	public Buku getBukuById(int id) {
-		// TODO Auto-generated method stub
-		return bukuDao.getBukuById(id);
-	}
+		public List<BukuPinjam> searchBukuByKode(BukuPinjam bukuPinjam) {
+			// TODO Auto-generated method stub
+			return peminjamanDao.searchBukuByKode(bukuPinjam);
+		}
 
-	public void saveDetailPembelian(DetailPembelian detailPembelian) {
-		// TODO Auto-generated method stub
-		detailPembelianDao.save(detailPembelian);
-	}
-	public List<DetailPembelian> getAllDetail() {
-		// TODO Auto-generated method stub
-		return detailPembelianDao.getAllDetail();
-	}
-	
+		public Peminjaman getBukuPengembalianByKode(String kode) {
+			// TODO Auto-generated method stub
+			return peminjamanDao.getBukuPengembalianByKode(kode);
+		}
+		public void save(Anggota anggota) {
+			// TODO Auto-generated method stub
+			anggotaDao.save(anggota);
+		}
 }
