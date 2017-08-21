@@ -39,4 +39,12 @@ public class BukuDaoImpl implements BukuDao {
 		return buku;
 	}
 
+	@Override
+	public void update(Buku buku) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.update(buku);
+		session.flush();
+	}
+
 }

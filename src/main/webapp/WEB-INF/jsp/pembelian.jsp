@@ -16,19 +16,25 @@
 <script type="text/javascript"
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+var grandTotal2 = 0;
 	$(document).ready(function(){
 		$("#tambahBuku").on("click", function(){
 			tambahBuku();
-			window.location.href="/pembelian/";
+			grandTotal();
+			clearForm();
 		});
 		
 		$(document).on("click","#hapusDetail", function(){
 			var conf = confirm("Apakah Anda ingin menghapus data?");
 			if(conf == true){
 				doDelete(this);
-				window.location.href="/pembelian/";
 			}
 		});
+		
+		function grandTotal(){
+			grandTotal2 = parseInt($('#total').val()) + grandTotal2;
+			$('#grandTotal').val(grandTotal2);
+		}
 		
 		$(document).on("click", ".pilih", function(){
 			var id = $(this).attr("id_pilih");
@@ -44,6 +50,8 @@
 		
 		$("#pinMember").on("keyup", function(){
 			var src = $(this).val();
+			var grandTotal = $("#grandTotal").val() * 10/100;
+			var hasil = $("#grandTotal").val() - grandTotal;
 			$.ajax({
 				url : "/pembelian/cekmember/"+src,
 				type : "GET",
@@ -52,12 +60,19 @@
 					console.log(data.namaMember);
 					$("#namaMember").val(data.namaMember);
 					$("#diskon").val(data.diskon);
+					$("#jumlahTotal").val(hasil);
 				}
 			});
 		});
 		
 		$("#selesai").on("click", function(){
-			alert("Selesai??");
+			selesai();
+		});
+		
+		$("#tidak").on("click", function(){
+			var grandTotal = $("#grandTotal").val();
+			$("#jumlahTotal").val(grandTotal);
+			
 		});
 		
 	});
@@ -97,8 +112,7 @@
 				<div class="form-group form-inline">
 					<label>No Faktur</label>
 					<div class="controls form-inline">
-						<input type="text" name="no_faktur" class="form-control"
-							value="FK00001" readOnly />
+						<input type="text" id="noFaktur" name="noFaktur" class="form-control"/>
 					</div>
 				</div>
 				<div class="form-group form-inline">
@@ -144,6 +158,7 @@
 				<table id="detail-dt" class="table table-hover table-bordered">
 					<thead>
 						<tr>
+							<th>Id</th>
 							<th>Judul Buku</th>
 							<th>Harga Satuan</th>
 							<th>Jumlah Beli</th>
@@ -152,20 +167,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="listDetail" items="${listDetail}">
-							<tr>
-								<td>${listDetail.buku.judulBuku}</td>
-								<td>${listDetail.buku.hargaBuku}</td>
-								<td>${listDetail.jumlahBeli}</td>
-								<td>${listDetail.totalHarga}</td>
-								<td align="center"><button type="button" name="hapus" id_hapus="${listDetail.id}" id="hapusDetail" class="btn btn-danger btn-xs">Hapus</button></td>
-							</tr>
-						</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="3" align="right">Grand Total</td>
-							<td>${hitungTotal}</td>
+							<td><input type="text" id="grandTotal" name="grandTotal" readonly></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3" align="right">Diskon</td>
+							<td><input type="text" id="diskon" name="diskon" size="1" readonly></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3" align="right">Total</td>
+							<td><input type="text" id="jumlahTotal" name="jumlahTotal" readonly></td>
 							<td></td>
 						</tr>
 					</tfoot>
@@ -179,12 +195,7 @@
         			<div class="radio-inline"> <input type="radio" name="radioOption" id="tidak"> Tidak </div>
 				</div>
 			</div>
-			<div class="form-group form-inline">
-				<label>Diskon</label>
-				<div class="controls">
-					<input type="text" id="diskon" name="diskon" class="form-control" size="1" readonly>
-				</div>
-			</div>
+			
 			<div class="form-group form-inline">
 				<label>Bayar</label>
 				<div class="controls">
@@ -203,14 +214,13 @@
 			<div class="form-group form-inline">
 				<label>Tanggal penjualan</label>
 				<div class="controls">
-					<input type="date" name="tanggal" class="tcal form-control">
+					<input type="text" id="tanggal" name="tanggal" class="tcal form-control" size="6">
 				</div>
 			</div>
 			<div class="control-group">
 				<label></label>
 				<div class="controls">
-					<button type="submit" id="selesai" name="selesai" class="btn btn-primary">Selesai
-						Pembelian</button>
+					<button type="submit" id="selesai" name="selesai" class="btn btn-primary">Save Pembelian</button>
 				</div>
 			</div>
 		</div>
@@ -291,6 +301,11 @@
 			</div>			
 </body>
 <script type="text/javascript">
+	var date = new Date();
+	var hari = date.getDate();
+	var bulan = date.getMonth() + 1;
+	var tahun = date.getFullYear();
+	$("#tanggal").val(tahun + "-" + bulan + "-" + hari);
 	function pilihBuku(data){
 		$('#id_buku').val(data.id_buku);
 		$('#judulBuku').val(data.judulBuku);
@@ -302,34 +317,23 @@
 		var hargaBuku = $('#hargaBuku').val();
 		var jumlah = $('#jumlah').val();
 		var total = $('#total').val();
-		
-		var detailBuku = {
-				jumlahBeli : jumlah,
-				totalHarga : total,
-				buku : {
-					id_buku : id
-				}
-		}
-		$.ajax({
-			url : '/detailpembelian/save',
-			type : 'POST',
-			contentType : 'application/json',
-			dataType : 'json',
-			data : JSON.stringify(detailBuku),
-			success : function(data, x, xhr){
-				console.log("data masuk");
-				console.log(data);
-				clearForm();
-			}
-		});
-		
-		function clearForm(){
-			$('input[id="id_buku"]').val("");
-			$('input[id="judulBuku"]').val("");
-			$('input[id="hargaBuku"]').val("");
-			$('input[id="jumlah"]').val("");
-			$('input[id="total"]').val("");
-		}
+		var tbody = $('#detail-dt').find("tbody");
+		var markup = "<tr>";
+		markup += "<td >"+ id + "</td>";
+		markup += "<td>" + judulBuku + "</td>";
+		markup += "<td>" + hargaBuku + "</td>";
+		markup += "<td>" + jumlah + "</td>";
+		markup += "<td>" + total + "</td>";
+		markup += "<td><button id_hapus='id_buku' id='hapusDetail' class='btn btn-danger btn-xs'>Hapus</button></td>";
+		markup += "</tr>";
+		$(tbody).append(markup);
+	}
+	function clearForm(){
+		$('input[id="id_buku"]').val("");
+		$('input[id="judulBuku"]').val("");
+		$('input[id="hargaBuku"]').val("");
+		$('input[id="jumlah"]').val("");
+		$('input[id="total"]').val("");
 	}
 	function recalculateSum(){
   		var hargaBuku = document.getElementById("hargaBuku").value;
@@ -337,9 +341,9 @@
   		document.getElementById("total").value = hargaBuku * jumlah;     
 	}
 	function recalculateKembalian(){
-		var grandTotal = document.getElementById("grandTotal").value;
+		var jumlahTotal = document.getElementById("jumlahTotal").value;
 		var bayar = document.getElementById("bayar").value;
-		document.getElementById("kembalian").value = bayar - grandTotal;
+		document.getElementById("kembalian").value = bayar - jumlahTotal;
 	}
 	function doDelete(del){
 		var id = $(del).attr("id_hapus");
@@ -351,5 +355,50 @@
 			}
 		});
 	}
+	
+	function selesai(){
+		var noFaktur = $('#noFaktur').val();
+		alert(noFaktur);
+		var jumlahTotal = $('#jumlahTotal').val();
+		var bayar = $('#bayar').val();
+		var kembalian = $('#kembalian').val();
+		var tanggal = $('#tanggal').val();
+		pembelian = {
+				noFaktur : noFaktur,
+				jumlahTotal : jumlahTotal,
+				bayar : bayar,
+				kembalian : kembalian,
+				tanggal : tanggal,
+				detailPembelian : []
+		}
+		var table = $('#detail-dt');
+		var tbody = table.find("tbody");
+		var tr = tbody.find("tr");
+		
+		$.each(tr , function(index, data){
+			setPembelian = {
+					buku : {
+						id_buku : $(this).find("td").eq(0).text(),
+						jumlahBuku : $(this).find("td").eq(3).text()
+					},
+						jumlahBeli : $(this).find("td").eq(3).text(),
+						totalHarga : $(this).find("td").eq(4).text()
+			}
+			pembelian.detailPembelian.push(setPembelian);
+		});
+		
+	//	console.log(pembelian);
+		 $.ajax({
+			url : '/pembelian/selesai',
+			type : 'POST',
+			contentType : 'application/json',
+			dataType : 'json',
+			data : JSON.stringify(pembelian),
+			success : function(data, x, xhr){
+				console.log(data);
+			}
+		});
+	}
+	
 </script>
 </html>

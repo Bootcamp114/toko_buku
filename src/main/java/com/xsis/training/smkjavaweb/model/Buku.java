@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -32,6 +33,7 @@ public class Buku {
 	private Distributor distributor;
 	private Double hargaBuku;
 	private String status;
+	private Integer jumlahBuku;
 	private Integer stock;
 	@ManyToOne
 	private TransaksiPembelian transaksiPembelian;
@@ -42,7 +44,7 @@ public class Buku {
 
 	public Buku(Integer id_buku, String kodeBuku, String judulBuku, String penulis, Kategori kategori,
 			Penerbit penerbit, Integer tahunTerbit, Distributor distributor, Double hargaBuku, String status,
-			Integer stock, TransaksiPembelian transaksiPembelian) {
+			Integer jumlahBuku, Integer stock, TransaksiPembelian transaksiPembelian) {
 		super();
 		this.id_buku = id_buku;
 		this.kodeBuku = kodeBuku;
@@ -54,6 +56,7 @@ public class Buku {
 		this.distributor = distributor;
 		this.hargaBuku = hargaBuku;
 		this.status = status;
+		this.jumlahBuku = jumlahBuku;
 		this.stock = stock;
 		this.transaksiPembelian = transaksiPembelian;
 	}
@@ -138,6 +141,14 @@ public class Buku {
 		this.status = status;
 	}
 
+	public Integer getJumlahBuku() {
+		return jumlahBuku;
+	}
+
+	public void setJumlahBuku(Integer jumlahBuku) {
+		this.jumlahBuku = jumlahBuku;
+	}
+
 	public Integer getStock() {
 		return stock;
 	}
@@ -154,5 +165,4 @@ public class Buku {
 		this.transaksiPembelian = transaksiPembelian;
 	}
 
-	
 }

@@ -12,4 +12,5 @@ public interface BukuDao {
 
 	Buku getBukuById(int id);
 
+	void update(Buku buku);
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.model.DetailPembelian;
 import com.xsis.training.smkjavaweb.model.Member;
+import com.xsis.training.smkjavaweb.model.Pembelian;
 import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 
 @Controller
@@ -47,5 +49,13 @@ public class PembelianController {
 	@RequestMapping(value="/cekmember/{pinMember}", method=RequestMethod.GET)
 	public Member getMemberByPin(@PathVariable String pinMember){
 		return dataService.getMemberByPin(pinMember);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/selesai", method=RequestMethod.POST)
+	@ResponseStatus(value=HttpStatus.CREATED)
+	public Pembelian save(@RequestBody Pembelian pembelian){
+		dataService.savePembelian(pembelian);
+		return pembelian;
 	}
 }

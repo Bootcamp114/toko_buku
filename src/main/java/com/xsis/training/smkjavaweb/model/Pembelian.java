@@ -1,14 +1,16 @@
 package com.xsis.training.smkjavaweb.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,24 +30,23 @@ public class Pembelian {
 	private int id;
 	@Column(name="noFaktur", unique = true)
 	private String noFaktur;
-	@OneToOne
-	private DetailPembelian detailPembelian;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="pembelian")
+	private List<DetailPembelian> detailPembelian;
 	@ManyToOne
 	private Member member;
-	private Double grandTotal; 
+	private Double jumlahTotal; 
 	private Double bayar;
 	private Double kembalian;
 	@Temporal(TemporalType.DATE)
 	private Date tanggal;
-	
-	public Pembelian(int id, String noFaktur, DetailPembelian detailPembelian, Member member, Double grandTotal,
+	public Pembelian(int id, String noFaktur, List<DetailPembelian> detailPembelian, Member member, Double jumlahTotal,
 			Double bayar, Double kembalian, Date tanggal) {
 		super();
 		this.id = id;
 		this.noFaktur = noFaktur;
 		this.detailPembelian = detailPembelian;
 		this.member = member;
-		this.grandTotal = grandTotal;
+		this.jumlahTotal = jumlahTotal;
 		this.bayar = bayar;
 		this.kembalian = kembalian;
 		this.tanggal = tanggal;
@@ -62,10 +63,10 @@ public class Pembelian {
 	public void setNoFaktur(String noFaktur) {
 		this.noFaktur = noFaktur;
 	}
-	public DetailPembelian getDetailPembelian() {
+	public List<DetailPembelian> getDetailPembelian() {
 		return detailPembelian;
 	}
-	public void setDetailPembelian(DetailPembelian detailPembelian) {
+	public void setDetailPembelian(List<DetailPembelian> detailPembelian) {
 		this.detailPembelian = detailPembelian;
 	}
 	public Member getMember() {
@@ -74,11 +75,11 @@ public class Pembelian {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	public Double getGrandTotal() {
-		return grandTotal;
+	public Double getJumlahTotal() {
+		return jumlahTotal;
 	}
-	public void setGrandTotal(Double grandTotal) {
-		this.grandTotal = grandTotal;
+	public void setJumlahTotal(Double jumlahTotal) {
+		this.jumlahTotal = jumlahTotal;
 	}
 	public Double getBayar() {
 		return bayar;
@@ -98,5 +99,4 @@ public class Pembelian {
 	public void setTanggal(Date tanggal) {
 		this.tanggal = tanggal;
 	}
-	
 }
