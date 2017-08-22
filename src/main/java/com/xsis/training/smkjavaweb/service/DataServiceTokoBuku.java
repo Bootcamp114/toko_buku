@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xsis.training.smkjavaweb.dao.AnggotaDao;
 import com.xsis.training.smkjavaweb.dao.BukuDao;
 import com.xsis.training.smkjavaweb.dao.BukuPinjamDao;
+import com.xsis.training.smkjavaweb.dao.DetailPembelianDao;
 import com.xsis.training.smkjavaweb.dao.DetailTransaksiDao;
 import com.xsis.training.smkjavaweb.dao.DistributorDao;
 import com.xsis.training.smkjavaweb.dao.KategoriDao;
+import com.xsis.training.smkjavaweb.dao.MemberDao;
+import com.xsis.training.smkjavaweb.dao.PembelianDao;
 import com.xsis.training.smkjavaweb.dao.PeminjamanDao;
 import com.xsis.training.smkjavaweb.dao.PenerbitDao;
 import com.xsis.training.smkjavaweb.dao.PenulisDao;
@@ -21,8 +24,11 @@ import com.xsis.training.smkjavaweb.model.Anggota;
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.model.BukuPinjam;
 import com.xsis.training.smkjavaweb.model.DetaiTransaksi;
+import com.xsis.training.smkjavaweb.model.DetailPembelian;
 import com.xsis.training.smkjavaweb.model.Distributor;
 import com.xsis.training.smkjavaweb.model.Kategori;
+import com.xsis.training.smkjavaweb.model.Member;
+import com.xsis.training.smkjavaweb.model.Pembelian;
 import com.xsis.training.smkjavaweb.model.Peminjaman;
 import com.xsis.training.smkjavaweb.model.Penerbit;
 import com.xsis.training.smkjavaweb.model.Penulis;
@@ -53,6 +59,12 @@ public class DataServiceTokoBuku {
 	private TransaksiPembelianDao transaksiPembelianDao;
 	@Autowired
 	private DetailTransaksiDao detailTransaksiDao;
+	@Autowired
+	private MemberDao memberDao;
+	@Autowired
+	private DetailPembelianDao detailPembelianDao;
+	@Autowired
+	private PembelianDao pembelianDao;
 
 	public void save(Anggota anggota) {
 		// TODO Auto-generated method stub
@@ -164,6 +176,45 @@ public class DataServiceTokoBuku {
 		for (DetaiTransaksi detaiTransaksi : transaksiPembelian.getListDetailTransaksi()) {
 			detaiTransaksi.setTransaksiPembelian(transaksiPembelian);
 			detailTransaksiDao.save(detaiTransaksi);
+		}
+	}
+	
+	public void saveDetailPembelian(DetailPembelian detailPembelian) {
+		// TODO Auto-generated method stub
+		detailPembelianDao.save(detailPembelian);
+	}
+	public List<DetailPembelian> getAllDetail() {
+		// TODO Auto-generated method stub
+		return detailPembelianDao.getAllDetail();
+	}
+
+	public void deleteDetailPembelian(int id) {
+		// TODO Auto-generated method stub
+		detailPembelianDao.delete(id);
+	}
+
+	public String hitungDetail() {
+		// TODO Auto-generated method stub
+		return pembelianDao.hitungDetail();
+	}
+
+	public Member getMemberByPin(String pinMember) {
+		// TODO Auto-generated method stub
+		return memberDao.getMemberByPin(pinMember);
+	}
+	
+	public void savePembelian(Pembelian pembelian) {
+		// TODO Auto-generated method stub
+		pembelianDao.pembelian(pembelian);
+		for(DetailPembelian detailPembelian : pembelian.getDetailPembelian()){
+			detailPembelian.setPembelian(pembelian);
+			/*Buku buku = detailPembelian.getBuku(); 
+			Integer stockLama = buku.getStock();
+			Integer jumlahBeli = buku.getJumlahBuku(); 
+			Integer stockBaru = stockLama - jumlahBeli;
+			buku.setStock(stockBaru);*/
+			pembelianDao.save(detailPembelian);
+	//		bukuDao.update(buku);
 		}
 	}
 }
