@@ -2,56 +2,58 @@ package com.xsis.training.smkjavaweb.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name="tbl_transaksi_pembelian")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+@Table(name = "tbl_transaksi_pembelian")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class TransaksiPembelian {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int noPembelian;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private int id;
+	@Column(name = "no_pembelian",unique=true)
+	private String noPembelian;
 	private String tanggal;
-	private Integer totalBukuDibeli;
 	private Double totalHarga;
-	private Double bayar;
-	private Double kembalian;
-	@ManyToOne
-	private Karyawan karyawan;
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="transaksiPembelian")
-	private List<Buku>listBuku;
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "transaksiPembelian")
+	private List<DetaiTransaksi> listDetailTransaksi;
+
 	public TransaksiPembelian() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TransaksiPembelian(int noPembelian, String tanggal, Integer totalBukuDibeli, Double totalHarga, Double bayar,
-			Double kembalian, Karyawan karyawan, List<Buku> listBuku) {
+	public TransaksiPembelian(int id, String noPembelian, String tanggal, Double totalHarga,
+			List<DetaiTransaksi> listDetailTransaksi) {
 		super();
+		this.id = id;
 		this.noPembelian = noPembelian;
 		this.tanggal = tanggal;
-		this.totalBukuDibeli = totalBukuDibeli;
 		this.totalHarga = totalHarga;
-		this.bayar = bayar;
-		this.kembalian = kembalian;
-		this.karyawan = karyawan;
-		this.listBuku = listBuku;
+		this.listDetailTransaksi = listDetailTransaksi;
 	}
 
-	public int getNoPembelian() {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNoPembelian() {
 		return noPembelian;
 	}
 
-	public void setNoPembelian(int noPembelian) {
+	public void setNoPembelian(String noPembelian) {
 		this.noPembelian = noPembelian;
 	}
 
@@ -63,14 +65,6 @@ public class TransaksiPembelian {
 		this.tanggal = tanggal;
 	}
 
-	public Integer getTotalBukuDibeli() {
-		return totalBukuDibeli;
-	}
-
-	public void setTotalBukuDibeli(Integer totalBukuDibeli) {
-		this.totalBukuDibeli = totalBukuDibeli;
-	}
-
 	public Double getTotalHarga() {
 		return totalHarga;
 	}
@@ -79,37 +73,14 @@ public class TransaksiPembelian {
 		this.totalHarga = totalHarga;
 	}
 
-	public Double getBayar() {
-		return bayar;
+	public List<DetaiTransaksi> getListDetailTransaksi() {
+		return listDetailTransaksi;
 	}
 
-	public void setBayar(Double bayar) {
-		this.bayar = bayar;
-	}
-
-	public Double getKembalian() {
-		return kembalian;
-	}
-
-	public void setKembalian(Double kembalian) {
-		this.kembalian = kembalian;
-	}
-
-	public Karyawan getKaryawan() {
-		return karyawan;
-	}
-
-	public void setKaryawan(Karyawan karyawan) {
-		this.karyawan = karyawan;
-	}
-
-	public List<Buku> getListBuku() {
-		return listBuku;
-	}
-
-	public void setListBuku(List<Buku> listBuku) {
-		this.listBuku = listBuku;
+	public void setListDetailTransaksi(List<DetaiTransaksi> listDetailTransaksi) {
+		this.listDetailTransaksi = listDetailTransaksi;
 	}
 
 	
+
 }

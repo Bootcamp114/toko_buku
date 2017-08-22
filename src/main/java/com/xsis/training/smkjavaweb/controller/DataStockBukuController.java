@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,9 @@ public class DataStockBukuController {
 	DataServiceTokoBuku dataService;
 	
 	@RequestMapping
-	public String index(){
+	public String index(Model model){
+		List<Buku>bukus =dataService.getAllBuku();
+		model.addAttribute("buku",bukus);
 		return "datastockbuku";
 	}
 	
@@ -37,5 +40,12 @@ public class DataStockBukuController {
 	public void delete(@PathVariable int id){
 		System.out.println("id "+id);
 		dataService.delete(id);
+	}
+	@ResponseBody
+	@RequestMapping(value="/edit/{id}", method= RequestMethod.GET)
+	@ResponseStatus(value= HttpStatus.OK)
+	public Buku edit (@PathVariable int id){
+		Buku buku = dataService.getBukuById(id);
+		return buku;
 	}
 }
