@@ -18,12 +18,15 @@ import com.xsis.training.smkjavaweb.model.DetailPembelian;
 import com.xsis.training.smkjavaweb.model.Member;
 import com.xsis.training.smkjavaweb.model.Pembelian;
 import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
+import com.xsis.training.smkjavaweb.utils.AppUtils;
 
 @Controller
 @RequestMapping("/pembelian")
 public class PembelianController {
 	@Autowired
 	DataServiceTokoBuku dataService;
+	@Autowired
+	AppUtils appUtils;
 	
 	@RequestMapping
 	public String index(Model model){
@@ -35,6 +38,8 @@ public class PembelianController {
 		
 		String hitungTotal = dataService.hitungDetail();
 		model.addAttribute("hitungTotal", hitungTotal);
+		
+		model.addAttribute("noFaktur" , appUtils.getNoFaktur());
 		return "pembelian";
 	}
 	

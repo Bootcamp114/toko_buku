@@ -1,14 +1,81 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Pembelian Barang</title>
-<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css">
-<script type="text/javascript" src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/resources/assets/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+<script type="text/javascript"
+	src="/resources/assets/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/resources/assets/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script type="text/javascript"
+	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+var pemasokan;
+$(document).ready (function(){
+	$("#tanggal").datepicker();
+	var datatable = $('#datatable');
+	var elementPilihBuku = $('#judulBuku');
+	var elementHarga = $('#hargaBuku');
+	var elementJml = $('#jmlbeli');
+	var elementtotaljmlbeli = $('#totaljmlbeli');
+	var elementtotaljmlbeli2 =  $('#totaljmlbeli2');
+	var elementSubmit = $('#save');
+	var addData = $('#add');
+	
+	
+	
+	elementSubmit.on('click', function(){
+		
+		var tambahbuku = {
+			judulBuku : elementPilihBuku.val(),
+			hargaBuku : elementHarga.val(),
+			jmlbeli : elementJml.val(),
+			totaljmlbeli : elementtotaljmlbeli.val()
+		}
+		
+		var tbody = datatable.find('tbody');
+		//jquery append
+		var tr = "<tr>";
+		tr += "<td>"+tambahbuku.judulBuku+"</td>";
+		tr += "<td>"+tambahbuku.hargaBuku+"</td>";
+		tr += "<td>"+tambahbuku.jmlbeli+"</td>";
+		tr += "<td>"+tambahbuku.totaljmlbeli+"</td>";
+		tr += "<td><a href='#' class='hapus'>Hapus</td>";
+		tbody.append(tr);
+		clearForm();
+
+	});	
+	
+	$(document).on("click",".hapus",function(){
+		var row=$(this).closest('tr');
+		row.remove();
+	});
+	
+	$(document).on("click", ".edit",function(){
+	 var id = $(this).attr("id_edit");
+		$.ajax({
+			url : '/pemasokan/edit/' + id,
+			type : 'GET',
+			success : function(data) {
+				pilihBuku(data);
+			}
+		});
+	});
+	
+	var simpanTransaksi = $("#simpantransaksi");
+	simpanTransaksi.on("click", function(){
+		save();
+	});
+});
+</script>
 </head>
 	<body style="background: #f5f5f5;">
 		<nav class="navbar navbar-inverse">
@@ -32,66 +99,65 @@
 		<div class="container">
 			<h3 align="center">Form Transaksi Pembelian Stock Buku </h3><br>
 			<form>
-			<table align="center">
-				<tr>
-					<td><div class="row">
-				
-				<!-- /.col-lg-6 -->
-			</div></td>
-				</tr>
-			</table><br>
-			
-			<div class="form-group col-xs-6">
+			<div class="form-group">
 				<label for="kodebuku">Tanggal</label>
-				<input style="width:45%;" type="text" class="form-control" id="kodebuku" >
+				<input type="hidden" id="id_buku">
+				<input style="width:20%;" type="text" class="form-control" id="tanggal" >
 			</div>	
 			
-			<div class="form-group col-xs-6">
+			<div class="form-group">
 				<label for="kodebuku">No Pembelian</label>
-				<input style="width:45%;" type="text" class="form-control" id="kodebuku" >
-			</div>	
+				<input style="width:45%;" type="text" class="form-control" name="noPembelian" value="T000${noUrut }">
+			</div>
 
 
-			<div class="form-group col-xs-6">
-				<label for="tahunterbit">Total Buku Dibeli</label>
-				<input style="width:" type="number" class="form-control" id="tahunterbit" readonly>
-			</div>
-			<div class="form-group col-xs-6">
-				<label for="tahunterbit">Total Pembelian</label>
-				<input style="width:" type="number" class="form-control" id="tahunterbit" placeholder="Total">
-			</div>
-			<div class="form-group col-xs-6">
+			<div class="form-group">
+				<label for="tahunterbit">Pilih Buku</label> <input
+					style="width: 30%" type="text" class="form-control"
+					id="judulBuku" readonly>
 				<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-  		Add Barang
-		</button>
+				<button
+					style="margin-left: 350px; margin-top: -31px; position: absolute;"
+					type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+					data-target="#myModal">Pilih Buku</button>
 			</div>
-		 
+			<div class="form-group">
+				<label for="kodebuku">Harga</label>
+				<input style="width:45%;" type="text" class="form-control" id="hargaBuku" >
+			</div>
+			<div class="form-group">
+				<label for="tahunterbit">Jumlah Buku Yang Akan dipasok</label>
+				<input style="width:45%" type="number" onkeyup="hitung()" class="form-control" id="jmlbeli" placeholder="Masukan Jumlah Buku Yang Dibeli">
+				<input style="width:45%" type="hidden" class="form-control" id="totaljmlbeli" placeholder="total" >	
+				<input style="width:45%" type="hidden" class="form-control" id="totalbayar" placeholder="total bayar">	
+			</div>
+			<input type="button" id="save" value="Tambah Buku" class="btn btn-primary btn-sm">
+			<div class="form-group">
+			</div>
 			<p>	
 		</form>
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Kode Buku</th>
-					<th>Judul Buku</th>
-					<th>Harga Beli (*perbuku)</th>
-					<th>Quantity</th>
-					<th>Total</th>
-					<th colspan="1">action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>B001</td>
-					<td>Laskar Pelangi</td>
-					<td>32.000</td>
-					<td>5</td>
-					<td>160.000</td>
-					<td><a href="#"><span class="glyphicon glyphicon-user"> Delete</span></td>
-				</tr>
-			</tbody>
-		</table>
-		<button type="button" class="btn btn-primary">Save Transaksi Pembelian</button>
+		<div>
+			<table class="table table-bordered" id="datatable">
+				<thead>
+					<tr>
+						<th>Judul Buku</th>
+						<th>Harga (*perbuku)</th>
+						<th>Jumlah Pemasokan</th>
+						<th>Total</th>
+						<th colspan="1">action</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3">Grand Total</td>
+						<td></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<button type="button" class="btn btn-primary" id="simpantransaksi" onclick="reload()">Simpan Transaksi Pembelian</button>
 	</div>
 	</body>
 	<!-- Modal -->
@@ -103,66 +169,104 @@
         <h4 class="modal-title" id="myModalLabel">Tambah Stock Pembelian Buku</h4>
       </div>
       <div class="modal-body">
-      <table align="center">
-      	<tr>
-      		<td>
-      		<div class="col-lg-6">
-					<div class="input-group">
-						<input style="width: 500px;" type="text" class="form-control"
-							placeholder="Search for..."> <span
-							class="input-group-btn">
-							<button class="btn btn-default" type="button">Go!</button>
-						</span>
-					</div>
-					<!-- /input-group -->
-			</div>
-      		</td>
-      	</tr>
-      	
-      	<tr>
-      		<td>
-      		<div class="form-group col-xs-4">
-				<label for="penerbit">Kode Buku</label>
-				<input type="text" class="form-control" id="penerbit" readonly>
-			</div>
-			<div class="form-group col-xs-6">
-				<label for="penerbit">Judul Buku</label>
-				<input type="text" class="form-control" id="penerbit" readonly>
-			</div>
-			<div class="form-group col-xs-6">
-				<label for="penerbit">Penulis</label>
-				<input type="text" class="form-control" id="penerbit" readonly>
-			</div>
-			<div class="form-group col-xs-6">
-				<label for="penerbit">Category</label>
-				<input type="text" class="form-control" id="penerbit" readonly>
-			</div>
-			<div class="form-group col-xs-6">
-				<label for="penerbit">Tahun Terbit</label>
-				<input type="text" class="form-control" id="penerbit" readonly>
-			</div>
-			<div class="form-group col-xs-6">
-				<label for="penerbit">Distributor</label>
-				<input type="text" class="form-control" id="penerbit" readonly>
-			</div>
-			<div class="form-group col-xs-6">
-				<label for="penerbit">Harga</label>
-				<input type="text" class="form-control" id="penerbit" readonly>
-			</div>
-			<div class="form-group col-xs-6">
-				<label for="penerbit">Jumlah</label>
-				<input type="text" class="form-control" id="penerbit" placeholder="Masukan Jumlah yang akan di stock">
-			</div>
-      		</td>
-      	</tr>
-      </table>
-        
+        <table class="table table-bordered">
+        	<thead>
+        		<tr>
+        			<th>Kode Buku</th>
+        			<th>Judul Buku</th>
+        			<th>Harga</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<c:forEach var="buku" items="${buku }">
+        			<tr>
+        				<td>${buku.kodeBuku}</td>
+						<td><a href="#" id_edit="${buku.id_buku }" class="edit" data-dismiss="modal">
+										${buku.judulBuku} </a></td>
+						<td>${buku.hargaBuku}</td>
+        			</tr>
+        		</c:forEach>
+        	</tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Add Ke Stock</button>
       </div>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+	function reload(){
+		location.reload();
+	}
+
+	function pilihBuku(data){
+		$("#judulBuku").val(data.judulBuku);
+		$("#hargaBuku").val(data.hargaBuku);
+		$("#id_buku").val(data.id_buku);
+		
+	}
+	
+	function hitung(){
+		var harga = document.getElementById("hargaBuku").value;
+		var belinya = document.getElementById("jmlbeli").value;
+		var totalbeli = document.getElementById("totaljmlbeli").value = harga * belinya;
+		var bayar = totalbeli + totalbeli;
+		var tot = document.getElementById("totalbayar").value=bayar;
+		
+		//document.getElementById("totaljmlbeli").value=harga * belinya;
+	}
+	
+	
+	function clearForm(){
+		$('#judulBuku').val("");
+		$('#hargaBuku').val("");
+		$('#jmlbeli').val("");
+		$('#totaljmlbeli').val("");
+	}
+	
+	function save(){
+		var tanggal = $('#tanggal').val();
+		var noPembelian = $('input[name="noPembelian"]').val();
+
+		transaksi = {
+			tanggal : tanggal,
+			noPembelian : noPembelian,
+			listDetailTransaksi : [
+				
+			]
+		}
+
+		var table = $("#datatable");
+		var tbody = table.find('tbody');
+		var tr = tbody.find('tr');
+		var details = [];
+		$.each(tr, function(index, data){
+			
+			detailsTransaksi = {
+					judulBuku : $(this).find('td').eq(0).text(),
+					harga : $(this).find('td').eq(1).text(),
+					jmlBeli : $(this).find('td').eq(2).text(),
+					total : $(this).find('td').eq(3).text()
+				}
+			
+			transaksi.listDetailTransaksi.push(detailsTransaksi);
+		});
+
+		$.ajax({
+			url : '/pemasokan/save',
+			type : 'POST',
+			contentType : 'application/json',
+			data : JSON.stringify(transaksi), // Convert object to string
+			dataType : 'JSON',
+			success : function(data) {
+				console.log(data);
+				/* if (xhr.status == 201) { */
+					//window.location = "./../account";
+					
+				/* } */
+			}
+		});
+	}
+</script>
 </html>

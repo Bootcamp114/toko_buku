@@ -97,15 +97,15 @@
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="tahunterbit">Status</label>
-				<input style="width:" type="text" class="form-control" name="status" placeholder="Masukan Status">
+				<input style="width:" type="text" value="Progress" class="form-control" name="status" readonly="readonly">
 			</div>
 			<!-- <div class="form-group col-xs-6">
 				<label for="tahunterbit">Stock</label>
 				<input style="width:" type="text" class="form-control" name="stock" placeholder="Masukan Stock">
 			</div> -->
-			<button type="button" name="submit" class="btn btn-primary" id="teskhul">Tambah Rencana</button>
+			<button type="button" name="submit" class="btn btn-primary" id="teskhul" style="margin-top: 27px" onclick="reload()">Tambah Rencana</button>
 		</form><br>
-		<table class="table table-bordered">
+		<!-- <table class="table table-bordered">
 			<thead>
 				<tr>
 					<th>Kode Buku</th>
@@ -121,7 +121,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				 <tr>
 					<td>B001</td>
 					<td>Laskar Pelangi</td>
 					<td>Jontor</td>
@@ -134,14 +134,18 @@
 					<td>
 						<a href="#" class="glyphicon glyphicon-remove-sign"> Hapus</a>
 					</td>
-				</tr>
+				</tr> 
 			</tbody>
-		</table>
-		<button type="button" class="btn btn-primary">Simpan Rencana</button>
+		</table> 
+		<button type="button" class="btn btn-primary">Simpan Rencana</button>-->
 	</div>
 </body>
 
 <script type="text/javascript">
+	function reload(){
+		location.reload();
+	}
+
 	function save(){
 		//alert("hello pejuang");
 		var kodeBuku = $("input[name='kodeBuku']").val();
@@ -183,6 +187,7 @@
 			success : function (data, a, xhr){
 				if (xhr.status == 201) {
 					console.log("Data Berhasil Di Create");
+					alert("Data Berhasil di tambahkan");
 				}
 			}
 		});

@@ -28,7 +28,7 @@
 			var conf = confirm("Apakah Anda ingin menghapus data?");
 			if(conf == true){
 				doDelete(this);
-				window.location.href="/member/";
+				window.location.href="/member";
 			}
 		});
 	});
@@ -54,8 +54,8 @@
     </div>
     <ul class="nav navbar-nav">
     	<li class="active"><a href="#">Home</a></li>
-    	<li><a href="#">Page 1</a></li>
-    	<li><a href="#">Page 2</a></li>
+    	<li><a href="member">Member</a></li>
+    	<li><a href="pembelian">Pembelian</a></li>
     </ul>
     <!-- <ul class="nav navbar-nav navbar-right">
     	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -97,19 +97,19 @@
 				<div class="form-group form-inline">
 					<label>No Hp</label>
 					<div class="controls">
-						<input type="number" id="noHp" class="form-control" maxlength="15">
+						<input type="number" id="noHp" class="form-control" maxlength="4">
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label>Tanggal</label>
 					<div class="controls">
-						<input type="date" id="tanggal" class="form-control">
+						<input type="text" id="tanggal" name="tanggal" class="tcal form-control" size="6">
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label>Diskon</label>
 					<div class="controls">
-						<input type="text" id="diskon" class="form-control" size="1">
+						<input type="text" id="diskon" class="form-control" size="1" value="10%" readonly>
 					</div>
 				</div>
 				<div class="control-group">
@@ -145,6 +145,11 @@
 
 </body>
 <script type="text/javascript">
+var date = new Date();
+var hari = date.getDate();
+var bulan = date.getMonth() + 1;
+var tahun = date.getFullYear();
+$("#tanggal").val(tahun + "-" + bulan + "-" + hari);
 function doDelete(del){
 	var id = $(del).attr("id_delete");
 	$.ajax({

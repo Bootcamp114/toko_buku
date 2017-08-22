@@ -67,12 +67,12 @@ var grandTotal2 = 0;
 		
 		$("#selesai").on("click", function(){
 			selesai();
+			window.location.href="/pembelian/";
 		});
 		
 		$("#tidak").on("click", function(){
 			var grandTotal = $("#grandTotal").val();
-			$("#jumlahTotal").val(grandTotal);
-			
+			$("#jumlahTotal").val(grandTotal);	
 		});
 		
 	});
@@ -97,8 +97,8 @@ var grandTotal2 = 0;
     </div>
     <ul class="nav navbar-nav">
     	<li class="active"><a href="#">Home</a></li>
-    	<li><a href="#">Page 1</a></li>
-    	<li><a href="#">Page 2</a></li>
+    	<li><a href="member">Member</a></li>
+    	<li><a href="pembelian">Pembelian</a></li>
     </ul>
     <!-- <ul class="nav navbar-nav navbar-right">
     	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -112,7 +112,8 @@ var grandTotal2 = 0;
 				<div class="form-group form-inline">
 					<label>No Faktur</label>
 					<div class="controls form-inline">
-						<input type="text" id="noFaktur" name="noFaktur" class="form-control"/>
+						<input type="hidden" id="id" class="form-group form-control" readonly/>
+						<input type="text" id="noFaktur" name="noFaktur" value="FK00000${noFaktur}" class="form-control" readonly/>
 					</div>
 				</div>
 				<div class="form-group form-inline">
@@ -158,7 +159,7 @@ var grandTotal2 = 0;
 				<table id="detail-dt" class="table table-hover table-bordered">
 					<thead>
 						<tr>
-							<th>Id</th>
+							<th style="display: none">Id</th>
 							<th>Judul Buku</th>
 							<th>Harga Satuan</th>
 							<th>Jumlah Beli</th>
@@ -207,8 +208,7 @@ var grandTotal2 = 0;
 			<div class="form-group form-inline">
 				<label>Kembalian / Hutang ( Jika min - )</label>
 				<div class="controls">
-					<input type="text" id="kembalian" name="kembalian"
-						class="form-control" readonly>
+					<input type="text" id="kembalian" name="kembalian" class="form-control" readonly>
 				</div>
 			</div>
 			<div class="form-group form-inline">
@@ -319,7 +319,7 @@ var grandTotal2 = 0;
 		var total = $('#total').val();
 		var tbody = $('#detail-dt').find("tbody");
 		var markup = "<tr>";
-		markup += "<td >"+ id + "</td>";
+		markup += "<td style='display:none'>"+ id + "</td>";
 		markup += "<td>" + judulBuku + "</td>";
 		markup += "<td>" + hargaBuku + "</td>";
 		markup += "<td>" + jumlah + "</td>";
@@ -357,13 +357,14 @@ var grandTotal2 = 0;
 	}
 	
 	function selesai(){
+		var id = $('#id').val();
 		var noFaktur = $('#noFaktur').val();
-		alert(noFaktur);
 		var jumlahTotal = $('#jumlahTotal').val();
 		var bayar = $('#bayar').val();
 		var kembalian = $('#kembalian').val();
 		var tanggal = $('#tanggal').val();
 		pembelian = {
+				id : id,
 				noFaktur : noFaktur,
 				jumlahTotal : jumlahTotal,
 				bayar : bayar,
