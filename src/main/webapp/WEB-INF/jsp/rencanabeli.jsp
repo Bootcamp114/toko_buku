@@ -46,7 +46,7 @@
 			<h3 align="center">Form Perencanaan Pembelian Buku <span class="label label-default"></span></h3><br>
 			<div class="form-group col-xs-6">
 				<label for="kodebuku">Kode Buku</label>
-				<input style="width:45%;" type="text" class="form-control" name="kodeBuku" placeholder="Input Kode Buku">
+				<input style="width:45%;" type="text" class="form-control" name="kodeBuku" placeholder="Input Kode Buku" value="B00${noBuku }" readonly="readonly">
 			</div>
 			<div class="form-group col-xs-6">
 				<label for="judulbuku">Judul Buku</label>

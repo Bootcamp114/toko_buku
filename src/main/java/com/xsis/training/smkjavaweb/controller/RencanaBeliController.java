@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.training.smkjavaweb.javautils.JavaUtils;
 import com.xsis.training.smkjavaweb.model.Anggota;
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.model.Distributor;
@@ -24,8 +25,12 @@ import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 public class RencanaBeliController {
 	@Autowired
 	DataServiceTokoBuku dataService;
+	@Autowired
+	private JavaUtils javaUtils;
 	@RequestMapping
 	public String index(Model model){
+		String noBuku = javaUtils.getNoBuku();
+		model.addAttribute("noBuku", noBuku);
 		List<Distributor> distributors = dataService.getAllDistributor();
 		model.addAttribute("distributor", distributors);
 		List<Kategori> kategoris = dataService.getAllKategori();

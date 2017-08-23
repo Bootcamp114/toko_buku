@@ -208,13 +208,12 @@ public class DataServiceTokoBuku {
 		pembelianDao.pembelian(pembelian);
 		for(DetailPembelian detailPembelian : pembelian.getDetailPembelian()){
 			detailPembelian.setPembelian(pembelian);
-			/*Buku buku = detailPembelian.getBuku(); 
-			Integer stockLama = buku.getStock();
-			Integer jumlahBeli = buku.getJumlahBuku(); 
-			Integer stockBaru = stockLama - jumlahBeli;
-			buku.setStock(stockBaru);*/
 			pembelianDao.save(detailPembelian);
-	//		bukuDao.update(buku);
 		}
+	}
+
+	public void deleteKategori(int id) {
+		// TODO Auto-generated method stub
+		kategoriDao.deleteKategori(id);
 	}
 }

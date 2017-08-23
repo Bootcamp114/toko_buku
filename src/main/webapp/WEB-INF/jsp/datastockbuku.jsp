@@ -5,32 +5,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Data Buku</title>
-<script type="text/javascript"
-	src="/resources/assets/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css">
-<script type="text/javascript"
-	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Data Buku</title>
+	<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/resources/assets/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
+	<script type="text/javascript" src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+<style>
+th {
+	background-color: #4CAF50;
+	color: white;
+}
+</style>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		//nampilin table buku
-		/* $(document).on("click", ".delete" ,function(){
-			var conf = confirm("Apakah anda yakin menghapus data ini ?");
-			if (conf == true){
-				onDelete(this);
-				refresh();
-			}
-			
-		}); */
+		$(document).on('click', '.upd', function() {
+			$('#myModalUpdate').modal();
+			oTr = $(this).closest('tr');
+			var td0 = oTr.find('td').eq(0).text();
+			var td1 = oTr.find('td').eq(1).text();
+			var td2 = oTr.find('td').eq(2).text();
 
-		$(document).on("click", ".update", function() {
-			alert("hllo brooo");
+			//fill to form
+			$('#nameUpdate').val(td0);
+			$('#addressUpdate').val(td1);
+			$('#schoolUpdate').val(td2);
 		});
+		
+		$("#emp-dt").DataTable();
 	});
 </script>
 </head>
@@ -61,17 +65,17 @@
 		<table class="table table-bordered" id="emp-dt">
 			<thead>
 				<tr>
-					<th>Kode Buku</th>
+					<th>Kode_Buku</th>
 					<th>Judul Buku</th>
 					<th>Penulis</th>
 					<th>Category</th>
 					<th>Penerbit</th>
-					<th>Tahun Terbit</th>
+					<th>Tahun_Terbit</th>
 					<th>Distributor</th>
 					<th>Harga</th>
 					<th>Status</th>
 					<th>Stock</th>
-					<th colspan="2">Action</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -87,12 +91,11 @@
 						<td>${buku.hargaBuku}</td>
 						<td>${buku.status}</td>
 						<td>${buku.stock}</td>
-						<td><a href="#" id_delete="${buku.id_buku}"
-							class="delete btn btn-danger btn-sm" onclick="reload()"><span
-								class="fa fa-fw fa-times"></span>Hapus</a></td>
-						<td><a href="#" id_update="${buku.id_buku}"
-							class="delete btn btn-danger btn-sm" data-toggle="modal"
-							data-target="#myModal"><span class="fa fa-fw fa-times"></span>Edit</a></td>
+						<td>
+						<a href="#" id_delete="${buku.id_buku}" class="delete btn btn-danger btn-sm" onclick="reload()"><span
+								class="fa fa-fw fa-times"></span>Hapus</a>
+						<a href='#' class='upd'>Update</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -125,6 +128,47 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ini update -->
+	<div class="modal fade" id="myModalUpdate" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<center>Update Employee</center>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="name">Kode Buku</label> <input type="text"
+								class="form-control" id="nameUpdate"
+								placeholder="Input Your Name">
+						</div>
+						<div class="form-group">
+							<label for="address">Judul Buku</label> <input type="text"
+								class="form-control" id="addressUpdate"
+								placeholder="Input Your Address">
+						</div>
+						<div class="form-group">
+							<label for="school">Penulis</label> <input type="text"
+								class="form-control" id="schoolUpdate"
+								placeholder="Input Your School">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-default" id="btnUpdate"
+						value="Update">
 				</div>
 			</div>
 		</div>
@@ -165,4 +209,5 @@
 
 	}
 </script>
+<script type="text/javascript" src="/resources/assets/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 </html>

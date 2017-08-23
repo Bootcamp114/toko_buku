@@ -9,5 +9,7 @@ public interface KategoriDao {
 	void save(Kategori kategori);
 
 	List<Kategori> getAllKategori();
+
+	void deleteKategori(int id);
 	
 }
