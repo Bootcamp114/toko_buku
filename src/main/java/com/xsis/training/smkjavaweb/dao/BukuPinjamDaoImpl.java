@@ -26,12 +26,21 @@ public class BukuPinjamDaoImpl implements BukuPinjamDao{
 	public BukuPinjam getBukuPinjamByKode(String kode) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from BukuPinjam where noBuku =:kode");
+		Query query = session.createQuery("from BukuPinjam where status = '0' and noBuku =:kode");
 		query.setString("kode", kode);
 		List<BukuPinjam> bukuPinjam = query.list();
 		if(!bukuPinjam.isEmpty())
 		return bukuPinjam.get(0);
 		else
 			return null;
+	}
+	@Override
+	public void updateStatus(String noBuku) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("update BukuPinjam set status = '1'" +
+				" where noBuku = :noBuku");
+		query.setParameter("noBuku", noBuku);
+		int result = query.executeUpdate();
 	}
 }

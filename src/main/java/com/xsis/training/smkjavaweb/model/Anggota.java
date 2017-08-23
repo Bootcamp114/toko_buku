@@ -32,16 +32,16 @@ public class Anggota {
 	@Column(name="email", unique = true)
 	private String email;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="anggota")
-	private List<Peminjaman> listPeminjaman;
+	private List<DetailPeminjaman> listDetailPeminjaman;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="anggota")
-	private List<Pengembalian> listPengembalian;
+	private List<DetailPengembalian> listDetailPengembalian;
 	
 	public Anggota() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Anggota(int id, String nik, String nama, String jk, String alamat, String pekerjaan, String email,
-			List<Peminjaman> listPeminjaman, List<Pengembalian> listPengembalian) {
+			List<DetailPeminjaman> listDetailPeminjaman, List<DetailPengembalian> listDetailPengembalian) {
 		super();
 		this.id = id;
 		this.nik = nik;
@@ -50,8 +50,8 @@ public class Anggota {
 		this.alamat = alamat;
 		this.pekerjaan = pekerjaan;
 		this.email = email;
-		this.listPeminjaman = listPeminjaman;
-		this.listPengembalian = listPengembalian;
+		this.listDetailPeminjaman = listDetailPeminjaman;
+		this.listDetailPengembalian = listDetailPengembalian;
 	}
 
 	public int getId() {
@@ -110,21 +110,20 @@ public class Anggota {
 		this.email = email;
 	}
 
-	public List<Peminjaman> getListPeminjaman() {
-		return listPeminjaman;
+	public List<DetailPeminjaman> getListDetailPeminjaman() {
+		return listDetailPeminjaman;
 	}
 
-	public void setListPeminjaman(List<Peminjaman> listPeminjaman) {
-		this.listPeminjaman = listPeminjaman;
+	public void setListDetailPeminjaman(List<DetailPeminjaman> listDetailPeminjaman) {
+		this.listDetailPeminjaman = listDetailPeminjaman;
 	}
 
-	public List<Pengembalian> getListPengembalian() {
-		return listPengembalian;
+	public List<DetailPengembalian> getListDetailPengembalian() {
+		return listDetailPengembalian;
 	}
 
-	public void setListPengembalian(List<Pengembalian> listPengembalian) {
-		this.listPengembalian = listPengembalian;
+	public void setListDetailPengembalian(List<DetailPengembalian> listDetailPengembalian) {
+		this.listDetailPengembalian = listDetailPengembalian;
 	}
-	
 	
 }

@@ -14,7 +14,6 @@ public interface PeminjamanDao {
 
 	List<BukuPinjam> searchBukuByKode(BukuPinjam bukuPinjam);
 
-	Peminjaman getBukuPengembalianByKode(String kode);
 
 
 }

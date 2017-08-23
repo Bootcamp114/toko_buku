@@ -1,11 +1,15 @@
 package com.xsis.training.smkjavaweb.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -24,27 +28,27 @@ public class Pengembalian {
 	private String tanggal;
 	@Column(name="total_denda")
 	private String totalDenda;
-	@ManyToOne
-	private Anggota anggota;
-	@ManyToOne
-	private Karyawan karyawan;
-	@ManyToOne
-	private Peminjaman peminjaman;
+	private String bayar;
+	private String kembalian;
+	private String jumlah;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="pengembalian")
+	private List<DetailPengembalian> listDetailPengembalian;
 	
 	public Pengembalian() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pengembalian(int id, String noPengembalian, String tanggal, String totalDenda, Anggota anggota,
-			Karyawan karyawan, Peminjaman peminjaman) {
+	public Pengembalian(int id, String noPengembalian, String tanggal, String totalDenda, String bayar,
+			String kembalian, String jumlah, List<DetailPengembalian> listDetailPengembalian) {
 		super();
 		this.id = id;
 		this.noPengembalian = noPengembalian;
 		this.tanggal = tanggal;
 		this.totalDenda = totalDenda;
-		this.anggota = anggota;
-		this.karyawan = karyawan;
-		this.peminjaman = peminjaman;
+		this.bayar = bayar;
+		this.kembalian = kembalian;
+		this.jumlah = jumlah;
+		this.listDetailPengembalian = listDetailPengembalian;
 	}
 
 	public int getId() {
@@ -79,28 +83,36 @@ public class Pengembalian {
 		this.totalDenda = totalDenda;
 	}
 
-	public Anggota getAnggota() {
-		return anggota;
+	public String getBayar() {
+		return bayar;
 	}
 
-	public void setAnggota(Anggota anggota) {
-		this.anggota = anggota;
+	public void setBayar(String bayar) {
+		this.bayar = bayar;
 	}
 
-	public Karyawan getKaryawan() {
-		return karyawan;
+	public String getKembalian() {
+		return kembalian;
 	}
 
-	public void setKaryawan(Karyawan karyawan) {
-		this.karyawan = karyawan;
+	public void setKembalian(String kembalian) {
+		this.kembalian = kembalian;
 	}
 
-	public Peminjaman getPeminjaman() {
-		return peminjaman;
+	public String getJumlah() {
+		return jumlah;
 	}
 
-	public void setPeminjaman(Peminjaman peminjaman) {
-		this.peminjaman = peminjaman;
+	public void setJumlah(String jumlah) {
+		this.jumlah = jumlah;
+	}
+
+	public List<DetailPengembalian> getListDetailPengembalian() {
+		return listDetailPengembalian;
+	}
+
+	public void setListDetailPengembalian(List<DetailPengembalian> listDetailPengembalian) {
+		this.listDetailPengembalian = listDetailPengembalian;
 	}
 
 
