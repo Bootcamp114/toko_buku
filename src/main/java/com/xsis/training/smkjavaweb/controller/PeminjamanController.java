@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.training.smkjavaweb.model.Anggota;
 import com.xsis.training.smkjavaweb.model.BukuPinjam;
+import com.xsis.training.smkjavaweb.model.Karyawan;
 import com.xsis.training.smkjavaweb.model.Peminjaman;
 import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 
@@ -30,6 +31,8 @@ public class PeminjamanController {
 		model.addAttribute("peminjaman", peminjaman);
 		List<Anggota> anggota = dataServiceTokoBuku.getAllAnggota();
 		model.addAttribute("anggota", anggota);
+		List<Karyawan> karyawan = dataServiceTokoBuku.getAllKaryawan();
+		model.addAttribute("karyawan", karyawan);
 		return "peminjaman" ;
 	}
 	

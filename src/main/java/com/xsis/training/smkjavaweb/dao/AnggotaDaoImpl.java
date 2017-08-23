@@ -44,5 +44,12 @@ public class AnggotaDaoImpl implements AnggotaDao{
 		Anggota anggota = session.get(Anggota.class, id);
 		return anggota;
 	}
+	@Override
+	public void update(Anggota anggota) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.update(anggota);
+		session.flush();
+	}
 
 }

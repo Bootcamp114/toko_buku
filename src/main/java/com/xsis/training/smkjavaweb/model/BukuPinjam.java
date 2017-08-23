@@ -34,11 +34,13 @@ public class BukuPinjam {
 	private Donatur donatur;
 	@ManyToOne
 	private Karyawan karyawan;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="bukuPinjam")
+	private List<DetailPeminjaman> listDetailsPeminjaman;
 	public BukuPinjam() {
 		// TODO Auto-generated constructor stub
 	}
 	public BukuPinjam(int id, String noBuku, String tanggal, String status, Buku buku, Donatur donatur,
-			Karyawan karyawan) {
+			Karyawan karyawan, List<DetailPeminjaman> listDetailsPeminjaman) {
 		super();
 		this.id = id;
 		this.noBuku = noBuku;
@@ -47,6 +49,7 @@ public class BukuPinjam {
 		this.buku = buku;
 		this.donatur = donatur;
 		this.karyawan = karyawan;
+		this.listDetailsPeminjaman = listDetailsPeminjaman;
 	}
 	public int getId() {
 		return id;
@@ -90,5 +93,11 @@ public class BukuPinjam {
 	public void setKaryawan(Karyawan karyawan) {
 		this.karyawan = karyawan;
 	}
-
+	public List<DetailPeminjaman> getListDetailsPeminjaman() {
+		return listDetailsPeminjaman;
+	}
+	public void setListDetailsPeminjaman(List<DetailPeminjaman> listDetailsPeminjaman) {
+		this.listDetailsPeminjaman = listDetailsPeminjaman;
+	}
+	
 }

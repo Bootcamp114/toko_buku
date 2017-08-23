@@ -25,7 +25,10 @@ th {
 </style>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+var peminjaman;
+var idBuku = 0;
+$(document).ready(function(){
+	var detailPeminjaman;
 		$("#tgl_peminjaman").datepicker();
 		$("#tgl_pengembalian").datepicker();
 		//tambah tr
@@ -41,6 +44,7 @@ th {
 		//event listener on click
 		elementSubmit.on('click', function(){
 			var buku = {
+				id : idBuku,
 				noBuku : 	elementNoBuku.val(),
 				judul : elementJudul.val(),
 				penulis : elementPenulis.val(),
@@ -52,6 +56,7 @@ th {
 			var tbody = bukudt.find('tbody');
 			//jquery append
 			var tr = "<tr>";
+			tr += "<td style='visibility:hidden;'>"+buku.id+"</td>";
 			tr += "<td>"+buku.noBuku+"</td>";
 			tr += "<td>"+buku.judul+"</td>";
 			tr += "<td>"+buku.penulis+"</td>";
@@ -61,6 +66,8 @@ th {
 			tr += "<td><a href='#'  class='del btn btn-info btn-danger btn-xs'>Delete</td>";
 			tr += "</tr>";
 			tbody.append(tr);
+			
+			
 		});
 	
 		//showData();
@@ -107,6 +114,7 @@ th {
 		
 		$("#no_buku").on("keyup", function(){
 			var src = $(this).val();
+			//console.log(src);
 			//load_autoComplete(src);
 			$.ajax({
 				url : "/peminjaman/getbukupinjam/"+src,
@@ -120,46 +128,18 @@ th {
 					$("#tahun_terbit").val(data.buku.tahunTerbit);
 					$("#harga").val(data.buku.hargaBuku);
 					$("#id_hiden").val(data.id);
+					idBuku=data.id;
 				}
 			});
 		});
 
 		$("#simpan").on("click", function(){
-			var noPeminjaman = $('input[name="no_peminjaman"]').val();
-			var tglPinjam = $('input[name="tgl_peminjaman"]').val();
-			var tglKembali = $('input[name="tgl_pengembalian"]').val();
-			var status = "1";
-			var anggota = $('select[name="anggota"]').val();
-			var bukuPinjam = $('input[name="id_hiden"]').val();
-			var karyawan = "1";
-			var oTr = 0;
-			//Sama dengan java POJO (Encapsulation)
-			var peminjaman = {
-					noPeminjaman : noPeminjaman,
-					tglPinjam : tglPinjam,
-					tglKembali : tglKembali,
-					status : status,
-					anggota : { id : anggota},
-					bukuPinjam :{ id : bukuPinjam},
-					karyawan : { id : karyawan}
-			}
-			$.ajax({
-				url : '/peminjaman/save',
-				type : 'POST',
-				contentType : 'application/json',
-				data : JSON.stringify(peminjaman),
-				success : function(data, a, xhr){
-					if(xhr.status == 201){
-						console.log("Berhasil disimpan");
-					}
-				}
-			});
-			console.log(peminjaman);
+			save();
+			document.location="peminjaman";
 		});
 		$(document).on('click','.del',function(){
 			var row = $(this).closest('tr');
 			row.remove();
-			alert('Datat terhapus');
 		});
 			
 	});
@@ -173,13 +153,18 @@ th {
 				<a class="navbar-brand" href="#">Grand Media</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Page 1</a></li>
-				<li><a href="#">Page 2</a></li>
+				<li class="active"><a href="#"  onclick="redirectPeminjaman()">Peminjaman</a></li>
+				<li><a href="#" onclick="redirectPengembalian()">Pengembalian</a></li>
+				<li><a href="#" onclick="redirectDetail()">Detail Peminjaman</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-						Nama Admin </a></li>
+				<li><a href="#"><!-- <span class="glyphicon glyphicon-user"></span> -->
+						 <select class="form-control" id="karyawan" style="width: 100%;" name="karyawan">
+							<c:forEach var="karyawan" items="${karyawan}">
+								<option value="${karyawan.id}">${karyawan.namaKaryawan}</option>
+							</c:forEach>
+						</select>
+				 </a></li>
 
 			</ul>
 		</div>
@@ -212,7 +197,7 @@ th {
 				<label for="tgl_peminjaman">Tgl. Peminjaman:</label> <input
 					type="text" class="form-control" id="tgl_peminjaman"
 					placeholder="Tgl. peminjaman Auto (tanggal hari saat prosses)"
-					name="tgl_peminjaman"><br /> <label
+					name="tgl_peminjaman" ><br /> <label
 					for="tgl_pengembalian">Tgl. Pengembalian:</label> <input
 					type="text" class="form-control" id="tgl_pengembalian"
 					placeholder="Tgl. Pengembalian Auto(10 hari setelah pinjam)"
@@ -220,10 +205,11 @@ th {
 			</div>
 
 		</form>
-	<div id="buku">
-		<table class="table table-striped">
+	
+		<table class="table table-striped"  id="buku">
 			<thead>
 				<tr>
+					<th style="visibility:hidden;">ID</th>
 					<th>No. Buku</th>
 					<th>Judul buku</th>
 					<th>Penulis</th>
@@ -234,22 +220,10 @@ th {
 				</tr>
 			</thead>
 			<tbody>
-<%-- 				<c:forEach var="peminjaman" items="${peminjaman}">
-					<tr>
-						<td>${peminjaman.bukuPinjam.noBuku}</td>
-						<td>${peminjaman.bukuPinjam.buku.kodeBuku}</td>
-						<td>${peminjaman.bukuPinjam.buku.judulBuku}</td>
-						<td>${peminjaman.bukuPinjam.buku.penulis}</td>
-						<td>${peminjaman.bukuPinjam.buku.penerbit}</td>
-						<td>${peminjaman.bukuPinjam.buku.kategori}</td>
-						<td>${peminjaman.bukuPinjam.buku.tahunTerbit}</td>
-						<td>${peminjaman.bukuPinjam.buku.hargaBuku}</td>
-						<td><a href="#" id="delete" class="btn btn-xs btn-danger">Hapus</a></td>
-					</tr>
-				</c:forEach> --%>
+
 			</tbody>
 		</table>
-		</div>
+
 		<input type="submit" id="simpan" value="Simpan"
 			class="btn btn-primary btn-md" />
 	</div>
@@ -346,7 +320,7 @@ th {
 					</div>
 					<div class="form-group col-xs-6">
 						<label for="alamat">Alamat:</label>
-						<textarea class="form-control" rows="3" id="alamat"></textarea>
+						<textarea class="form-control" rows="3" id="alamat" name="alamat"></textarea>
 						<br /> <label for="pekerjaan">Pekerjaan:</label> <input
 							type="text" class="form-control" id="pekerjaan"
 							placeholder="input oleh user " name="pekerjaan"><br /> <label
@@ -370,6 +344,19 @@ th {
 
 </body>
 <script type="text/javascript">
+var d = new Date();
+var hari = d.getDate();
+var bulan = d.getMonth() + 1;
+var tahun = d.getFullYear();
+
+d.setDate(d.getDate()+10);
+var hariKembali = d.getDate();
+var bulanKembali = d.getMonth() + 1;
+var tahunKembali = d.getFullYear();
+
+$('#tgl_peminjaman').val("0" + bulan + "/" + hari + "/" + tahun);
+$('#tgl_pengembalian').val("0" + bulanKembali + "/" + hariKembali + "/" + tahunKembali);
+
 var jk;
 $(document).ready(function(){
 	$('input[name="jk"]').on("change", function(){
@@ -379,36 +366,46 @@ $(document).ready(function(){
 
 function save(){
 	var noPeminjaman = $('input[name="no_peminjaman"]').val();
-	var tglPinjam = $('input[name="tgl_peminjaman"]').val();
-	var tglKembali = $('input[name="tgl_pengembalian"]').val();
-	var status = "1";
-	var anggota = $('input[name="anggota"]').val();
-	var bukuPinjam = $('input[name="no_buku"]').val();
-	var karyawan = "1";
-	var oTr = 0;
 	//Sama dengan java POJO (Encapsulation)
-	var peminjaman = {
+	peminjaman = {
 			noPeminjaman : noPeminjaman,
-			tglPinjam : tglPinjam,
-			tglKembali : tglKembali,
-			status : status,
-			anggota : { id : anggota},
-			bukuPinjam : bukuPinjam,
-			karyawan : { id : karyawan}
+			jumlah : noPeminjaman,
+			listDetailPeminjaman : [ 
+			 ]
 	}
-	
+
+	var table = $("#buku");
+	var tbody = table.find('tbody');
+	var tr = tbody.find('tr');
+	$.each(tr, function(index, data){
+		
+		
+		detailPeminjaman = {
+				noPeminjaman : $('input[name="no_peminjaman"]').val(),
+				tglPinjam : $('input[name="tgl_peminjaman"]').val(),
+				tglKembali : $('input[name="tgl_pengembalian"]').val(),
+				status : "1",
+				anggota : { id : $('select[name="anggota"]').val()},
+				bukuPinjam : { id : $(this).find('td').eq(0).text()},
+				karyawan : {id : $('select[name="karyawan"]').val()}
+			}
+		
+		peminjaman.listDetailPeminjaman.push(detailPeminjaman);
+		
+		
+	});
+	console.log(peminjaman);
 	$.ajax({
 		url : '/peminjaman/save',
 		type : 'POST',
 		contentType : 'application/json',
 		data : JSON.stringify(peminjaman),
-		success : function(data, a, xhr){
-			if(xhr.status == 201){
-				console.log("Berhasil disimpan");
-			}
-		}
-	});
-
+		success : function(data){
+			console.log(data);
+		},
+		dataType: 'json'
+	}); 
+	//console.log(peminjaman);
 }
 function clearForm(){
 	$("#no_buku").val("");
@@ -416,7 +413,7 @@ function clearForm(){
 	$("#penulis").val("");
 	$("#penerbit").val("");
 	$("#tahun_terbit").val("");
-	$("#hargas").val("");
+	$("#harga").val("");
 	$("#id_hiden").val("");
 	}
 
@@ -458,5 +455,14 @@ var options = {
 	$('#no_buku').easyAutocomplete(options);
 }
 
+function redirectDetail(){
+	document.location="detailpeminjaman";
+}
+function redirectPengembalian(){
+	document.location="pengembalian";
+}
+function redirectPeminjaman(){
+	document.location="peminjaman";
+}
 </script>
 </html>

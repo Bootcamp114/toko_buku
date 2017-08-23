@@ -14,4 +14,6 @@ public interface AnggotaDao {
 
 	public Anggota getById(int id);
 
+	public void update(Anggota anggota);
+
 }

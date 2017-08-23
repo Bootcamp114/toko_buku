@@ -8,4 +8,6 @@ public interface BukuPinjamDao {
 
 	BukuPinjam getBukuPinjamByKode(String kode);
 
+	void updateStatus(String string);
+
 }
