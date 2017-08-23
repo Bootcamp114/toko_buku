@@ -16,6 +16,8 @@
 <script type="text/javascript"
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+
+
 var grandTotal2 = 0;
 	$(document).ready(function(){
 		$("#tambahBuku").on("click", function(){
@@ -58,6 +60,7 @@ var grandTotal2 = 0;
 				dataType : "json",
 				success: function(data){
 					console.log(data.namaMember);
+					$("#idPin").val(data.id);
 					$("#namaMember").val(data.namaMember);
 					$("#diskon").val(data.diskon);
 					$("#jumlahTotal").val(hasil);
@@ -78,6 +81,10 @@ var grandTotal2 = 0;
 	});
 </script>
 	<style>
+	th {
+	background-color: #4CAF50;
+	color: white;
+	}
   .affix {
       top: 0;
       width: 100%;
@@ -99,6 +106,9 @@ var grandTotal2 = 0;
     	<li class="active"><a href="#">Home</a></li>
     	<li><a href="member">Member</a></li>
     	<li><a href="pembelian">Pembelian</a></li>
+    	<li><a href="rencanabeli">Stok Buku</a></li>
+    	<li><a href="datastockbuku">Data Buku</a></li>
+    	<li><a href="kasir">Kasir</a></li>
     </ul>
     <!-- <ul class="nav navbar-nav navbar-right">
     	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -107,8 +117,21 @@ var grandTotal2 = 0;
   	</div>
 </div>
 </nav>
+
+<h3 align="center">Transaksi Pembelian</h3>
 		<div class="container">
 			<div class="form-group col-xs-4">
+				<div class="form-group form-inline">
+					<label>Kasir</label>
+					<div class="controls form-inline">
+						<select id="kasir" class="form-control" style="width: 100px;">
+							<option></option>
+							<c:forEach var="listKasir" items="${listKasir}">
+							<option value="${listKasir.id}">${listKasir.namaKasir}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
 				<div class="form-group form-inline">
 					<label>No Faktur</label>
 					<div class="controls form-inline">
@@ -279,6 +302,7 @@ var grandTotal2 = 0;
 						<div class="form-group form-inline">
 					<label>PIN Member</label>
 					<div class="controls">
+						<input type="hidden" id="idPin" class="form-group form-control" readonly/>
 						<input type="text" id="pinMember" name="pinMember" class="form-control">
 					</div>
 				</div>
@@ -298,7 +322,47 @@ var grandTotal2 = 0;
 				</form>
 					</div>
 				</div>
-			</div>			
+			</div>
+			
+			
+			
+			
+<!-- Hasil Transaksi Pembelian -->
+
+		<div class="modal fade" id="hasilPembelian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel" align="center">Toko Buku Grand Media</h4>
+					</div>
+					<div class="table-responsive">
+						<table id="buku-dt" class="table table-hover table-bordered" align="center">
+							<thead>
+								<tr>
+									<th>Nama Kasir</th>
+									<th>No Faktur</th>
+									<th>Jumlah Buku</th>
+									<th>Harga</th>
+									<th>Stok</th>
+								</tr>
+							</thead>
+							<tbody>
+							<c:forEach var="listBuku" items="${listBuku}">
+								<tr>
+									<td><a href="#" data-dismiss="modal" name="pilih" id_pilih="${listBuku.id_buku}" class="pilih"> ${listBuku.judulBuku} </a></td>
+									<td>${listBuku.penulis}</td>
+									<td>${listBuku.penerbit.namaPenerbit}</td>
+									<td>${listBuku.hargaBuku}</td>
+									<td>${listBuku.stock}</td>
+								</tr>
+							</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 <script type="text/javascript">
 	var date = new Date();
@@ -306,6 +370,7 @@ var grandTotal2 = 0;
 	var bulan = date.getMonth() + 1;
 	var tahun = date.getFullYear();
 	$("#tanggal").val(tahun + "-" + bulan + "-" + hari);
+	
 	function pilihBuku(data){
 		$('#id_buku').val(data.id_buku);
 		$('#judulBuku').val(data.judulBuku);
@@ -358,15 +423,23 @@ var grandTotal2 = 0;
 	
 	function selesai(){
 		var id = $('#id').val();
+		var kasir = $('#kasir').val();
 		var noFaktur = $('#noFaktur').val();
 		var jumlahTotal = $('#jumlahTotal').val();
+		var member = $('#idPin').val();
 		var bayar = $('#bayar').val();
 		var kembalian = $('#kembalian').val();
 		var tanggal = $('#tanggal').val();
 		pembelian = {
 				id : id,
+				kasir : {
+					id : kasir
+				},
 				noFaktur : noFaktur,
 				jumlahTotal : jumlahTotal,
+				member : {
+					id : member
+				},
 				bayar : bayar,
 				kembalian : kembalian,
 				tanggal : tanggal,

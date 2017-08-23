@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,58 +12,50 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.xsis.training.smkjavaweb.model.Member;
-import com.xsis.training.smkjavaweb.service.DataServiceMember;
+import com.xsis.training.smkjavaweb.model.Kasir;
+import com.xsis.training.smkjavaweb.service.DataServiceKasir;
 
 @Controller
-@RequestMapping("/member")
-public class MemberController {
+@RequestMapping("/kasir")
+public class KasirController {
 	@Autowired
-	private DataServiceMember dataServiceMember;
+	private DataServiceKasir dataServiceKasir;
 	
 	@RequestMapping
-	public String index(Model model){
-		List<Member> list = dataServiceMember.getAllMember();
-		model.addAttribute("listMember", list);
-		return "member";
+	public String index(){
+		return "kasir";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public void save(@RequestBody Member member){
-		dataServiceMember.saveMember(member);
+	public void save(@RequestBody Kasir kasir){
+		dataServiceKasir.saveKasir(kasir);
+		
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	@ResponseStatus(value=HttpStatus.OK)
-	public void update(@RequestBody Member member){
-		dataServiceMember.updateMember(member);
+	public void update(@RequestBody Kasir kasir){
+		dataServiceKasir.updateKasir(kasir);
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable int id){
-		dataServiceMember.deleteMember(id);
+		dataServiceKasir.deleteKasir(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/getall", method=RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<Member> getAllMember(){
-		return dataServiceMember.getAllMember();
+	public List<Kasir> getAllKasir(){
+		return dataServiceKasir.getAllKasir();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
-	public Member getMemberById(@PathVariable int id){
-		return dataServiceMember.getMemberById(id);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/cekmember/{pinMember}", method=RequestMethod.GET)
-	public Member getMemberByPin(@PathVariable String pinMember){
-		Member member = dataServiceMember.getMemberByPin(pinMember);
-		return member;
+	public Kasir getKasirById(@PathVariable int id){
+		return dataServiceKasir.getKasirById(id);
 	}
 }

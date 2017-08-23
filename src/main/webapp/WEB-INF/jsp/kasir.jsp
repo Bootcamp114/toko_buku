@@ -1,69 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<%@ page isELIgnored="false"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Registrasi Member</title>
+<title>Registrasi kasir</title>
 <link rel="stylesheet" type="text/css"
 	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/assets/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="/resources/assets/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
-	
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="/resources/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-
 	$(document).ready(function(){
-		$('#mem-dt').DataTable();
-	
+		showData();
 		$("#tambah").on("click", function(){
 			save();
-			window.location.href="/member/";
+			window.location.href="/kasir/";
 		});
 		$("input[name='jk']").on("change", function(){
 			jk = $(this).val();
 		});
 		
 		$(document).on("click",".delete", function(){
-			var conf = confirm("Apakah Anda ingin menghapus data?");
+			var conf = confirm("Apakah Anda ingin menghapus kasir?");
 			if(conf == true){
 				doDelete(this);
-				window.location.href="/member";
+				window.location.href="/kasir";
 			}
 		});
 		
 		$('#updateBtn').on('click',function(){
 			var id = $('#id').val();
-			var pinMember = $('#pinMember').val();
-			var namaMember = $('#namaMember').val();
+			var nik = $('#nik').val();
+			var namaKasir = $('#namaKasir').val();
+			var agama = $('#agama').val();
 			var alamat = $('#alamat').val();
 			var noHp = $('#noHp').val();
-			var tanggal = $('#tanggal').val();
-			var diskon = $('#diskon').val();
+			var status = $('#status').val();
 			
-			var member = {
+			var kasir = {
 					id : id,
-					pinMember : pinMember,
-					namaMember : namaMember,
+					nik : nik,
+					namaKasir : namaKasir,
 					jk : jk,
+					agama : agama,
 					alamat : alamat,
 					noHp : noHp,
-					tanggal : tanggal,
-					diskon : diskon
+					status : status
 			}
 			
 			$.ajax({
-				url : '/member/update',
+				url : '/kasir/update',
 				type: 'PUT',
 				contentType: 'application/json',
-				data: JSON.stringify(member),
+				data: JSON.stringify(kasir),
 				success : function(data){
 					showData();
 					clearForm()
@@ -75,7 +68,7 @@
 			var id = $(this).attr('id_update');
 		
 			$.ajax({
-				url : '/member/edit/'+ id,
+				url : '/kasir/edit/'+ id,
 				type : 'GET',
 				success : function(data){
 					updateColumn(data);
@@ -123,21 +116,21 @@
 </div>
 </nav>
 <br/>
-<h3 align="center">Form Member</h3>
+<h3 align="center">Form Kasir</h3>
 		<div class="container">
 			<div class="form-group col-xs-3">
 				<div class="form-group form-inline">
-					<label>PIN</label>
+					<label>NIK</label>
 					<div class="controls form-inline">
 						<input type="hidden" id="id" class="form-group form-control" />
-						<input type="text" placeholder="Masukkan 8 karakter" id="pinMember" class="form-control" size="15" maxlength="8"/>
+						<input type="text" placeholder="Masukkan NIK" id="nik" class="form-control" size="15" maxlength="8"/>
 					</div>
 				</div>
 				<div class="form-group form-inline">
-					<label>Nama Member</label>
+					<label>Nama kasir</label>
 					<div class="clearfix"></div>
 					<div class="controls">
-						<input type="text" id="namaMember" class="form-control">
+						<input type="text" id="namaKasir" class="form-control" placeholder="Masukkan Nama">
 					</div>
 				</div>
 				<div class="form-group form-inline">
@@ -148,34 +141,45 @@
 					</div>
 				</div>
 				<div class="form-group form-inline">
+					<label>Agama</label>
+					<div class="controls">
+						<select id="agama" class="form-control" style="width: 100px;">
+							<option></option>
+							<option value="Islam">Islam</option>
+							<option value="Kristen">Kristen</option>
+							<option value="Protestan">Protestan</option>
+							<option value="Hindu">Hindu</option>
+							<option value="Budha">Budha</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group form-inline">
 					<label>Alamat</label>
 					<div class="controls">
-						<input type="text" id="alamat" class="form-control">
+						<input type="text" id="alamat" class="form-control" placeholder="Masukkan Alamat">
 					</div>
 				</div>
 				<div class="form-group form-inline">
 					<label>No Hp</label>
 					<div class="controls">
-						<input type="number" id="noHp" class="form-control" maxlength="4">
+						<input type="number" id="noHp" class="form-control" maxlength="13" placeholder="Masukkan NoHp">
 					</div>
 				</div>
 				<div class="form-group form-inline">
-					<label>Tanggal</label>
+					<label>Status</label>
 					<div class="controls">
-						<input type="text" id="tanggal" name="tanggal" class="tcal form-control" size="6">
-					</div>
-				</div>
-				<div class="form-group form-inline">
-					<label>Diskon</label>
-					<div class="controls">
-						<input type="text" id="diskon" class="form-control" size="1" value="10%" readonly>
+						<select id="status" class="form-control" style="width: 100px;">
+							<option></option>
+							<option value="Menikah">Menikah</option>
+							<option value="Lajang">Lajang</option>
+						</select>
 					</div>
 				</div>
 				<div class="control-group">
 					<label></label>
 					<div class="controls">
-						<button type="submit" id="tambah" class="btn btn-primary">Tambah Member</button>
-						<!-- <button type="submit" id="updateBtn" class="btn btn-primary">Update</button> -->
+						<button type="submit" id="tambah" class="btn btn-primary">Tambah kasir</button>
+						<button type="submit" id="updateBtn" class="btn btn-primary">Update</button>
 					</div>
 				</div>
 				</div>
@@ -183,33 +187,20 @@
 				<br/>
 			<div class="form-group col-xs-9">
 		<div class="table-responsive">
-				<table id="mem-dt">
+				<table id="kas-dt" class="table table-hover table-bordered">
 					<thead>
 						<tr>
-							<th>PIN Member</th>
-							<th>Nama Member</th>
+							<th>NIK</th>
+							<th>Nama Kasir</th>
 							<th>JK</th>
+							<th>Agama</th>
 							<th>Alamat</th>
 							<th>No.Hp</th>
-							<th>Tanggal</th>
-							<th>Diskon</th>
-							<th>Aksi</th>
+							<th>Status</th>
+							<th colspan="2">Aksi</th>
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach var="listMember" items="${listMember}">
-								<tr>
-									<td>${listMember.pinMember}</td>
-									<td>${listMember.namaMember}</td>
-									<td>${listMember.jk}</td>
-									<td>${listMember.alamat}</td>
-									<td>${listMember.noHp}</td>
-									<td>${listMember.tanggal}</td>
-									<td>${listMember.diskon}</td>
-									<td><a id_delete="${listMember.id}" href ="#" class="delete">Delete</a></td>
-								</tr>
-							</c:forEach>
-					</tbody>
+					<tbody></tbody>
 				</table>
 				</div>
 			</div>
@@ -218,16 +209,10 @@
 
 </body>
 <script type="text/javascript">
-var date = new Date();
-var hari = date.getDate();
-var bulan = date.getMonth() + 1;
-var tahun = date.getFullYear();
-$("#tanggal").val(tahun + "-" + bulan + "-" + hari);
-
 function doDelete(del){
 	var id = $(del).attr("id_delete");
 	$.ajax({
-		url : "/member/delete/"+id,
+		url : "/kasir/delete/"+id,
 		type : "DELETE",
 		success : function(data){
 			console.log(data);
@@ -238,7 +223,7 @@ function doDelete(del){
 
 function showData(){
 	$.ajax({
-		url : "/member/getall",
+		url : "/kasir/getall",
 		type : "POST",
 		dataType : "JSON",
 		success : function(data, x, xhr) {
@@ -249,76 +234,72 @@ function showData(){
 }
 
 function fillData(data){
-	var dt = $("#mem-dt");
+	var dt = $("#kas-dt");
 	var tbody = dt.find('tbody');
 	tbody.find('tr').remove();
 	//extract data json
-	$.each(data, function(index, member) {
+	$.each(data, function(index, kasir) {
 						var trString = "<tr>";
 						trString += "<td>";
-						trString += member.pinMember;
+						trString += kasir.nik;
 						trString += "</td>";
 						trString += "<td>";
-						trString += member.namaMember;
+						trString += kasir.namaKasir;
 						trString += "</td>";
 						trString += "<td>";
-						trString += member.jk;
+						trString += kasir.jk;
 						trString += "</td>";
 						trString += "<td>";
-						trString += member.alamat;
+						trString += kasir.agama;
 						trString += "</td>";
 						trString += "<td>";
-						trString += member.noHp;
+						trString += kasir.alamat;
 						trString += "</td>";
 						trString += "<td>";
-						trString += member.tanggal;
+						trString += kasir.noHp;
 						trString += "</td>";
 						trString += "<td>";
-						trString += member.diskon;
+						trString += kasir.status;
 						trString += "</td>";
 						trString += "<td>";
-						trString += "<a id_delete='"+member.id+"' href ='#' class='delete'>Delete</a>";
+						trString += "<a id_delete='"+kasir.id+"' href ='#' class='delete'>Delete</a>";
 						trString += "</td>";
-						/* trString += "<td>";
-						trString += "<a id_update='"+member.id+"' href ='#' class='update'>Edit</a>";
-						trString += "</td>"; */
+						trString += "<td>";
+						trString += "<a id_update='"+kasir.id+"' href ='#' class='update'>Edit</a>";
+						trString += "</td>";
 						trString += "</tr>";
 						tbody.append(trString);
 					});
 }
 	function save(){
 		var id = $('#id').val();
-		var pinMember = $('#pinMember').val();
-		var namaMember = $('#namaMember').val();
+		var nik = $('#nik').val();
+		var namaKasir = $('#namaKasir').val();
+		var agama = $('#agama').val();
 		var alamat = $('#alamat').val();
 		var noHp = $('#noHp').val();
-		var tanggal = $('#tanggal').val();
-		var diskon = $('#diskon').val();
+		var status = $('#status').val();
 		
-		var member = {
+		var kasir = {
 				id : id,
-				pinMember : pinMember,
-				namaMember : namaMember,
+				nik : nik,
+				namaKasir : namaKasir,
 				jk : jk,
+				agama : agama,
 				alamat : alamat,
 				noHp : noHp,
-				tanggal : tanggal,
-				diskon : diskon
+				status : status
 		}
 		$.ajax({
-			url : '/member/save',
+			url : '/kasir/save',
 			type : 'POST',
 			contentType : 'application/json',
 			dataType : 'json',
-			data : JSON.stringify(member),
+			data : JSON.stringify(kasir),
 			success : function(data, x, xhr){
-					showData();
-					clearForm();
-			},
-			error : function(){
-				alert("Data sama");
+				showData();
+				clearForm();
 			}
-			
 		});
 		
 		
@@ -326,24 +307,23 @@ function fillData(data){
 	
 	function updateColumn(data){
 		$('input[id="id"]').val(data.id);
-		$('input[id="pinMember"]').val(data.pinMember);
-		$('input[id="namaMember"]').val(data.namaMember);
+		$('input[id="nik"]').val(data.nik);
+		$('input[id="namaKasir"]').val(data.namaKasir);
+		$('input[id="agama"]').val(data.agama);
 		$('input[id="alamat"]').val(data.alamat);
 		$('input[id="noHp"]').val(data.noHp);
-		$('input[id="tanggal"]').val(data.tanggal);
-		$('input[id="diskon"]').val(data.diskon);
+		$('input[id="status"]').val(data.status);
 	}
 	
 	function clearForm(){
 		$('input[id="id"]').val("");
-		$('input[id="pinMember"]').val("");
-		$('input[id="namaMember"]').val("");
+		$('input[id="nik"]').val("");
+		$('input[id="namaKasir"]').val("");
 		$('input[name="jk"]').val("");
+		$('input[id="agama"]').val("");
 		$('input[id="alamat"]').val("");
 		$('input[id="noHp"]').val("");
-		$('input[id="tanggal"]').val("");
-		$('input[id="diskon"]').val("");
+		$('input[id="status"]').val("");
 	}
 </script>
-<script type="text/javascript" src="/resources/assets/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 </html>

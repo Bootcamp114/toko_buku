@@ -39,8 +39,10 @@ public class Pembelian {
 	private Double kembalian;
 	@Temporal(TemporalType.DATE)
 	private Date tanggal;
+	@ManyToOne
+	private Kasir kasir;
 	public Pembelian(int id, String noFaktur, List<DetailPembelian> detailPembelian, Member member, Double jumlahTotal,
-			Double bayar, Double kembalian, Date tanggal) {
+			Double bayar, Double kembalian, Date tanggal, Kasir kasir) {
 		super();
 		this.id = id;
 		this.noFaktur = noFaktur;
@@ -50,6 +52,7 @@ public class Pembelian {
 		this.bayar = bayar;
 		this.kembalian = kembalian;
 		this.tanggal = tanggal;
+		this.kasir = kasir;
 	}
 	public int getId() {
 		return id;
@@ -99,4 +102,11 @@ public class Pembelian {
 	public void setTanggal(Date tanggal) {
 		this.tanggal = tanggal;
 	}
+	public Kasir getKasir() {
+		return kasir;
+	}
+	public void setKasir(Kasir kasir) {
+		this.kasir = kasir;
+	}
+	
 }

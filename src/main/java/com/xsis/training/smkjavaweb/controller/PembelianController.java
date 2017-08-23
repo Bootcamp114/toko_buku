@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.training.smkjavaweb.model.Buku;
 import com.xsis.training.smkjavaweb.model.DetailPembelian;
+import com.xsis.training.smkjavaweb.model.Kasir;
 import com.xsis.training.smkjavaweb.model.Member;
 import com.xsis.training.smkjavaweb.model.Pembelian;
+import com.xsis.training.smkjavaweb.service.DataServiceKasir;
 import com.xsis.training.smkjavaweb.service.DataServiceTokoBuku;
 import com.xsis.training.smkjavaweb.utils.AppUtils;
 
@@ -25,6 +27,8 @@ import com.xsis.training.smkjavaweb.utils.AppUtils;
 public class PembelianController {
 	@Autowired
 	DataServiceTokoBuku dataService;
+	@Autowired
+	DataServiceKasir dataServiceKasir;
 	@Autowired
 	AppUtils appUtils;
 	
@@ -35,6 +39,9 @@ public class PembelianController {
 		
 		List<Buku> listBuku = dataService.getAllBuku();
 		model.addAttribute("listBuku", listBuku);
+		
+		List<Kasir> listKasir = dataServiceKasir.getAllKasir();
+		model.addAttribute("listKasir", listKasir);
 		
 		String hitungTotal = dataService.hitungDetail();
 		model.addAttribute("hitungTotal", hitungTotal);
